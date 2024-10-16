@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face{
+  font-family: 'RobotoMono';
+  src: url('../fonts/Roboto-Thin.ttf')
+}
+
+
+body {
+  font-family: 'RobotoMono', 'Times New Roman', Times, serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
