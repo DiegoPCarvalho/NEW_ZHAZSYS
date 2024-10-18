@@ -1,1 +1,3 @@
 icones: https://heroicons.com/solid
+
+menu lateral: https://community.revelo.com.br/criar-menu-lateral-com-react-e-tailwind/

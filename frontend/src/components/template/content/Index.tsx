@@ -1,5 +1,7 @@
-export default function Content(){
-    return(
-        <div className="bg-neutral-300 w-full">Content</div>
-    );
+interface ContentProps {
+    children?: any
+}
+
+export default function Content(props: ContentProps){
+    return props.children
 }
