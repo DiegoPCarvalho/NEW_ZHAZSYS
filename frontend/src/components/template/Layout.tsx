@@ -16,14 +16,12 @@ export default function Layout(props: LayoutProps) {
 
     return (
         <div className='flex flex-row h-screen w-screen'>
-           <div className={`flex border w-80 bg-neutral-100`}>
-                <div className='flex m-3 bg-zinc-800 tranpa w-full grow rounded-lg shadow-md shadow-zinc-700'>
-                    <Menu />
-                </div>
+           <div className={`flex w-64 bg-gray-800`}>
+                <Menu />
            </div>
            <div className='flex flex-col ml bg-neutral-100 w-full'>
-                <div>header</div>
-                <div>context</div>
+                <div className='h-14 bg-white shadow-lg shadow-slate-200'>header</div>
+                <div className='border-t border-slate-300'>context</div>
            </div>
         </div>
     )
