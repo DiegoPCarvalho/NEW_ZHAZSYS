@@ -6,7 +6,7 @@ export default function Footer() {
     const { get } = useLocalStorage()
 
     return (
-        <footer className=" flex justify-between items-center text-gray-300 p-2 bg-gradient-to-r from-green-700 to-sky-700 w-full">
+        <footer className="flex justify-between items-center text-gray-300 p-2 bg-gradient-to-r from-green-700 to-sky-700 w-full">
             <div className='flex'>
                 <h5 className='flex'>
                     <span className='mr-1'>Bem Vindo ao ZhazSys</span> <span className='text-red-600 mr-1'>{IconeBemVindo}</span>
