@@ -1,3 +1,4 @@
+import useAppData from "@/data/hook/useAppData";
 import Link from "next/link";
 
 interface MenuItemProps {
@@ -9,16 +10,17 @@ interface MenuItemProps {
 }
 
 export default function MenuItem(props: MenuItemProps) {
+    const { altenarTema } = useAppData()
 
     function rendLink() {
         return (
             <a className={`
-                flex flex-col justify-center items-center
-                w-20 h-20  ${props.className} 
+                flex flex-row mt-3 items-center px-2
+                w-40 h-12  ${props.className} 
               hover:text-white text-neutral-300
             `}>
                 {props.icone}
-                <span className="text-xs font-light">
+                <span className="text-lg font-bold ml-2">
                     {props.texto}
                 </span>
             </a>
@@ -26,8 +28,9 @@ export default function MenuItem(props: MenuItemProps) {
     }
 
     return (
-        <li onClick={props.executar} className={`
+        <div onClick={altenarTema}><li onClick={props.executar} className={`
            hover:bg-neutral-500
+           hover:rounded
            cursor-pointer
         `}>
             {props.url ? (
@@ -37,7 +40,7 @@ export default function MenuItem(props: MenuItemProps) {
             ) : (
                 rendLink()
            )}
-        </li>
+        </li></div>
     )
 }
 

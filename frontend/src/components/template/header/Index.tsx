@@ -6,6 +6,9 @@ import Botao from "@/components/shared/Botao";
 import useAppData from "@/data/hook/useAppData";
 import AvatarUser from "../User/AvatarUser";
 
+import MenuIcon from '@mui/icons-material/Menu';
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+
 interface HeaderProps {
     icone: any
     texto: string
@@ -15,16 +18,21 @@ export default function Header(props: HeaderProps) {
     const { altenarTema, menu } = useAppData();
 
     return (
-        <div className={`flex bg-neutral-700 h-16`}>
-            <div className="hover:bg-neutral-600 flex items-center w-10 justify-center">
-                <Botao className="text-gray-200" executar={altenarTema}>{ menu ? IconeMenuAberto : IconeMenuFechado}</Botao>
-            </div>
-            <div className="mr-4 flex items-center justify-center">
-                <Image src={logo} alt="" className="h-10 w-36"/>
+        <div className={`flex bg-neutral-800 h-16`}>
+            <div className="mr-3 hover:bg-neutral-600 flex items-center w-10 justify-center">
+                <Botao className="text-gray-200" executar={altenarTema}><MenuIcon className="text-3xl"/></Botao>
             </div>
             <div className="flex grow justify-between">
-                <div className="mr-3 flex items-center">
-                    <Titulo icone={props.icone} texto={props.texto}/>
+                <div className={`${menu ? "ml-40" : ""} flex items-center`}>
+                    {menu ? (
+                        <div className="hover:bg-neutral-600 hover:rounded flex h-full items-center w-10 justify-center">
+                            <Botao className="text-gray-200" executar={altenarTema}><MenuOpenIcon className="text-3xl"/></Botao>
+                        </div>
+                    ): false}
+                    <Titulo icone={props.icone} texto={props.texto} className={"ml-3"} />
+                </div>
+                <div className={`${menu ? "-ml-56 mr-28" : "mr-36 ml-2"}  flex items-center justify-center`}>
+                    <Image src={logo} alt="" className="h-10 w-36" />
                 </div>
                 <div className="mr-3 flex items-center">
                     <AvatarUser />

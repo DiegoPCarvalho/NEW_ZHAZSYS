@@ -5,6 +5,7 @@ import useAppData from '@/data/hook/useAppData';
 import Menu from './menu';
 
 
+
 interface LayoutProps {
     children?: any
     icone: any
@@ -16,34 +17,28 @@ export default function Layout(props: LayoutProps) {
 
     return (
         <div className='flex flex-row h-screen w-screen'>
-           <div className={`flex w-64 bg-gray-800`}>
+            <div className={`
+                flex w-52 bg-neutral-800
+                fixed left-0 top-0 z-9999
+                h-screen overflow-y-hidden
+                duration-300 ease-linear
+                ${menu ? "translate-x-0" : "-translate-x-full"}
+           `}>
+
                 <Menu />
-           </div>
-           <div className='flex flex-col ml bg-neutral-100 w-full'>
-                <div className='h-14 bg-white shadow-lg shadow-slate-200'>header</div>
-                <div className='border-t border-slate-300'>context</div>
-           </div>
+            </div>
+            <div className={`
+                flex flex-col bg-neutral-100 w-full h-screen   
+            `}>
+                <div className={`
+                 shadow-2xl shadow-slate-200
+                `}>
+                    <Header icone={props.icone} texto={props.texto} />
+                </div>
+                <div className='stick'>
+                    context
+                </div>
+            </div>
         </div>
     )
 }
-
-
-
-{/* <Header icone={props.icone} texto={props.texto} />
-<div className="flex flex-row grow shadow-2xl">
-    {menu ? (
-        <div className="w-20 bg-neutral-700 shadow-xl shadow-zinc-800">
-            <Menu />
-        </div>
-    ) : false}
-    <div className={`flex grow w-full p-3 bg-neutral-100 rounded-lg`}>
-        <Content>
-            {props.children}
-        </Content>
-    </div>
-</div>
-<div className="flex flex-col w-full">
-    <div className={`flex w-full`}>
-        <Footer />
-    </div>
-</div> */}
