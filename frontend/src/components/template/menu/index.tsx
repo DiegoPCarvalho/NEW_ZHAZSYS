@@ -1,4 +1,4 @@
-import useAppData from "@/data/hook/useAppData";
+
 import MenuItem from "./MenuItem";
 import Image from "next/image";
 import logo from "@/assets/img/logoZhaz.png";
@@ -11,8 +11,7 @@ import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 
 
 export default function Menu() {
-    const { menu, altenarTema } = useAppData();
-
+  
     function renderMenu() {
         return (
             <ul className="">

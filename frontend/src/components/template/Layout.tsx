@@ -13,12 +13,12 @@ interface LayoutProps {
 }
 
 export default function Layout(props: LayoutProps) {
-    const { menu, altenarTema } = useAppData()
+    const { menu, avaUser } = useAppData()
 
     return (
         <div className='flex flex-row h-screen w-screen'>
             <div className={`
-                flex w-52 bg-neutral-800
+                flex w-52 bg-cyan-950
                 fixed left-0 top-0 z-9999
                 h-screen overflow-y-hidden
                 duration-300 ease-linear
@@ -39,6 +39,17 @@ export default function Layout(props: LayoutProps) {
                     context
                 </div>
             </div>
+            <div className={`
+                flex w-52 bg-white mt-1
+                fixed right-0 top-16 z-9999
+                overflow-y-hidden h-52
+                duration-300 ease-linear
+                rounded-md
+                shadow-md shadow-neutral-400
+                ${avaUser ? "translate-x-0" : "translate-x-full"}
+           `}>
+
+           </div>
         </div>
     )
 }

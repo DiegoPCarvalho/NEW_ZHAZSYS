@@ -10,7 +10,7 @@ interface MenuItemProps {
 }
 
 export default function MenuItem(props: MenuItemProps) {
-    const { altenarTema } = useAppData()
+    const { altenarMenu } = useAppData()
 
     function rendLink() {
         return (
@@ -28,7 +28,7 @@ export default function MenuItem(props: MenuItemProps) {
     }
 
     return (
-        <div onClick={altenarTema}><li onClick={props.executar} className={`
+        <div onClick={altenarMenu}><li onClick={props.executar} className={`
            hover:bg-neutral-500
            hover:rounded
            cursor-pointer
