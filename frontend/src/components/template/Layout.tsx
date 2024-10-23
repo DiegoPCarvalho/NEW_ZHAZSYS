@@ -3,6 +3,7 @@ import Content from './content/Index';
 import Header from './header/Index';
 import useAppData from '@/data/hook/useAppData';
 import Menu from './menu';
+import MenuUser from './User/MenuUser';
 
 
 
@@ -40,15 +41,15 @@ export default function Layout(props: LayoutProps) {
                 </div>
             </div>
             <div className={`
-                flex w-52 bg-white mt-1
+                flex w-28 bg-white mt-1
                 fixed right-0 top-16 z-9999
-                overflow-y-hidden h-52
+                overflow-y-hidden h-28
                 duration-300 ease-linear
                 rounded-md
                 shadow-md shadow-neutral-400
                 ${avaUser ? "translate-x-0" : "translate-x-full"}
            `}>
-
+                <MenuUser />
            </div>
         </div>
     )
