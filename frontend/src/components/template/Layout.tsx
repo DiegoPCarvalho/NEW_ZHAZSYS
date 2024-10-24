@@ -37,7 +37,7 @@ export default function Layout(props: LayoutProps) {
                     <Header icone={props.icone} texto={props.texto} />
                 </div>
                 <div className='stick'>
-                    context
+                  
                 </div>
             </div>
             <div className={`
