@@ -30,6 +30,7 @@ export default function MenuItem(props: MenuItemProps) {
     return (
         <div onClick={altenarMenu}><li onClick={props.executar} className={`
            hover:bg-netural-500
+           hover:bg-neutral-500
            dark:hover:bg-neutral-700
            hover:rounded
            cursor-pointer

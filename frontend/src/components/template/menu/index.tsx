@@ -8,21 +8,24 @@ import QrCode2SharpIcon from '@mui/icons-material/QrCode2Sharp';
 import DriveFileMoveSharpIcon from '@mui/icons-material/DriveFileMoveSharp';
 import ShoppingCartSharpIcon from '@mui/icons-material/ShoppingCartSharp';
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import MenuDropDown from "./MenuDropDown";
+import MenuDropDownItem from "./MenuDropDownItem";
 
 
 export default function Menu() {
-  
+
     function renderMenu() {
         return (
             <ul className="">
-                <MenuItem url="/" texto="Gerência" icone={<AddchartIcon/>} />
+                <MenuItem url="/" texto="Gerência" icone={<AddchartIcon />} />
                 <MenuItem url="/" texto="Laboratório" icone={<QrCode2SharpIcon />} />
                 <MenuItem url="/" texto="VHL" icone={<ShoppingCartSharpIcon />} />
             </ul>
         )
     }
 
-    function renderOuther(){
+    function renderOuther() {
         return (
             <ul>
                 <MenuItem url="/" texto="Contrato" icone={<DriveFileMoveSharpIcon />} />
@@ -30,8 +33,8 @@ export default function Menu() {
         )
     }
 
-    function renderSettings(){
-        return(
+    function renderSettings() {
+        return (
             <ul>
                 <MenuItem url="/" texto="Perfil" icone={<PersonAddAltOutlinedIcon />} />
             </ul>
@@ -47,6 +50,9 @@ export default function Menu() {
             <div className="ml-3">
                 {renderMenu()}
             </div>
+            <MenuDropDown icone={<AddchartIcon />} texto="Gerencia" marcacao={<KeyboardArrowRightIcon />}>
+                <MenuDropDownItem icone={<PersonAddAltOutlinedIcon />} texto="Relatório" />
+            </MenuDropDown>
             <div className="mt-8 ml-5 text-xs font-extrabold text-gray-400">OUTHERS</div>
             <div className="ml-3">
                 {renderOuther()}
@@ -54,7 +60,14 @@ export default function Menu() {
             <div className="mt-8 ml-5 text-xs font-extrabold text-gray-400">SETTINGS</div>
             <div className="ml-3">
                 {renderSettings()}
-            </div>     
+            </div>
+            <MenuDropDown icone={<AddchartIcon />} texto="Gerencia" marcacao={<KeyboardArrowRightIcon />}>
+                <div>ola</div>
+                <div>ola</div>
+                <div>ola</div>
+                <div>ola</div>
+                <div>ola</div>
+            </MenuDropDown>
         </div>
     )
 }

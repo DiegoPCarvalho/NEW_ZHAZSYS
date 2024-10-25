@@ -4,6 +4,7 @@ import Header from './header/Index';
 import useAppData from '@/data/hook/useAppData';
 import Menu from './menu';
 import MenuUser from './User/MenuUser';
+import Titulo from './header/Titulo';
 
 
 
@@ -15,7 +16,7 @@ interface LayoutProps {
 
 export default function Layout(props: LayoutProps) {
     const { menu, avaUser, tema } = useAppData()
-    
+
     return (
         <div className={`${tema ? "dark" : ""} flex flex-row h-screen w-screen`}>
             <div className={`
@@ -38,8 +39,13 @@ export default function Layout(props: LayoutProps) {
                 `}>
                     <Header icone={props.icone} texto={props.texto} />
                 </div>
-                <div className='stick'>
-                  
+                <div className='flex flex-row h-full w-full'>
+                    {menu ? (
+                        <div className='flex lg:w-60 md:w-72'>
+                            
+                        </div>
+                    ) : false}
+                    <Content>{props.children}</Content>
                 </div>
             </div>
             <div className={`
@@ -54,7 +60,7 @@ export default function Layout(props: LayoutProps) {
                 ${avaUser ? "translate-x-0" : "translate-x-full"}
            `}>
                 <MenuUser />
-           </div>
+            </div>
         </div>
     )
 }
