@@ -17,7 +17,7 @@ export default function MenuItemUser(props: MenuItemUserProps){
             <a className={`
                 flex flex-row items-center px-2
                 w-full h-14 ${props.className} 
-                text-neutral-800
+                text-neutral-800 dark:text-neutral-200
             `}>
                 {props.icone}
                 <span className="text-sm font-bold ml-2">
