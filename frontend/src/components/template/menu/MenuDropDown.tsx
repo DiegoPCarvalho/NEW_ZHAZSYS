@@ -1,15 +1,14 @@
-import { useState } from "react"
-
 interface MenuDropDownProps {
     icone?: any
     texto?: string
     marcacao?: any
     children?: any
+    down?: Boolean
+    classe?: string
+    executar?: () => void
 }
 
 export default function MenuDropDown(props: MenuDropDownProps) {
-
-    const [down, setDown] = useState(false)
 
     return (
         <div className={`
@@ -20,21 +19,21 @@ export default function MenuDropDown(props: MenuDropDownProps) {
             hover:rounded
             cursor-pointer
             mt-3
-            ${down ? "bg-neutral-500 rounded dark:bg-neutral-700" : ""}
+            ${props.down ? "bg-neutral-500 rounded dark:bg-neutral-700" : ""}
           `}
         >
-            <div className="flex items-center ml-3 hover:text-white text-neutral-300 px-2 w-40 h-12" onClick={() => setDown(!down)}>
+            <div className="flex items-center hover:text-white text-neutral-300 px-2 w-40 h-12" onClick={props.executar}>
                 <div>
                     {props.icone}
                 </div>
-                <div className={`text-lg font-bold ml-2 ${down ? "text-neutral-100" : ""}`}>
+                <div className={`text-lg font-bold ml-2 ${props.down ? "text-neutral-100" : ""}`}>
                     {props.texto}
                 </div>
-                <div className={`ml-8 ${down ? "rotate-90" : ""}`}>
+                <div className={`${props.classe} ${props.down ? "rotate-90" : ""}`}>
                     {props.marcacao}
                 </div>
             </div>
-            {down ?
+            {props.down ?
                 (
                     <div className="bg-neutral-700 dark:bg-neutral-900">
                         {props.children}

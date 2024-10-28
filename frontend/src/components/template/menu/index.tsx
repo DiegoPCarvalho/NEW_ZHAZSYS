@@ -1,4 +1,4 @@
-
+"use client"
 import MenuItem from "./MenuItem";
 import Image from "next/image";
 import logo from "@/assets/img/logoZhaz.png";
@@ -11,15 +11,30 @@ import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import MenuDropDown from "./MenuDropDown";
 import MenuDropDownItem from "./MenuDropDownItem";
-
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import ListAltIcon from '@mui/icons-material/ListAlt';
+import TableViewIcon from '@mui/icons-material/TableView';
+import { useState, useEffect } from "react";
+import useAppData from "@/data/hook/useAppData";
+import FeedIcon from '@mui/icons-material/Feed';
+import StackedBarChartIcon from '@mui/icons-material/StackedBarChart';
 
 export default function Menu() {
+
+    const [gnc, setGnc] = useState<Boolean>(false)
+    const [lbo, setLbo] = useState<Boolean>(false)
+    const { altenarMenu, menu } = useAppData()
+
+    useEffect(() =>{
+        if(!menu){
+            setGnc(false)
+            setLbo(false)
+        }
+    }, [menu])
 
     function renderMenu() {
         return (
             <ul className="">
-                <MenuItem url="/" texto="Gerência" icone={<AddchartIcon />} />
-                <MenuItem url="/" texto="Laboratório" icone={<QrCode2SharpIcon />} />
                 <MenuItem url="/" texto="VHL" icone={<ShoppingCartSharpIcon />} />
             </ul>
         )
@@ -47,12 +62,22 @@ export default function Menu() {
                 <Image src={logo} alt="" className="h-12 w-48" />
             </div>
             <div className="mt-3 ml-5 text-xs font-extrabold text-gray-400">MENU</div>
-            <div className="ml-3">
+            <div>
+                <MenuDropDown classe="ml-11" icone={<AddchartIcon />} texto="Gerencia" marcacao={<KeyboardArrowRightIcon />} down={gnc} executar={() => setGnc(!gnc)}>
+                    <MenuDropDownItem icone={<DashboardIcon />} texto="Dashbord" executar={altenarMenu}/>
+                    <MenuDropDownItem icone={<ListAltIcon />} texto="Fila Técnica" executar={altenarMenu}/>
+                    <MenuDropDownItem icone={<TableViewIcon />} texto="Tabela Geral" executar={altenarMenu}/>
+                </MenuDropDown>
+                <MenuDropDown classe="ml-3" icone={<QrCode2SharpIcon />} texto="Laboratório" marcacao={<KeyboardArrowRightIcon />} down={lbo} executar={() => setLbo(!lbo)}>
+                    <MenuDropDownItem icone={< ListAltIcon/>} texto="Fila Técnica" executar={altenarMenu}/>
+                    <MenuDropDownItem icone={<FeedIcon />} texto="Formulário" executar={altenarMenu}/>
+                    <MenuDropDownItem icone={<TableViewIcon />} texto="Tabela" executar={altenarMenu}/>
+                    <MenuDropDownItem icone={<StackedBarChartIcon />} texto="Relatório" executar={altenarMenu}/>
+                </MenuDropDown>
+            </div>
+            <div>
                 {renderMenu()}
             </div>
-            <MenuDropDown icone={<AddchartIcon />} texto="Gerencia" marcacao={<KeyboardArrowRightIcon />}>
-                <MenuDropDownItem icone={<PersonAddAltOutlinedIcon />} texto="Relatório" />
-            </MenuDropDown>
             <div className="mt-8 ml-5 text-xs font-extrabold text-gray-400">OUTHERS</div>
             <div className="ml-3">
                 {renderOuther()}
@@ -61,13 +86,6 @@ export default function Menu() {
             <div className="ml-3">
                 {renderSettings()}
             </div>
-            <MenuDropDown icone={<AddchartIcon />} texto="Gerencia" marcacao={<KeyboardArrowRightIcon />}>
-                <div>ola</div>
-                <div>ola</div>
-                <div>ola</div>
-                <div>ola</div>
-                <div>ola</div>
-            </MenuDropDown>
         </div>
     )
 }
