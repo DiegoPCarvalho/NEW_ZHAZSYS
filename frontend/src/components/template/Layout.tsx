@@ -1,12 +1,8 @@
-import Footer from './footer/Index';
 import Content from './content/Index';
 import Header from './header/Index';
 import useAppData from '@/data/hook/useAppData';
 import Menu from './menu';
 import MenuUser from './User/MenuUser';
-import Titulo from './header/Titulo';
-
-
 
 interface LayoutProps {
     children?: any
@@ -18,8 +14,8 @@ export default function Layout(props: LayoutProps) {
     const { menu, avaUser, tema } = useAppData()
 
     return (
-        <div className={`${tema ? "dark" : ""} flex flex-row h-screen w-screen`}>
-            <div className={`
+            <div className={`${tema ? "dark" : ""} flex flex-row h-screen w-screen`}>
+                <div className={`
                 flex w-52 bg-neutral-700
                 dark:bg-neutral-900
                 fixed left-0 top-0 z-9999
@@ -28,27 +24,27 @@ export default function Layout(props: LayoutProps) {
                 ${menu ? "translate-x-0" : "-translate-x-full"}
            `}>
 
-                <Menu />
-            </div>
-            <div className={`
+                    <Menu />
+                </div>
+                <div className={`
                 flex flex-col bg-neutral-100 w-full h-screen dark:bg-neutral-600   
                 
             `}>
-                <div className={`
+                    <div className={`
                  shadow-lg shadow-neutral-200 dark:shadow-md dark:shadow-neutral-800
                 `}>
-                    <Header icone={props.icone} texto={props.texto} />
+                        <Header icone={props.icone} texto={props.texto} />
+                    </div>
+                    <div className='flex flex-row h-full w-full'>
+                        {menu ? (
+                            <div className='flex lg:w-60 md:w-72'>
+
+                            </div>
+                        ) : false}
+                        <Content>{props.children}</Content>
+                    </div>
                 </div>
-                <div className='flex flex-row h-full w-full'>
-                    {menu ? (
-                        <div className='flex lg:w-60 md:w-72'>
-                            
-                        </div>
-                    ) : false}
-                    <Content>{props.children}</Content>
-                </div>
-            </div>
-            <div className={`
+                <div className={`
                 flex w-28 bg-white mt-1
                 dark: dark:bg-neutral-900
                 fixed right-0 top-16 z-9999
@@ -59,8 +55,8 @@ export default function Layout(props: LayoutProps) {
                 dark:shadow-none
                 ${avaUser ? "translate-x-0" : "translate-x-full"}
            `}>
-                <MenuUser />
+                    <MenuUser />
+                </div>
             </div>
-        </div>
     )
 }
