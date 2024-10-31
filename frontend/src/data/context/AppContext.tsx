@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 interface AppContextProps {
     menu?: Boolean
     avaUser?: Boolean
-    tema?: Boolean
+    tema?: string
     mudarTema?: () => void
     altenarMenu?: () => void
     altenarAvatarUser?: () => void
@@ -11,10 +11,11 @@ interface AppContextProps {
 
 const AppContext = createContext<AppContextProps>({});
 
-export function AppProvider(props: any){
+export function AppProvider({ children} : any){
+
     const [menu, setMenu] = useState(false)
     const [avaUser, setAvaUser] = useState(false)
-    const [tema, setMudarTema] = useState(false)
+    const [tema, setMudarTema] = useState('')
 
     function altenarMenu(){
         setMenu(!menu)
@@ -25,8 +26,9 @@ export function AppProvider(props: any){
     }
     
     function mudarTema() {
-        setMudarTema(!tema)
+       tema === "dark" ? setMudarTema('') : setMudarTema('dark')
     }
+
     return(
         <AppContext.Provider value={{
             menu,
@@ -36,7 +38,7 @@ export function AppProvider(props: any){
             altenarAvatarUser,
             mudarTema
         }}>
-            {props.children}
+            {children}
         </AppContext.Provider>
     )
 }

@@ -6,7 +6,7 @@ interface MainProvidersProps{
     children?: any
 }
 
-export function MainProviders(props: MainProvidersProps) {
+export default function MainProviders(props: MainProvidersProps) {
   return (
     <AppProvider>
         {props.children}

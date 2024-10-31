@@ -3,6 +3,7 @@ import Header from './header/Index';
 import useAppData from '@/data/hook/useAppData';
 import Menu from './menu';
 import MenuUser from './User/MenuUser';
+import './layout.css';
 
 interface LayoutProps {
     children?: any
@@ -12,9 +13,9 @@ interface LayoutProps {
 
 export default function Layout(props: LayoutProps) {
     const { menu, avaUser, tema } = useAppData()
-
+    
     return (
-            <div className={`${tema ? "dark" : ""} flex flex-row h-screen w-screen`}>
+            <div className={`${tema} flex flex-row h-screen w-screen`}>
                 <div className={`
                 flex w-52 bg-neutral-700
                 dark:bg-neutral-900
@@ -35,7 +36,7 @@ export default function Layout(props: LayoutProps) {
                 `}>
                         <Header icone={props.icone} texto={props.texto} />
                     </div>
-                    <div className='flex flex-row h-full w-full'>
+                    <div className='flex flex-row h-full w-full overflow-auto' id="hiddenScroll">
                         {menu ? (
                             <div className='flex lg:w-60 md:w-72'>
 

@@ -11,7 +11,7 @@ export default function MudarTema(props: MudarTemaProps) {
 
     return (
         <label className="inline-flex items-center relative">
-            <input className="peer hidden" id="toggle" type="checkbox" onClick={mudarTema}/>
+            <input className="peer hidden" id="toggle" type="checkbox" onClick={mudarTema} checked={tema === 'dark' ? true : false}/>
             <div className="relative w-[110px] h-[50px] bg-yellow-200 peer-checked:bg-neutral-700 rounded-full after:absolute after:content-[''] after:w-[40px] after:h-[40px] after:bg-gradient-to-r from-orange-500 to-yellow-400 peer-checked:after:from-black peer-checked:after:to-black after:rounded-full after:top-[5px] after:left-[5px] active:after:w-[50px] peer-checked:after:left-[105px] peer-checked:after:translate-x-[-100%] shadow-sm duration-300 after:duration-300 after:shadow-md"
             ></div>
             <svg

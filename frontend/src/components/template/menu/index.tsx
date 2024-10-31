@@ -1,5 +1,4 @@
 "use client"
-import './menu.css';
 import MenuItem from "./MenuItem";
 import Image from "next/image";
 import logo from "@/assets/img/logoZhaz.png";
@@ -52,14 +51,14 @@ export default function Menu() {
     function renderSettings() {
         return (
             <ul>
-                <MenuItem url="/" texto="Perfil" icone={<IconPerfil />} />
+                <MenuItem url="/Perfil" texto="Perfil" icone={<IconPerfil />} />
             </ul>
         )
     }
 
     return (
         <div className="flex flex-col m-2">
-            <div className="flex justify-center w-full mb-3">
+            <div className="flex justify-center w-full mb-3" onClick={altenarMenu}>
                 <Link href="/" legacyBehavior>
                     <Image src={logo} alt="" className="h-12 w-48 cursor-pointer" />
                 </Link>
@@ -73,17 +72,17 @@ export default function Menu() {
                         <MenuDropDownItem icone={<IconTabela />} texto="Tabela Geral" executar={altenarMenu} url="/Gerencia/TabelaGeral" />
                     </MenuDropDown>
                     <MenuDropDown classe="ml-5" icone={<IconQrcode />} texto="Laboratório" marcacao={<IconSetaDown />} down={lbo} executar={() => setLbo(!lbo)}>
-                        <MenuDropDownItem icone={< IconFila />} texto="Fila Técnica" executar={altenarMenu} url="/" />
-                        <MenuDropDownItem icone={<IconForm />} texto="Formulário" executar={altenarMenu} url="/" />
-                        <MenuDropDownItem icone={<IconTabela />} texto="Tabela" executar={altenarMenu} url="/" />
-                        <MenuDropDownItem icone={<IconRegAntigo />} texto="Reg. Antigo" executar={altenarMenu} url="/" />
-                        <MenuDropDownItem icone={<IconRelatorio />} texto="Relatório" executar={altenarMenu} url="/" />
+                        <MenuDropDownItem icone={< IconFila />} texto="Fila Técnica" executar={altenarMenu} url="/Laboratorio/FilaTecnica" />
+                        <MenuDropDownItem icone={<IconForm />} texto="Formulário" executar={altenarMenu} url="/Laboratorio/Formulario" />
+                        <MenuDropDownItem icone={<IconTabela />} texto="Tabela" executar={altenarMenu} url="/Laboratorio/Tabela" />
+                        <MenuDropDownItem icone={<IconRegAntigo />} texto="Reg. Antigo" executar={altenarMenu} url="/Laboratorio/RegAntigo" />
+                        <MenuDropDownItem icone={<IconRelatorio />} texto="Relatório" executar={altenarMenu} url="/Laboratorio/Relatorio" />
                     </MenuDropDown>
                     <MenuDropDown classe="ml-20" icone={<IconVHL />} texto="VHL" marcacao={<IconSetaDown />} down={vhl} executar={() => setVHL(!vhl)}>
-                        <MenuDropDownItem icone={<IconForm />} texto="Formulário" executar={altenarMenu} url="/" />
-                        <MenuDropDownItem icone={<IconTabela />} texto="Tabela" executar={altenarMenu} url="/" />
-                        <MenuDropDownItem icone={<IconRegAntigo />} texto="Reg. Antigo" executar={altenarMenu} url="/" />
-                        <MenuDropDownItem icone={<IconRelatorio />} texto="Relatório" executar={altenarMenu} url="/" />
+                        <MenuDropDownItem icone={<IconForm />} texto="Formulário" executar={altenarMenu} url="/VHL/Formulario" />
+                        <MenuDropDownItem icone={<IconTabela />} texto="Tabela" executar={altenarMenu} url="/VHL/Tabela" />
+                        <MenuDropDownItem icone={<IconRegAntigo />} texto="Reg. Antigo" executar={altenarMenu} url="/VHL/RegAntigo" />
+                        <MenuDropDownItem icone={<IconRelatorio />} texto="Relatório" executar={altenarMenu} url="/VHL/Relatorio" />
                     </MenuDropDown>
                 </div>
                 <div className="mt-8 ml-5 text-xs font-extrabold text-gray-400">OUTHERS</div>
