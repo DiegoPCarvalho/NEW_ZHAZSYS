@@ -1,6 +1,5 @@
 import Link from "next/link";
-import Tooltip from '@mui/material/Tooltip';
-import Fade from '@mui/material/Fade';
+import Tooltip from "../shared/tooltip";
 
 interface NavigatePageItemProps {
     nome: string
@@ -8,17 +7,17 @@ interface NavigatePageItemProps {
     url: string
 }
 
-export default function NavigatePageItem(props: NavigatePageItemProps){
-    return(
-        <div className="mx-1">
-            <Link href={props.url} legacyBehavior>
-                <Tooltip title={props.nome} arrow  TransitionComponent={Fade}>
-                    <div className="p1 cursor-pointer hover:bg-neutral-700 dark:hover:bg-neutral-900 p-1 rounded-full text-neutral-900 dark:text-neutral-200  hover:text-neutral-200">
-                        <props.icone sx={{ fontSize: 40 }}/>
+export default function NavigatePageItem(props: NavigatePageItemProps) {
+    return (
+        <Link href={props.url} legacyBehavior>
+            <div className="mx-1">
+                <Tooltip nome={props.nome}>
+                    <div className="cursor-pointer  p-1 rounded-full text-neutral-50 dark:text-neutral-100  hover:text-neutral-100">
+                        <props.icone sx={{ fontSize: 40 }} />
                     </div>
                 </Tooltip>
-            </Link>
-        </div>
+            </div>
+        </Link>
     )
 }
 

@@ -3,6 +3,7 @@ import { IconForm, IconQrcode } from '@/components/icons/IconesMaterial';
 import Layout from './../../../components/template/Layout';
 import NavigatePage from '@/components/navigatePage/NavigatePage';
 import { LabUrl } from "@/data/config/labUrl"
+import FormLab from './FormLab';
 
 export default function FormularioLabo() {
 
@@ -16,28 +17,8 @@ export default function FormularioLabo() {
                         data={LabUrl}
                     />
                 </div>
-                <div className='border mt-10'>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
+                <div className='mt-7 mx-3 bg-white rounded-md shadow-lg'>
+                    <FormLab />
                 </div>
             </div>
         </Layout>

@@ -23,8 +23,8 @@ export default function NavigatePage(props: NavigatePageProps){
     return(
         <div className="grid grid-cols-2">
             <div className="flex items-center mt-3 ml-3">
-                    <div className="">{props.iconeTitulo}</div>
-                    <div className="text-3xl text-neutral-800 font-extrabold dark:text-neutral-200">{props.titulo}</div>
+                <div className="mr-2">{props.iconeTitulo}</div>
+                <div className="text-3xl text-neutral-800 font-extrabold dark:text-neutral-200 max-sm:hidden">{props.titulo}</div>
             </div>
             <div className="flex justify-end items-center mt-2">
                 <div className="flex justify-between items-center">
