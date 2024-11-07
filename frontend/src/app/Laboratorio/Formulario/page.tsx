@@ -17,7 +17,7 @@ export default function FormularioLabo() {
                         data={LabUrl}
                     />
                 </div>
-                <div className='mt-7 mx-3 bg-white rounded-md shadow-lg'>
+                <div className='mt-10 mx-3 bg-white dark:bg-zinc-950 dark:border-zinc-800 dark:shadow-md border rounded-md shadow-lg overflow-auto'>
                     <FormLab />
                 </div>
             </div>

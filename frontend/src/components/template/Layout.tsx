@@ -3,7 +3,6 @@ import Header from './header/Index';
 import useAppData from '@/data/hook/useAppData';
 import Menu from './menu';
 import MenuUser from './User/MenuUser';
-import './layout.css';
 
 interface LayoutProps {
     children?: any
@@ -17,8 +16,8 @@ export default function Layout(props: LayoutProps) {
     return (
             <div className={`${tema} flex flex-row h-screen w-screen`}>
                 <div className={`
-                flex w-52 bg-neutral-700
-                dark:bg-neutral-900
+                flex w-52 bg-zinc-700
+                dark:bg-neutral-950
                 fixed left-0 top-0 z-9999
                 h-screen overflow-y-hidden
                 duration-300 ease-linear
@@ -28,11 +27,11 @@ export default function Layout(props: LayoutProps) {
                     <Menu />
                 </div>
                 <div className={`
-                flex flex-col bg-neutral-100 w-full h-screen dark:bg-neutral-600   
+                flex flex-col bg-zinc-100 w-full h-screen dark:bg-[#18181a]
                 
             `}>
                     <div className={`
-                 shadow-lg shadow-neutral-200 dark:shadow-md dark:shadow-neutral-800
+                 shadow-md shadow-zinc-200 box-border dark:shadow-none
                 `}>
                         <Header icone={props.icone} texto={props.texto} />
                     </div>
@@ -47,12 +46,12 @@ export default function Layout(props: LayoutProps) {
                 </div>
                 <div className={`
                 flex w-28 bg-white mt-1
-                dark: dark:bg-neutral-900
+                dark: dark:bg-zinc-950
                 fixed right-0 top-16 z-9999
                 overflow-y-hidden h-28
                 duration-300 ease-linear
                 rounded-md
-                shadow-md shadow-neutral-400
+                shadow-md shadow-zinc-400
                 dark:shadow-none
                 ${avaUser ? "translate-x-0" : "translate-x-full"}
            `}>

@@ -16,24 +16,24 @@ interface HeaderProps {
 }
 
 export default function Header(props: HeaderProps) {
-    const { altenarMenu, menu, mudarTema, tema } = useAppData();
+    const { altenarMenu, menu } = useAppData();
     const { get } = useLocalStorage();
 
     return (
-        <div className="flex justify-between h-16 bg-white dark:bg-neutral-900">
+        <div className="flex justify-between h-16 bg-white dark:bg-zinc-950">
             <div className="flex items-center">
                 {menu ? (
                     <>
                         <div className="ml-52">
-                            <Botao className="ml-2 p-2 rounded-lg hover:bg-neutral-700 hover:text-neutral-200 dark:hover:bg-neutral-700 dark:text-neutral-200" executar={altenarMenu}><MenuOpenIcon fontSize="large"></MenuOpenIcon></Botao>
+                            <Botao className="ml-2 p-2 rounded-lg hover:bg-zinc-700 hover:text-zinc-200 dark:hover:bg-zinc-700 dark:text-zinc-200" executar={altenarMenu}><MenuOpenIcon fontSize="large"></MenuOpenIcon></Botao>
                         </div>
                         <div className={`flex items-center ml-1`}>
-                            <Titulo icone={props.icone} texto={props.texto} className={"dark:text-neutral-200"} />
+                            <Titulo icone={props.icone} texto={props.texto} className={"dark:text-zinc-200"} />
                         </div>
                     </>
                 ) : (
                     <>
-                        <Botao className=" ml-2 p-2 rounded-lg hover:bg-neutral-700 hover:text-neutral-200 dark:hover:bg-neutral-700 dark:text-neutral-200" executar={altenarMenu}><MenuIcon fontSize="large"></MenuIcon></Botao>
+                        <Botao className=" ml-2 p-2 rounded-lg hover:bg-zinc-700 hover:text-zinc-200 dark:hover:bg-zinc-700 dark:text-zinc-200" executar={altenarMenu}><MenuIcon fontSize="large"></MenuIcon></Botao>
                         <div className={`ml-3 flex items-center justify-center`}>
                             <Image src={logo} alt="" className="h-10 w-36" />
                         </div>
@@ -51,10 +51,10 @@ export default function Header(props: HeaderProps) {
                    <MudarTema />
                 </div>
                 <div>
-                    <div className="text-xs dark:text-neutral-200">
+                    <div className="text-xs dark:text-zinc-200">
                         Bem Vindo,
                     </div>
-                    <div className="text-sm font-bold text-black dark:text-neutral-200">
+                    <div className="text-sm font-bold text-black dark:text-zinc-200">
                         {get("usuario")}
                     </div>
                 </div>

@@ -17,3 +17,11 @@ body {
     text-wrap: balance;
   }
 }
+
+#dataDark {
+  color-scheme: dark;
+}
+
+#hiddenScroll::-webkit-scrollbar { 
+	display: none;
+}

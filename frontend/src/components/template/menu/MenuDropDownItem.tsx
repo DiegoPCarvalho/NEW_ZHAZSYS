@@ -20,10 +20,9 @@ export default function MenuDropDownItem(props: MenuDropDownItemProps) {
     
     return (
             <div className="
-            flex items-center mt-3 mx-3 text-neutral-200
-            hover:bg-netural-500
-            hover:bg-neutral-500
-            dark:hover:bg-neutral-700
+            flex items-center mt-3 mx-3 text-zinc-200
+            hover:bg-zinc-500
+            dark:hover:bg-zinc-700
             hover:rounded
             " onClick={props.executar}>
             {props.url ? (
