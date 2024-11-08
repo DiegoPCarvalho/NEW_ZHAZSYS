@@ -8,5 +8,9 @@ export interface EntradaProps {
     className?: string
     requerido?: boolean
     mensagemCampo?: string
+    children?: any
+    filtro?: boolean
+    desativar?: boolean
+    linhas?: number
     alterouCampo?: (novoValor: any) => void
 }

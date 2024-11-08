@@ -9,7 +9,7 @@ export default function FormularioLabo() {
 
     return (
         <Layout icone={<IconQrcode fontSize='large' />} texto="Laboratório">
-            <div className='flex flex-col'>
+            <div className='flex flex-col mt-5'>
                 <div className='h-16 mt-3 mx-3'>
                     <NavigatePage
                         titulo="Formulário"
@@ -17,7 +17,7 @@ export default function FormularioLabo() {
                         data={LabUrl}
                     />
                 </div>
-                <div className='mt-10 mx-3 bg-white dark:bg-zinc-950 dark:border-zinc-800 dark:shadow-md border rounded-md shadow-lg overflow-auto'>
+                <div className='mt-12 mx-3 bg-white dark:bg-zinc-950 dark:border-zinc-800 dark:shadow-md border rounded-md shadow-lg overflow-auto'>
                     <FormLab />
                 </div>
             </div>
