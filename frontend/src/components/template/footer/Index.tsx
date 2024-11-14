@@ -1,5 +1,5 @@
 
-import { IconeBemVindo, IconeDev } from '@/components/icons/Index';
+import { IconeDev } from '@/components/icons/Index';
 
 export default function Footer() {
 

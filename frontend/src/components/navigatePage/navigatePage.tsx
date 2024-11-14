@@ -27,7 +27,7 @@ export default function NavigatePage(props: NavigatePageProps) {
         <div className="flex flex-row justify-between items-center">
             <div className="flex items-center ml-3">
                 <div className="mr-2">{props.iconeTitulo}</div>
-                <div className="text-3xl max-md:text-xl text-neutral-800 font-extrabold dark:text-neutral-200">{props.titulo}</div>
+                <div className="text-3xl max-md:text-xl text-neutral-800 font-extrabold dark:text-neutral-200 max-sm:hidden">{props.titulo}</div>
             </div>
             <div className=''>
                 {props.centroTela}

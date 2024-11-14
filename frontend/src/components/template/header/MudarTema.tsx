@@ -1,12 +1,7 @@
 import useAppData from '@/data/hook/useAppData';
-import Switch from '@mui/material/Switch';
 
-interface MudarTemaProps {
-    tema?: string
-    mudarTema?: () => void
-}
 
-export default function MudarTema(props: MudarTemaProps) {
+export default function MudarTema() {
     const { mudarTema, tema } = useAppData()
 
     return (

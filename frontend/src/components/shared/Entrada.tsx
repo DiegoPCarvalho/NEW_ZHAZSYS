@@ -18,6 +18,7 @@ export default function Entrada(props: EntradaProps){
                     border dark:border-zinc-800 dark:focus:border-emerald-700
                     focus:border-emerald-500 focus:bg-white
                     focus:outline-none dark:bg-neutral-700
+                    max-sm:mb-2
                 `}
                 placeholder={props.mensagemCampo}
                 required={props.requerido}

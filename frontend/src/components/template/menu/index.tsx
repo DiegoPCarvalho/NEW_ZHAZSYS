@@ -21,15 +21,16 @@ import {
     IconQrcode,
     IconRegAntigo
 } from "@/components/icons/IconesMaterial";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
 
 
 export default function Menu() {
 
-    const [gnc, setGnc] = useState<Boolean>(false)
-    const [lbo, setLbo] = useState<Boolean>(false)
-    const [vhl, setVHL] = useState<Boolean>(false)
+    const [gnc, setGnc] = useState<boolean>(false)
+    const [lbo, setLbo] = useState<boolean>(false)
+    const [vhl, setVHL] = useState<boolean>(false)
     const { altenarMenu, menu } = useAppData()
 
     useEffect(() => {
@@ -58,10 +59,13 @@ export default function Menu() {
 
     return (
         <div className="flex flex-col m-2">
-            <div className="flex justify-center w-full mb-3" onClick={altenarMenu}>
+            <div className="flex justify-between w-full mb-3" onClick={altenarMenu}>
                 <Link href="/" legacyBehavior>
-                    <Image src={logo} alt="" className="h-12 w-48 cursor-pointer" />
+                    <Image src={logo} alt="" className="h-12 w-40 cursor-pointer" />
                 </Link>
+                <div className="flex items-center ml-3">
+                    <ArrowBackIcon sx={{ fontSize: 25}} onClick={altenarMenu} className="text-gray-200 hover:rounded-full cursor-pointer hover:bg-zinc-500 dark:hover:bg-zinc-700"/>
+                </div>
             </div>
             <div className="overflow-auto" id="hiddenScroll">
                 <div className="mt-3 ml-5 text-xs font-extrabold text-gray-400">MENU</div>

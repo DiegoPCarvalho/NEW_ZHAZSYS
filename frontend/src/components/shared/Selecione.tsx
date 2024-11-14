@@ -14,7 +14,8 @@ export default function Selecione(props: EntradaProps){
                     px-4 py-3 rounded-lg  mt-1 bg-white
                     border dark:border-zinc-800 dark:focus:border-emerald-700
                     focus:border-emerald-500 focus:bg-white
-                    focus:outline-none dark:bg-neutral-700    
+                    focus:outline-none dark:bg-neutral-700  
+                    max-sm:mb-2  
                 `}
                 required={props.requerido}
             >

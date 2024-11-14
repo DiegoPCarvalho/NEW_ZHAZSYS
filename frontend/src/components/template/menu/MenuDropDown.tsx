@@ -3,7 +3,7 @@ interface MenuDropDownProps {
     texto?: string
     marcacao?: any
     children?: any
-    down?: Boolean
+    down?: boolean
     classe?: string
     executar?: () => void
 }

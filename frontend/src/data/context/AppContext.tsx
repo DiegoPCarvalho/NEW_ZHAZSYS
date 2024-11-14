@@ -1,8 +1,8 @@
 import { createContext, useState } from "react";
 
 interface AppContextProps {
-    menu?: Boolean
-    avaUser?: Boolean
+    menu?: boolean
+    avaUser?: boolean
     tema?: string
     mudarTema?: () => void
     altenarMenu?: () => void

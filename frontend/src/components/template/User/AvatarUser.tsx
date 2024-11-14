@@ -2,11 +2,8 @@ import Image from 'next/image';
 import avatar from '@/assets/pic/avatar.png';
 import useAppData from "@/data/hook/useAppData";
 
-interface AvatarUsuarioProps {
-    className?: string
-}
 
-export default function AvatarUser(props: AvatarUsuarioProps) {
+export default function AvatarUser() {
   
     const { altenarAvatarUser } = useAppData();
 

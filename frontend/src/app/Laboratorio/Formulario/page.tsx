@@ -14,7 +14,7 @@ export default function FormularioLabo() {
                 <div className='h-24 mt-5 mx-3'>
                     <NavigatePage
                         titulo="Formulário"
-                        iconeTitulo={<IconForm sx={{ fontSize: 40 }} className=" text-neutral-800 dark:text-neutral-200" />}
+                        iconeTitulo={<IconForm sx={{ fontSize: 60 }} className=" text-neutral-800 dark:text-neutral-200" />}
                         data={LabUrl}
                         centroTela={<CentroTelaForm os="12345" />}
                     />

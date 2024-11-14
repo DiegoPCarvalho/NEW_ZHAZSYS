@@ -17,7 +17,7 @@ export default function MenuItem(props: MenuItemProps) {
             <a className={`
                 flex flex-row mt-3 items-center px-2
                 w-40 h-12  ${props.className} 
-              hover:text-white text-neutral-300
+              hover:text-white text-zinc-300
             `}>
                 {props.icone}
                 <span className="text-lg font-bold ml-2">
@@ -29,9 +29,8 @@ export default function MenuItem(props: MenuItemProps) {
 
     return (
         <div onClick={altenarMenu}><li onClick={props.executar} className={`
-           hover:bg-netural-500
-           hover:bg-neutral-500
-           dark:hover:bg-neutral-700
+           hover:bg-zinc-500
+           dark:hover:bg-zinc-700
            hover:rounded
            cursor-pointer
         `}>
