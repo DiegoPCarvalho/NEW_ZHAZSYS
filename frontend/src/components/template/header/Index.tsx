@@ -52,7 +52,7 @@ export default function Header(props: HeaderProps) {
                    <MudarTemaMini />
                 </div>
                 <div className="max-sm:hidden">
-                    <div className="text-xs dark:text-zinc-200">
+                    <div className="text-xs dark:text-zinc-200 text-black">
                         Bem Vindo,
                     </div>
                     <div className="text-sm font-bold text-black dark:text-zinc-200">
