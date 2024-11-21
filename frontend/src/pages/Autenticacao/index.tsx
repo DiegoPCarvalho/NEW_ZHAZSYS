@@ -25,11 +25,19 @@ export default function LoginMain() {
 
     return (
         <div className="flex">
-            <img src={img} alt="" className="h-screen w-[80%] max-md:w-[60%]"/>
-            <div className="bg-gray-950 w-full flex items-center justify-center">
+            <img src={img} alt="" className="h-screen w-full"/>
+            <div className=" h-screen w-screen
+            fixed 
+            bg-neutral-950 bg-opacity-65
+            ">
                 <LoginForm />
             </div>
         </div>
     )
 }
 
+// top-[200px] left-[650px] 
+//             max-xl:top-[100px] max-xl:left-[450px] 
+//             max-lg:left-[300px]
+//             max-md:left-[200px]
+//             max-sm:left-[30px]
