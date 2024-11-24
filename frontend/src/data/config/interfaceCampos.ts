@@ -8,6 +8,7 @@ export interface EntradaProps {
     className?: string
     requerido?: boolean
     mensagemCampo?: string
+    soLeitura?: boolean
     children?: any
     filtro?: boolean
     desativar?: boolean

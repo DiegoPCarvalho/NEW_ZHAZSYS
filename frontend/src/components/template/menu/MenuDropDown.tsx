@@ -21,14 +21,16 @@ export default function MenuDropDown(props: MenuDropDownProps) {
             ${props.down ? "bg-zinc-500 rounded dark:bg-zinc-950" : ""}
           `}
         >
-            <div className="flex items-center hover:text-white text-zinc-300 px-2 w-40 h-12" onClick={props.executar}>
-                <div>
-                    {props.icone}
+            <div className="flex items-center justify-between hover:text-white text-zinc-300 px-2 w-[100%] h-12" onClick={props.executar}>
+                <div className="flex">
+                    <div>
+                        {props.icone}
+                    </div>
+                    <div className={`text-lg font-bold ml-2 ${props.down ? "text-zinc-100" : ""}`}>
+                        {props.texto}
+                    </div>
                 </div>
-                <div className={`text-lg font-bold ml-2 ${props.down ? "text-zinc-100" : ""}`}>
-                    {props.texto}
-                </div>
-                <div className={`${props.classe} ${props.down ? "rotate-90" : ""}`}>
+                <div className={`${props.classe} ${props.down ? "rotate-90" : ""} flex justify-end`}>
                     {props.marcacao}
                 </div>
             </div>

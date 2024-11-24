@@ -12,7 +12,7 @@ export default function LoginForm() {
 
     return (
         <div className="flex justify-center items-center h-screen">
-            <div className="flex flex-col w-96">
+            <div className="flex flex-col items-center w-[400px] bg-neutral-950 bg-opacity-90 py-5 rounded-lg">
                 <div className="flex justify-center">
                     <Image src={Logo} alt="" className="w-44 h-16 " />
                 </div>
@@ -47,7 +47,12 @@ export default function LoginForm() {
                         erro={erro}
                     />  
                     </div>
-                    <div className="flex justify-evenly mt-24 h-16">
+                    <div className="flex justify-end mt-5 mb-3 h-5 text-sm">
+                            <a className="cursor-pointer hover:border-b hover:border-blue-300 hover:text-blue-300">
+                                esqueceu a senha?
+                            </a>
+                    </div>
+                    <div className="flex justify-evenly mt-16 h-16">
                         <div>
                             <Botao
                                 className={`
@@ -72,11 +77,7 @@ export default function LoginForm() {
                             >Cancelar</Botao>
                         </div>
                     </div>
-                    <div className="flex justify-end mt-3 mb-3 h-5 text-sm">
-                            <a className="cursor-pointer hover:border-b hover:border-blue-300 hover:text-blue-300">
-                                esqueceu a senha?
-                            </a>
-                    </div>
+                    
                 </div>
             </div>
         </div>

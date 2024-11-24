@@ -1,10 +1,11 @@
 interface FormularioProps {
     children?: any
+    className?: string
 }
 
 export default function Formulario(props: FormularioProps){
     return(
-        <form className="flex flex-col m-5" action="javascript:myFunction(); return false;">
+        <form id="hiddenScroll" className={`flex flex-col m-5 ${props.className}`} action="javascript:myFunction(); return false;">
             {props.children}
         </form>
     )

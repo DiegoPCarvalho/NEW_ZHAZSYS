@@ -35,9 +35,3 @@ export default function LoginMain() {
         </div>
     )
 }
-
-// top-[200px] left-[650px] 
-//             max-xl:top-[100px] max-xl:left-[450px] 
-//             max-lg:left-[300px]
-//             max-md:left-[200px]
-//             max-sm:left-[30px]

@@ -4,7 +4,7 @@ import { EntradaProps } from "@/data/config/interfaceCampos";
 export default function Entrada(props: EntradaProps){
     return(
         <div className={`flex flex-col ml-2 ${props.className}`}>
-            <label className="font-bold text-2xl text-black dark:text-white">{props.texto}</label>
+            <label className="font-bold text-lg text-black dark:text-white">{props.texto}</label>
             <input
                 id={props.id}
                 type={props.tipo ?? 'text'}

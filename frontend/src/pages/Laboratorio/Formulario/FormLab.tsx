@@ -56,7 +56,7 @@ export default function FormLab() {
                     <option>aaaaaaaaaaaaaaaaaaaaa</option>
                 </Selecione>
             </div>
-            <div className="flex item-center mt-10 max-lg:grid max-lg:grid-cols-2 max-sm:grid-cols-1 max-sm:mt-2">
+            <div className="flex item-center mt-5 max-lg:grid max-lg:grid-cols-2 max-sm:grid-cols-1 max-sm:mt-2">
                 <Selecione
                     texto="Equipamento:"
                     nome="Equipamento"
@@ -89,7 +89,7 @@ export default function FormLab() {
                     <option>Não Recuperada</option>
                 </Selecione>
             </div>
-            <div className="grow mt-10 max-sm:mt-2">
+            <div className="grow mt-5 max-sm:mt-2">
                 <AreaTexto
                     texto="Observação:"
                     linhas={5}
@@ -97,7 +97,7 @@ export default function FormLab() {
                     mensagemCampo="..."
                 />
             </div>
-            <div className="flex justify-end mt-10">
+            <div className="flex justify-end mt-5">
                 <div className="flex justify-between items-center w-60 h-12">
                     <Botao
                         className={`

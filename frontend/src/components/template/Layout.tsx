@@ -36,11 +36,11 @@ export default function Layout(props: LayoutProps) {
                         <Header icone={props.icone} texto={props.texto} />
                     </div>
                     <div className='flex flex-row h-full w-full overflow-auto' id="hiddenScroll">
-                        {menu ? (
+                        {/* {menu ? (
                             <div className='flex lg:w-60 md:w-72'>
 
                             </div>
-                        ) : false}
+                        ) : false} */}
                         <Content>{props.children}</Content>
                     </div>
                 </div>
