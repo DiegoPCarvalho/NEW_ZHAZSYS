@@ -11,7 +11,7 @@ export default function FotoPerfil() {
     return (
         <div className="flex flex-row-reverse justify-center m-4 max-lg:h-[90%] w-[100%] h-56 bg-white dark:bg-neutral-950 rounded-lg shadow-lg">
             <div className="flex flex-col items-center justify-center w-[40%] max-lg:w-[100%]">
-                <Image width={100} height={100} src={imagem} alt="" className="w-[90%] shadow-lg rounded-full" />
+                <Image width={100} height={100} src={imagem} alt="" className="w-[70%] shadow-lg rounded-full" />
                 <div className="h-10 mt-3">
                     <Botao className={`
                     transition-all bg-yellow-500  text-white px-3 py-2 rounded-lg
