@@ -12,7 +12,7 @@ export default function RelatorioLabo() {
                     <NavigatePage
                         titulo="Relatório"
                         iconeTitulo={<IconRelatorio sx={{ fontSize: 40 }} className=" text-neutral-800 dark:text-neutral-200" />}
-                        data={LabUrl}
+                        data={LabUrl} dataMini={LabUrl}
                     />
                 </div>
                 <div className='border mt-10'>

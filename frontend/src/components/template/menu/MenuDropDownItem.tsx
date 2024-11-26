@@ -12,7 +12,7 @@ export default function MenuDropDownItem(props: MenuDropDownItemProps) {
     function renderLink(){
         return (
             <a className="p-2 flex items-center">
-                <div className="ml-3 mr-2">{props.icone}</div>
+                <div className="ml-2 mr-2">{props.icone}</div>
                 <div className="text-sm">{props.texto}</div>
             </a>
         )

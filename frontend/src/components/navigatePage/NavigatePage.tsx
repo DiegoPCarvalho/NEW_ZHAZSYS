@@ -1,12 +1,12 @@
 import NavigateMiniPage from './NavigateMiniPage';
 import NavigatePageItem from './NavigatePageItem';
-import WidgetsIcon from '@mui/icons-material/Widgets';
 
 interface NavigatePageProps {
     titulo: string
     iconeTitulo: any
     centroTela?: any
     data: any[]
+    dataMini: any[]
 }
 
 export default function NavigatePage(props: NavigatePageProps) {
@@ -24,7 +24,7 @@ export default function NavigatePage(props: NavigatePageProps) {
     }
 
     return (
-        <div className="flex flex-row justify-between items-center">
+        <div className="flex flex-row justify-between items-center h-24">
             <div className="flex items-center ml-3">
                 <div className="mr-2">{props.iconeTitulo}</div>
                 <div className="text-3xl max-md:text-xl text-neutral-800 font-extrabold dark:text-neutral-200 max-sm:hidden">{props.titulo}</div>
@@ -32,12 +32,8 @@ export default function NavigatePage(props: NavigatePageProps) {
             <div className=''>
                 {props.centroTela}
             </div>
-            <div className='sm:hidden'>
-                <NavigateMiniPage>
-                    <div className="cursor-pointer p-1 rounded-full text-neutral-50 dark:text-neutral-100  hover:text-neutral-100">
-                        <WidgetsIcon sx={{ fontSize: 40 }} />
-                    </div>
-                </NavigateMiniPage>
+            <div className='sm:hidden flex items-center w-[105px] h-[70px]'>
+                <NavigateMiniPage dado={props.dataMini} tituloMini={props.titulo}/>
             </div>
             <div className="flex justify-end max-sm:hidden">
                 <div className="flex justify-between items-center">

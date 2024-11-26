@@ -17,6 +17,7 @@ import IconEmail from '@mui/icons-material/Email';
 import IconEspecialidade from '@mui/icons-material/Handyman';
 import IconServico from '@mui/icons-material/MiscellaneousServices';
 import IconRamal from '@mui/icons-material/PhoneInTalk';
+import IconEquipamento from '@mui/icons-material/Handyman';
 
 export {
     IconGerencia,
@@ -37,5 +38,6 @@ export {
     IconEmail,
     IconEspecialidade,
     IconServico,
-    IconRamal
+    IconRamal,
+    IconEquipamento
 }

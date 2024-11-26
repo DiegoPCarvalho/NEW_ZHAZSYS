@@ -24,7 +24,8 @@ import {
     IconUser,
     IconDepartamento,
     IconServico,
-    IconRamal
+    IconRamal,
+    IconEquipamento
 } from "@/components/icons/IconesMaterial";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
@@ -108,10 +109,10 @@ export default function Menu() {
                 <div className="">
                     <MenuDropDown classe="" icone={<IconAdmin />} texto="Admin" marcacao={<IconSetaDown />} down={adm} executar={() => setAdm(!adm)}>
                         <MenuDropDownItem icone={<IconUser />} texto="Usuários" executar={altenarMenu} url="/Admin/Usuarios" />
-                        <MenuDropDownItem icone={<IconFila />} texto="Equipamento" executar={altenarMenu} url="/Admin/Equipamento" />
-                        <MenuDropDownItem icone={<IconDepartamento/>} texto="Departamento" executar={altenarMenu} url="/Admin/Departamento" />
-                        <MenuDropDownItem icone={<IconContrato />} texto="Contrato" executar={altenarMenu} url="/Admin/Contrato" />
-                        <MenuDropDownItem icone={<IconServico />} texto="Serviço" executar={altenarMenu} url="/Admin/Servico" />
+                        <MenuDropDownItem icone={<IconEquipamento />} texto="Equipamentos" executar={altenarMenu} url="/Admin/Equipamentos" />
+                        <MenuDropDownItem icone={<IconDepartamento/>} texto="Departamentos" executar={altenarMenu} url="/Admin/Departamentos" />
+                        <MenuDropDownItem icone={<IconContrato />} texto="Contratos" executar={altenarMenu} url="/Admin/Contratos" />
+                        <MenuDropDownItem icone={<IconServico />} texto="Serviços" executar={altenarMenu} url="/Admin/Servicos" />
                         <MenuDropDownItem icone={<IconRamal />} texto="Ramais" executar={altenarMenu} url="/Admin/Ramais" />
                     </MenuDropDown>
                 </div>

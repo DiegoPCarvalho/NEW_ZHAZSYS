@@ -12,7 +12,7 @@ export default function LoginForm() {
 
     return (
         <div className="flex justify-center items-center h-screen">
-            <div className="flex flex-col items-center w-[400px] bg-neutral-950 bg-opacity-70 py-5 rounded-lg">
+            <div className="flex flex-col items-center w-[400px] max-sm:w-[350px] bg-neutral-950 bg-opacity-70 py-5 rounded-lg">
                 <div className="flex justify-center">
                     <Image src={Logo} alt="" className="w-44 h-16 " />
                 </div>

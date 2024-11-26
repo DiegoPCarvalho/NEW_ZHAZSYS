@@ -12,7 +12,7 @@ export default function RegAntigoLabo() {
                     <NavigatePage
                         titulo="Reg. Antigo"
                         iconeTitulo={<IconRegAntigo sx={{ fontSize: 40 }} className=" text-neutral-800 dark:text-neutral-200" />}
-                        data={LabUrl}
+                        data={LabUrl} dataMini={LabUrl}
                     />
                 </div>
                 <div className='border mt-10'>
