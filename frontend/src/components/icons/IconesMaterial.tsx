@@ -18,6 +18,8 @@ import IconEspecialidade from '@mui/icons-material/Handyman';
 import IconServico from '@mui/icons-material/MiscellaneousServices';
 import IconRamal from '@mui/icons-material/PhoneInTalk';
 import IconEquipamento from '@mui/icons-material/Handyman';
+import IconAddUser from '@mui/icons-material/PersonAdd';
+import IconVoltarAdmin from '@mui/icons-material/Reply';
 
 export {
     IconGerencia,
@@ -39,5 +41,7 @@ export {
     IconEspecialidade,
     IconServico,
     IconRamal,
-    IconEquipamento
+    IconEquipamento,
+    IconAddUser,
+    IconVoltarAdmin
 }

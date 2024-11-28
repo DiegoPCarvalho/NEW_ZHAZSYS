@@ -58,6 +58,13 @@ export default function FormPerfil() {
                         desativar
                     />
                     <Entrada
+                        texto="Contrato:"
+                        tipo="text"
+                        nome="Contrato"
+                        className="grow"
+                        desativar
+                    />
+                    <Entrada
                         texto="Especialidade:"
                         tipo="text"
                         nome="Especialidade"

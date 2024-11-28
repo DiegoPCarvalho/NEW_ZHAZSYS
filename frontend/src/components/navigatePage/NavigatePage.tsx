@@ -7,6 +7,7 @@ interface NavigatePageProps {
     centroTela?: any
     data: any[]
     dataMini: any[]
+    excecao?: boolean
 }
 
 export default function NavigatePage(props: NavigatePageProps) {
@@ -32,7 +33,7 @@ export default function NavigatePage(props: NavigatePageProps) {
             <div className=''>
                 {props.centroTela}
             </div>
-            <div className='sm:hidden flex items-center w-[105px] h-[70px]'>
+            <div className={`sm:hidden flex items-center ${props.excecao ? "w-[145px]" : "w-[105px]"}  h-[70px]`}>
                 <NavigateMiniPage dado={props.dataMini} tituloMini={props.titulo}/>
             </div>
             <div className="flex justify-end max-sm:hidden">
