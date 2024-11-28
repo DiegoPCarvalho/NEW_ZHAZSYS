@@ -1,24 +1,76 @@
-import { DataGrid, GridToolbar, GridColDef } from '@mui/x-data-grid';
+import TabelaGnc from "@/components/shared/TabelaGnc";
 
-export default function TableUsers() {
-   
-  const rows = [
-      { id: 1, name: 'React'},
-      { id: 2, name: 'MUI' },
-    ]
-  
-  const column: GridColDef[] = [
-    { 
-      field: 'Nome',
-      headerClassName: 'bg-neutral-950 dark:bg-neutral-900 text-white text-xl font-bold',
-      headerAlign: 'center', 
-    }
-  ]
-
-
+export default function TabelaUsers() {
   return (
-    <div style={{ height: 300, width: '99%' }}>
-      <DataGrid className='rounded-xl border-neutral-900 border-4' rows={rows} columns={column} slots={{ toolbar: GridToolbar }} />
-    </div>
-  );
+  
+      <div className="w-[100%] mt-3">
+        <TabelaGnc
+          head={
+            <>
+              <th className="rounded-tl-lg p-2">atividade</th>
+              <th>atividade</th>
+              <th>atividade</th>
+              <th className="rounded-tr-lg">atividade</th>
+            </>
+          }
+          tb="w-full"
+          classe=""
+        >
+          <tr className="">
+            <td className="">The Sliding Mr. Bones</td>
+            <td>The Sliding Mr. Bones</td>
+            <td>The Sliding Mr. Bones</td>
+            <td>The Sliding Mr. Bones</td>
+          </tr>
+          <tr>
+            <td>The Sliding Mr. Bones</td>
+            <td>The Sliding Mr. Bones</td>
+            <td>The Sliding Mr. Bones</td>
+            <td>The Sliding Mr. Bones</td>
+          </tr>
+          <tr>
+            <td>The Sliding Mr. Bones</td>
+            <td>The Sliding Mr. Bones</td>
+            <td>The Sliding Mr. Bones</td>
+            <td>The Sliding Mr. Bones</td>
+          </tr>
+          <tr>
+            <td>The Sliding Mr. Bones</td>
+            <td>The Sliding Mr. Bones</td>
+            <td>The Sliding Mr. Bones</td>
+            <td>The Sliding Mr. Bones</td>
+          </tr>
+          <tr>
+            <td>The Sliding Mr. Bones</td>
+            <td>The Sliding Mr. Bones</td>
+            <td>The Sliding Mr. Bones</td>
+            <td>The Sliding Mr. Bones</td>
+          </tr>
+          <tr>
+            <td>The Sliding Mr. Bones</td>
+            <td>The Sliding Mr. Bones</td>
+            <td>The Sliding Mr. Bones</td>
+            <td>The Sliding Mr. Bones</td>
+          </tr>
+          <tr>
+            <td>The Sliding Mr. Bones</td>
+            <td>The Sliding Mr. Bones</td>
+            <td>The Sliding Mr. Bones</td>
+            <td>The Sliding Mr. Bones</td>
+          </tr>
+          <tr>
+            <td>The Sliding Mr. Bones</td>
+            <td>The Sliding Mr. Bones</td>
+            <td>The Sliding Mr. Bones</td>
+            <td>The Sliding Mr. Bones</td>
+          </tr>
+          <tr>
+            <td>The Sliding Mr. Bones</td>
+            <td>The Sliding Mr. Bones</td>
+            <td>The Sliding Mr. Bones</td>
+            <td>The Sliding Mr. Bones</td>
+          </tr>
+        </TabelaGnc>
+      </div>
+  )
 }

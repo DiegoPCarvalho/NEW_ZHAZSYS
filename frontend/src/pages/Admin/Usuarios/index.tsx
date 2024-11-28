@@ -21,11 +21,11 @@ export default function Usuarios(){
                         // centroTela={<CentroTelaForm os="12345" />}
                     />
                 </div>
-                <div className='flex flex-col mt-5 mx-3 bg-white dark:bg-zinc-950 dark:border-zinc-800 dark:shadow-md rounded-md shadow-lg overflow-auto'>
+                <div className='flex flex-col mt-5 mx-3  dark:border-neutral-800 dark:shadow-md rounded-md  overflow-auto'>
                     <div className="flex justify-end my-2 mr-2 h-16">
                         <AddItem icone={tela ? IconVoltarAdmin : IconAddUser} executar={() => setTela(!tela)} voltar={tela}/>
                     </div>
-                    <div className="flex justify-center">
+                    <div className="flex mx-3">
                         {tela ? <FormUsers /> : <TableUsers />}
                     </div>
                 </div>
