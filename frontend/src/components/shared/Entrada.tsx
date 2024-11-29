@@ -11,6 +11,7 @@ export default function Entrada(props: EntradaProps){
                 name={props.nome}
                 value={props.valor}
                 onChange={props.alterouCampo}
+                onKeyDown={props.buscarPesquisa}
                 disabled={props.desativar ?? false}
                 className={`
                     box-border shadow-md dark:text-white
@@ -22,6 +23,7 @@ export default function Entrada(props: EntradaProps){
                 `}
                 placeholder={props.mensagemCampo}
                 required={props.requerido}
+                
             />
         </div>
     )

@@ -1,3 +1,5 @@
+import Entrada from "./Entrada"
+
 interface TabelaGncProps {
     tb?: string
     id?: string
@@ -6,6 +8,9 @@ interface TabelaGncProps {
     children?: any
     classe?: string
     styles?: object
+    valor?: any
+    executar?: () => void
+    mudou?: (novoValor: any) => void
 }
 
 const estilo = {
@@ -31,8 +36,16 @@ export default function TabelaGnc(props: TabelaGncProps) {
                 <div>
                     export
                 </div>
-                <div>
-                    search
+                <div className="my-2">
+                    <Entrada
+                        nome="vl" 
+                        tipo="text"
+                        mensagemCampo="Buscar..."
+                        buscarPesquisa={props.executar}
+                        alterouCampo={props.mudou}
+                        valor={props.valor}
+                    />
+                    {/* <button onClick={props.executar}>busca</button> */}
                 </div>
             </div>
             <div className="bg-white dark:bg-zinc-950 shadow-lg w-full p-1 rounded-lg border-2 border-neutral-200 dark:border-neutral-600">
