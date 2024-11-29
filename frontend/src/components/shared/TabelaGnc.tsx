@@ -9,7 +9,7 @@ interface TabelaGncProps {
     classe?: string
     styles?: object
     valor?: any
-    executar?: () => void
+    executar?: (novoValor: any) => void
     mudou?: (novoValor: any) => void
 }
 
