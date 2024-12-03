@@ -18,6 +18,7 @@ interface TabelaGncProps {
     styles?: object
     page?: number
     active?: any
+    export?: boolean
 }
 
 const estilo = {
@@ -118,13 +119,16 @@ export default function TabelaGnc(props: TabelaGncProps) {
         <div className="flex flex-col">
             <div className="flex justify-between items-center">
                 <div>
-                    <Botao className="
-                        cursor-pointer transition-all bg-teal-500 dark:bg-teal-700 text-white px-3 py-2 rounded-lg
-                        border-teal-600 dark:border-teal-800
-                        border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
-                        active:border-b-[2px] active:brightness-90 active:translate-y-[2px] 
-                    "
-                        executar={() => exportar()}>CSV</Botao>
+                    {props.export ? (
+                         <Botao className="
+                         cursor-pointer transition-all bg-teal-500 dark:bg-teal-700 text-white px-3 py-2 rounded-lg
+                         border-teal-600 dark:border-teal-800
+                         border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
+                         active:border-b-[2px] active:brightness-90 active:translate-y-[2px] 
+                     "
+                         executar={() => exportar()}>CSV</Botao>
+                    ) : false}
+                   
                 </div>
                 <div className="my-2">
                     <Entrada
@@ -137,7 +141,7 @@ export default function TabelaGnc(props: TabelaGncProps) {
                     />
                 </div>
             </div>
-            <div className="bg-white dark:bg-zinc-950 shadow-lg w-full p-1 rounded-lg border-2 border-neutral-200 dark:border-neutral-600">
+            <div className="bg-white dark:bg-neutral-950 shadow-lg w-full p-1 rounded-lg border-2 border-neutral-200 dark:border-neutral-600">
                 <table className={`table-fixed ${props.tb}`} id={props.id}>
                     <thead className="bg-neutral-900 dark:bg-neutral-700">
                         <tr className='font-bold text-white'>
@@ -152,10 +156,11 @@ export default function TabelaGnc(props: TabelaGncProps) {
                     </tbody>
                 </table>
             </div>
-            <div className="flex justify-end">
+            <div className="flex justify-between max-sm:justify-end">
                 {showPage ? (
                     <>
-                        <div className="">
+                        <div className="flex items-center max-sm:hidden">
+                            <span className="text-lg dark:text-white">Exibir</span>
                             <Selecione 
                                 nome="limite"
                                 valor={limite}
@@ -172,6 +177,7 @@ export default function TabelaGnc(props: TabelaGncProps) {
                                 <option>45</option>
                                 <option>50</option>
                             </Selecione>
+                            <span className="ml-2 text-lg dark:text-white">Resultados por página</span>
                         </div>
                         <Pagination dados={props.dados}
                             previus={() => setCurrentPage(currentPage === 1 ? currentPage : currentPage - 1)}
