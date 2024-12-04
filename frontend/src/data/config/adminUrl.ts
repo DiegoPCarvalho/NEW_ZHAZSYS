@@ -17,7 +17,7 @@ export const AdminUrl = [
         id: 3,
         nome: "Departamentos",
         icone: IconDepartamento,
-        url: "/Admin/Departamento"
+        url: "/Admin/Departamentos"
     },
     {
         id:4,
@@ -29,7 +29,7 @@ export const AdminUrl = [
         id: 5,
         nome: "Serviços",
         icone: IconServico,
-        url: "/Admin/Servico"
+        url: "/Admin/Servicos"
     },
     {
         id: 6,

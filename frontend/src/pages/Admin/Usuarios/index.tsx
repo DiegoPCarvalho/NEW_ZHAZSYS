@@ -12,7 +12,7 @@ export default function Usuarios(){
     const [tela, setTela] = useState<boolean>(false);
 
     return(
-        <Layout icone={<IconAdmin fontSize='large' />} texto="Admin">
+        <Layout icone={<IconAdmin fontSize='large' />} texto="Administrador">
              <div className='flex flex-col max-sm:grid'>
                 <div className='h-24 mt-3 mx-3'>
                     <NavigatePage
@@ -22,12 +22,14 @@ export default function Usuarios(){
                         // centroTela={<CentroTelaForm os="12345" />}
                     />
                 </div>
-                <div className='flex flex-col mt-2 mx-3  rounded-md  overflow-auto'>
+                <div className='flex flex-col mt-10 mx-3  rounded-md  overflow-auto'>
                     <div className="flex justify-end mr-2 h-16">
                         <AddItem icone={tela ? IconVoltarAdmin : IconAddUser} executar={() => setTela(!tela)} voltar={tela}/>
                     </div>
                     <div className="flex mx-3">
-                        {tela ? <FormUsers /> : <TableUsers dados={dado}/>}
+                        {tela ? <FormUsers /> :                         
+                            <TableUsers dados={dado}/>
+                        }
                     </div>
                 </div>
             </div>

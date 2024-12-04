@@ -6,6 +6,7 @@ import Entrada from "./Entrada"
 import jsonToCsvExport from 'json-to-csv-export';
 import { useState, useEffect } from 'react';
 import Selecione from "./Selecione";
+import Image from "next/image";
 
 interface TabelaGncProps {
     tb?: string
@@ -31,14 +32,14 @@ export default function TabelaGnc(props: TabelaGncProps) {
     const { novaData } = useGncData()
     const [banco, setBanco] = useState<any[]>(props.dados);
     const [vl, setVl] = useState<string>("")
-    const [total, setTotal] = useState<number>(props.dados.length)
+    const [total, setTotal] = useState<number>(props.dados?.length)
     const [limite, setLimite] = useState<number>(10)
     const [pages, setPages] = useState<number[]>()
     const [lastPage, setLastPage] = useState<number>()
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [showPage, setShowPage] = useState<boolean>(true)
 
-    useEffect(() => {
+    useEffect(() => {        
         const totalPages = Math.ceil(total / limite)
         let resultPages: any = []
 
@@ -56,7 +57,7 @@ export default function TabelaGnc(props: TabelaGncProps) {
     function renderBuscando() {
         return (
             <div className="d-flex justify-content-center align-items-center">
-                <img src={""} alt="" style={estilo} />
+                <Image src={""} alt="" style={estilo} />
                 <span className="fw-bold mx-2">Aguardando</span>
             </div>
         )

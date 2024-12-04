@@ -17,7 +17,7 @@ export function GncProvider({ children } : any){
     return (
         <GncBancoContext.Provider value={{
                 data,
-                novaData
+                novaData,
             }}>
             {children}
         </GncBancoContext.Provider>

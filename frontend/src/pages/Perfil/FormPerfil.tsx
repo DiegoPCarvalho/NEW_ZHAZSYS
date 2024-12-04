@@ -12,7 +12,7 @@ export default function FormPerfil() {
 
     return (
         <div className="bg-white dark:bg-neutral-950 m-4 flex flex-col w-[100%] h-[90%] shadow-lg rounded-lg ">
-            <div className="bg-emerald-600 dark:bg-emerald-950 h-20 rounded-t-lg flex justify-between items-center">
+            <div className="bg-emerald-600 dark:bg-emerald-800 h-20 rounded-t-lg flex justify-between items-center">
                 <div className="ml-5 text-white text-xl font-extrabold">
                     Meus Dados
                 </div>

@@ -1,12 +1,11 @@
 import TabelaGnc from "@/components/shared/TabelaGnc";
-import useGncData from './../../../data/hook/useGncData';
+import useGncData from '../../../data/hook/useGncData';
 
-
-interface TabelaUsersProps {
+interface TabelaContratosProps {
   dados?: any[]
 }
 
-export default function TabelaUsers(props: TabelaUsersProps) {
+export default function TabelaContratos(props: TabelaContratosProps) {
   const { data } = useGncData()
 
   function renderRows() {
@@ -24,20 +23,15 @@ export default function TabelaUsers(props: TabelaUsersProps) {
     let resultado = i % 2
 
     return resultado === 1 ? "bg-neutral-400 dark:bg-neutral-600 text-white" : "dark:text-white"
-  }
-  
+}
+
   return (
     <div className="w-[100%] mt-3">
       <TabelaGnc
         head={
           <>
             <th className="rounded-tl-lg p-2">id</th>
-            <th className="">Nome</th>
-            <th className="max-sm:hidden">E-mail</th>
-            <th className="max-sm:hidden">Departamento</th>
-            <th className="max-sm:hidden">Contrato</th>
-            <th className="max-sm:hidden">Especialidade</th>
-            <th className="max-sm:hidden">Acesso</th>
+            <th className="">Contrato</th>
             <th className="rounded-tr-lg">Ações</th>
           </>
         }
