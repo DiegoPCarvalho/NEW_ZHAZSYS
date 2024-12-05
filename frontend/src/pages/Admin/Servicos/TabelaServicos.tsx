@@ -31,7 +31,8 @@ export default function TabelaServicos(props: TabelaServicosProps) {
         head={
           <>
             <th className="rounded-tl-lg p-2">id</th>
-            <th className="">Departamento</th>
+            <th className="">Serviço</th>
+            <th className="">Tipo</th>
             <th className="rounded-tr-lg">Ações</th>
           </>
         }

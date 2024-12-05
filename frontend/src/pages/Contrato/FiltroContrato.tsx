@@ -83,7 +83,7 @@ export default function FiltroContrato() {
                     <option>2030</option>
                 </Selecione>
             </div>
-            <div className="flex h-[95%] items-end  ml-3 max-sm:justify-end max-sm:h-16">
+            <div className="flex h-[80%] items-end ml-3 max-sm:justify-end max-sm:h-16">
                 <Botao
                     className={`
                             cursor-pointer transition-all bg-emerald-500 dark:bg-emerald-700 text-white px-5 py-2 rounded-lg

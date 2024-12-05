@@ -1,19 +1,28 @@
 import Botao from "@/components/shared/Botao";
 import Entrada from "@/components/shared/Entrada";
 import Formulario from "@/components/shared/Formulario";
+import Selecione from "@/components/shared/Selecione";
 
 export default function FormServicos() {
     return (
         <div className="bg-white w-[100%] max-sm:w-[95%] mt-10 dark:bg-neutral-950 dark:text-white border shadow-lg dark:border-2 dark:border-neutral-600  rounded-lg">
-            <Formulario>
+            <Formulario className="m-5">
                 <div className="flex max-sm:flex-col items-center w-[100%]">
-                        <Entrada
-                            tipo="text"
-                            nome="NomeServico"
-                            texto="Servico:"
-                            className="grow mx-2 max-sm:mx-0"
-                        />
-                    <div className="flex justify-between items-end w-60 h-12 mt-5">
+                    <Entrada
+                        tipo="text"
+                        nome="NomeServico"
+                        texto="Servico:"
+                        className="grow mx-2 max-sm:mx-0"
+                    />
+                    <Selecione
+                        texto="Tipo:"
+                        nome="Tipo"
+                        className="grow max-sm:mx-0 max-sm:w-[80%]"
+                    >
+                        <option>Laboratório</option>
+                        <option>VHL</option>
+                    </Selecione>
+                    <div className="flex justify-between items-end w-60 h-12 mt-5 ml-2">
                         <Botao
                             className={`
                             cursor-pointer transition-all bg-sky-500 dark:bg-sky-700 text-white px-5 py-2 rounded-lg

@@ -7,7 +7,7 @@ import { Alert, Snackbar } from "@mui/material";
 export default function FormUsers() {
     return (
         <div className="bg-white w-[100%] mt-10 dark:bg-neutral-950 dark:text-white border shadow-lg dark:border-2 dark:border-neutral-600  rounded-lg">
-            <Formulario>
+            <Formulario className="m-5">
                 <div className="flex items-center max-lg:grid max-lg:grid-cols-2 max-sm:grid-cols-1">
                     <Entrada
                         tipo="text"

@@ -19,7 +19,7 @@ export default function FormularioLabo() {
                         centroTela={<CentroTelaForm os="12345" />}
                     />
                 </div>
-                <div className='mt-5 mx-3 bg-white dark:bg-zinc-950 dark:border-zinc-800 dark:shadow-md border rounded-md shadow-lg overflow-auto'>
+                <div className='mt-5 mx-3 bg-white dark:bg-zinc-950 dark:border-zinc-800 dark:shadow-md rounded-md shadow-lg overflow-auto'>
                     <FormLab />
                 </div>
             </div>

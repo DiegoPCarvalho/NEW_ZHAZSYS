@@ -9,7 +9,7 @@ export default function FileiraCards(){
             <CardInfo 
                 titulo="Total OS" info={123} 
                 icone={<FilterNoneIcon fontSize="large"/>} 
-                className="bg-stone-700 dark:bg-stone-900 boder-stone-200 dark:border-stone-700 text-white"
+                className="bg-stone-700 dark:bg-stone-800 boder-stone-200 dark:border-stone-700 text-white"
                 />
             <CardInfo 
                 titulo="Total Servico" info={246} 

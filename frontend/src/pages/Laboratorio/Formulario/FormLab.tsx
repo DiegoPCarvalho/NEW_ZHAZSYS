@@ -30,7 +30,7 @@ export default function FormLab() {
       }
 
     return (
-        <Formulario>
+        <Formulario className="m-5">
             <div className="flex items-center max-lg:grid max-lg:grid-cols-2 max-sm:grid-cols-1">
                 <Entrada
                     id={tema === 'dark' ? "dataDark" : ""}

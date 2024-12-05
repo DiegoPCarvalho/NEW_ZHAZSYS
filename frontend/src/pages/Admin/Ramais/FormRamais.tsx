@@ -6,7 +6,7 @@ import Selecione from "@/components/shared/Selecione";
 export default function FormRamais() {
     return (
         <div className="bg-white w-[100%] max-sm:w-[95%] mt-10 dark:bg-neutral-950 dark:text-white border shadow-lg dark:border-2 dark:border-neutral-600  rounded-lg">
-            <Formulario>
+            <Formulario className="m-5">
                 <div className="flex max-sm:flex-col items-center w-[100%]">
                     <Selecione
                         texto="Departamento:"

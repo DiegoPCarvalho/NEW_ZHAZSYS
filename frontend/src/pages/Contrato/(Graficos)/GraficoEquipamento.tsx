@@ -2,7 +2,7 @@ import GraficoGNC from "@/components/Grafico/Grafico";
 
 export default function GraficoEquipamento(){
     return (
-        <div className="m-2 bg-white rounded-lg shadow-lg dark:bg-neutral-950">
+        <div className="m-2 bg-white rounded-lg shadow-lg dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700">
                 <GraficoGNC
                     tipo="column" 
                     titulo="Conversão"
