@@ -10,10 +10,12 @@ export default function Content(props: ContentProps){
 
     return (
         <div className="flex h-full flex-col w-full">
-            <main className={`grow mb-5 ${menu ? "lg:ml-56" : ""}`}>
+            <main className={`grow mb-5 ${menu ? "" : ""}`}>
                 {props.children}
             </main>
             <Footer />
         </div>
     )
 }
+
+// lg:ml-56

@@ -23,7 +23,10 @@
     "react": "^18",
     "react-dom": "^18",
     "sharp": "^0.33.5",
-    "styled-components": "^6.1.13"
+    "styled-components": "^6.1.13",
+    "highcharts": "^11.3.0",
+    "highcharts-drilldown": "^0.1.7",
+    "highcharts-react-official": "^3.2.1"
   },
   "devDependencies": {
     "@types/node": "^20",

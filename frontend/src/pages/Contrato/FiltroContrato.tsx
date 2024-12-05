@@ -5,7 +5,7 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 export default function FiltroContrato() {
     return (
         <div className="flex w-[80%] justify-center max-sm:grid max-sm:grid-cols-1">
-            <div className="max-sm:hidden mr-3 h-full flex items-center"><FilterAltIcon sx={{ fontSize: 50 }} className="text-red-500 dark:text-red-800"/></div>
+            <div className="max-sm:hidden mr-3 h-[100%] flex items-center"><FilterAltIcon sx={{ fontSize: 50 }} className="text-red-500 dark:text-red-800"/></div>
             <div className="flex w-[70%] max-sm:grid max-sm:grid-cols-1 max-sm:w-[100%]">
                 <Selecione
                     texto="Contrato:"
