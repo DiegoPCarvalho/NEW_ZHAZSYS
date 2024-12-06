@@ -12,7 +12,7 @@ export default function FormVhl() {
     return (
         <Formulario className="h-[100%] max-sm:h-[96%] dark:text-white">
             <div className="flex justify-between w-[100%] max-sm:w-[98%] max-sm:grid max-sm:grid-cols-1">
-                <div className="flex flex-col p-5 w-[48%] max-sm:w-[95%] bg-white dark:bg-neutral-950 dark:border-2 rounded-lg dark:border-neutral-600 border shadow-lg">
+                <div className="flex flex-col p-5 w-[49%] max-sm:w-[95%] bg-white dark:bg-neutral-950 dark:border-2 rounded-lg dark:border-neutral-600 border shadow-lg">
                     <div className="flex max-sm:grid max-sm:grid-cols-1">
                         <Entrada
                             id={tema === 'dark' ? "dataDark" : ""}
@@ -62,8 +62,8 @@ export default function FormVhl() {
                         />
                     </div>
                 </div>
-                <div className="max-sm:grid p-5 max-sm:grid-cols-1 w-[48%] h-[100%] max-sm:mt-1 max-sm:w-[95%] bg-white dark:bg-neutral-950 dark:border-2 rounded-lg dark:border-neutral-600 border shadow-lg">
-                    <div className="flex max-sm:grid max-sm:grid-cols-1">
+                <div className="max-sm:grid p-5 max-sm:grid-cols-1 w-[50%] h-[100%] max-sm:mt-1 max-sm:w-[95%] bg-white dark:bg-neutral-950 dark:border-2 rounded-lg dark:border-neutral-600 border shadow-lg">
+                    <div className="flex max-sm:grid max-sm:grid-cols-1 ">
                         <Selecione
                             texto="Equipamento:"
                             nome="Equipamento"
@@ -94,7 +94,7 @@ export default function FormVhl() {
                             className="grow"
                             mensagemCampo="..."
                         />
-                        <div className="flex items-end ml-2">
+                        <div className="flex items-end ml-2 max-sm:h-10 max-sm:mt-5">
                             <Botao
                                 className={`
                             cursor-pointer transition-all bg-emerald-500 dark:bg-emerald-700 text-white px-3 py-2 rounded-lg
@@ -107,13 +107,13 @@ export default function FormVhl() {
                         </div>
                     </div>
                     <div className="mt-5 flex max-sm:grid max-sm:grid-cols-1">
-                        <table className="table-fixed w-[100%] shadow-md ">
+                        <table className="table-fixed w-[100%] shadow-md rounded-lg">
                             <thead>
                                 <tr className="bg-black text-white dark:bg-neutral-700">
                                     <th className="text-center rounded-t-lg p-1">Equipamentos</th>
                                 </tr>
                             </thead>
-                            <tbody className="block overflow-auto h-[200px] rounded-b-lg border-2 dark:border-neutral-700" id="hiddenScroll">
+                            <tbody className="block overflow-auto h-[150px] rounded-b-lg border-2 dark:border-neutral-700" id="hiddenScroll">
                                 <tr className="flex justify-between">
                                     <td className="">Cabo COnfec.</td>
                                     <td>LS2208</td>

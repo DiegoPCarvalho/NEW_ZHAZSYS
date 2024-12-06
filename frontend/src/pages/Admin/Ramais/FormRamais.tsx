@@ -20,12 +20,14 @@ export default function FormRamais() {
                         nome="NomeUsuario"
                         texto="Usuário:"
                         className="grow mx-2 max-sm:mx-0"
+                        mensagemCampo="..."
                     />
                     <Entrada
                         tipo="text"
                         nome="Ramal"
                         texto="Ramal:"
                         className="grow mx-2 max-sm:mx-0"
+                        mensagemCampo="..."
                     />
                     <div className="flex justify-between items-end w-60 h-12 mt-5">
                         <Botao

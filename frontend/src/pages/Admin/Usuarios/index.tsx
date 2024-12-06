@@ -22,7 +22,7 @@ export default function Usuarios(){
                         // centroTela={<CentroTelaForm os="12345" />}
                     />
                 </div>
-                <div className='flex flex-col mt-10 mx-3  rounded-md  overflow-auto'>
+                <div className='flex flex-col mt-5 mx-3  rounded-md  overflow-auto'>
                     <div className="flex justify-end mr-2 h-16">
                         <AddItem icone={tela ? IconVoltarAdmin : IconAddUser} executar={() => setTela(!tela)} voltar={tela}/>
                     </div>

@@ -10,7 +10,7 @@ export default function AddItem(props: AddItemProps) {
     return (
         <div className={`cursor-pointer overflow-hidden relative 
             hover:w-32 transition-all duration-200 ease-linear 
-            hover:-translate-x-3 w-16 p-2 overflow-y-clip 
+            hover:-translate-x-3 w-16 max-sm:w-12 p-2 max-sm:h-12 overflow-y-clip 
             group text-center
             ${props.voltar ? 
                 "bg-red-600 hover:bg-red-500 dark:bg-red-700 hover:border-red-800" 

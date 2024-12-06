@@ -31,7 +31,7 @@ export default function FormPerfil() {
                     ) : false}
                 </div>
             </div>
-            <Formulario className="overflow-auto h-[100%] justify-around">
+            <Formulario className="overflow-auto h-[100%] m-5 justify-around">
                 <div className="flex max-lg:grid max-sm:grid-cols-1">
                     <Entrada
                         texto="Nome Completo:"

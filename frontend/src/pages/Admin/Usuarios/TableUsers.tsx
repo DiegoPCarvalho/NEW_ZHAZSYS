@@ -27,7 +27,7 @@ export default function TabelaUsers(props: TabelaUsersProps) {
   }
   
   return (
-    <div className="w-[100%] mt-3">
+    <div className="w-[100%]">
       <TabelaGnc
         head={
           <>
@@ -42,7 +42,6 @@ export default function TabelaUsers(props: TabelaUsersProps) {
           </>
         }
         tb="w-full"
-        classe="border-separate border-spacing-2"
         dados={props.dados}
       >
         {renderRows()}

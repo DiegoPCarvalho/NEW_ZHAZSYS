@@ -6,7 +6,7 @@ import { Alert, Snackbar } from "@mui/material";
 
 export default function FormUsers() {
     return (
-        <div className="bg-white w-[100%] mt-10 dark:bg-neutral-950 dark:text-white border shadow-lg dark:border-2 dark:border-neutral-600  rounded-lg">
+        <div className="bg-white w-[100%] mt-2 dark:bg-neutral-950 dark:text-white border shadow-lg dark:border-2 dark:border-neutral-600  rounded-lg">
             <Formulario className="m-5">
                 <div className="flex items-center max-lg:grid max-lg:grid-cols-2 max-sm:grid-cols-1">
                     <Entrada
@@ -23,6 +23,15 @@ export default function FormUsers() {
                         className="grow"
                         mensagemCampo="..."
                     />
+                    <Selecione
+                        texto="Departamento:"
+                        nome="Departamento"
+                        className="grow"
+                    >
+                        <option>aaaaaaaaaaaaaaaaaaaaa</option>
+                    </Selecione>
+                </div>
+                <div className="lg:mt-3 flex items-center max-lg:grid max-lg:grid-cols-2 max-sm:grid-cols-1">
                     <Entrada
                         tipo="password"
                         nome="Senha"
@@ -37,16 +46,6 @@ export default function FormUsers() {
                         className="grow"
                         mensagemCampo="..."
                     />
-
-                </div>
-                <div className="lg:mt-3 flex items-center max-lg:grid max-lg:grid-cols-2 max-sm:grid-cols-1">
-                    <Selecione
-                        texto="Departamento:"
-                        nome="Departamento"
-                        className="grow"
-                    >
-                        <option>aaaaaaaaaaaaaaaaaaaaa</option>
-                    </Selecione>
                     <Selecione
                         texto="Contrato:"
                         nome="Contrato"
@@ -54,6 +53,8 @@ export default function FormUsers() {
                     >
                         <option>aaaaaaaaaaaaaaaaaaaaa</option>
                     </Selecione>
+                </div>
+                <div className="lg:mt-3 flex items-center max-lg:grid max-lg:grid-cols-2 max-sm:grid-cols-1">
                     <Selecione
                         texto="Especialidade:"
                         nome="Especialidade"
@@ -66,46 +67,55 @@ export default function FormUsers() {
                         nome="Acesso"
                         className="grow"
                     >
-                        <option>aaaaaaaaaaaaaaaaaaaaa</option>
+                        <option>Level 1</option>
+                        <option>Level 2</option>
+                        <option>Level 3</option>
                     </Selecione>
+                    <Entrada
+                        tipo="text"
+                        nome="FotoUrl"
+                        texto="Foto Url:"
+                        className="grow"
+                        mensagemCampo="..."
+                    />
                 </div>
                 <div className="flex justify-end mt-10">
-                <div className="flex justify-between items-center w-60 h-12">
-                    <Botao
-                        className={`
+                    <div className="flex justify-between items-center w-60 h-12">
+                        <Botao
+                            className={`
                             cursor-pointer transition-all bg-sky-500 dark:bg-sky-700 text-white px-5 py-2 rounded-lg
                             border-sky-600 dark:border-sky-800
                             border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
                             active:border-b-[2px] active:brightness-90 active:translate-y-[2px] 
                         `}
 
-                        executar={() => console.log("")}
-                    >Salvar</Botao>
-                    <Botao
-                        className={`
+                            executar={() => console.log("")}
+                        >Salvar</Botao>
+                        <Botao
+                            className={`
                             cursor-pointer transition-all bg-red-500 dark:bg-red-700 text-white px-5 py-2 rounded-lg
                             border-red-600 dark:border-red-800
                             border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
                             active:border-b-[2px] active:brightness-90 active:translate-y-[2px]  
                             `}
-                    >Cancelar</Botao>
+                        >Cancelar</Botao>
+                    </div>
                 </div>
-            </div>
             </Formulario>
-            <Snackbar 
-                // open={open} 
-                // autoHideDuration={2000} 
-                // onClose={close}              
-             >
+            <Snackbar
+            // open={open} 
+            // autoHideDuration={2000} 
+            // onClose={close}              
+            >
                 <Alert
                     // onClose={close}
                     severity="error"
                     variant="filled"
-                    sx={{ width: '100%' }}  
+                    sx={{ width: '100%' }}
                 >
-                   error
-                </Alert>    
-            </Snackbar>  
+                    error
+                </Alert>
+            </Snackbar>
         </div>
     )
 }
