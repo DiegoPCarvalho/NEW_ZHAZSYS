@@ -10,9 +10,9 @@ export default function FormVhl() {
     const { tema } = useAppData()
 
     return (
-        <Formulario className="h-[100%] max-sm:h-[96%] dark:text-white">
+        <Formulario className="max-sm:h-[96%] dark:text-white">
             <div className="flex justify-between w-[100%] max-sm:w-[98%] max-sm:grid max-sm:grid-cols-1">
-                <div className="flex flex-col p-5 w-[49%] max-sm:w-[95%] bg-white dark:bg-neutral-950 dark:border-2 rounded-lg dark:border-neutral-600 border shadow-lg">
+                <div className="flex flex-col grow p-5 max-sm:w-[95%] bg-white dark:bg-neutral-950 dark:border-2 rounded-lg dark:border-neutral-600 border shadow-lg">
                     <div className="flex max-sm:grid max-sm:grid-cols-1">
                         <Entrada
                             id={tema === 'dark' ? "dataDark" : ""}
@@ -62,7 +62,7 @@ export default function FormVhl() {
                         />
                     </div>
                 </div>
-                <div className="max-sm:grid p-5 max-sm:grid-cols-1 w-[50%] h-[100%] max-sm:mt-1 max-sm:w-[95%] bg-white dark:bg-neutral-950 dark:border-2 rounded-lg dark:border-neutral-600 border shadow-lg">
+                <div className="flex flex-col ml-5 max-sm:grid p-5 max-sm:grid-cols-1 max-sm:mt-1 max-sm:w-[95%] bg-white dark:bg-neutral-950 dark:border-2 rounded-lg dark:border-neutral-600 border shadow-lg">
                     <div className="flex max-sm:grid max-sm:grid-cols-1 ">
                         <Selecione
                             texto="Equipamento:"
@@ -107,7 +107,7 @@ export default function FormVhl() {
                         </div>
                     </div>
                     <div className="mt-5 flex max-sm:grid max-sm:grid-cols-1">
-                        <table className="table-fixed w-[100%] shadow-md rounded-lg">
+                        <table className="table-fixed grow shadow-md rounded-lg">
                             <thead>
                                 <tr className="bg-black text-white dark:bg-neutral-700">
                                     <th className="text-center rounded-t-lg p-1">Equipamentos</th>

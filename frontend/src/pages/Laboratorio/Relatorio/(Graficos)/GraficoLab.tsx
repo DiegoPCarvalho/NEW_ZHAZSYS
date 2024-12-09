@@ -1,6 +1,6 @@
 import GraficoGNC from "@/components/Grafico/Grafico";
 
-export default function GraficoEquipamento(){
+export default function GraficoLab(){
     return (
         <div className="m-2 bg-white rounded-lg shadow-lg dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700">
                 <GraficoGNC
@@ -11,7 +11,7 @@ export default function GraficoEquipamento(){
                     cor={true}
                     legenda={false}
                     categoria={['Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago']}
-                    vertical={300}
+                    vertical={250}
                     mudar={true}
                     serie={[{
                         name: '%Led>Oportunidade',

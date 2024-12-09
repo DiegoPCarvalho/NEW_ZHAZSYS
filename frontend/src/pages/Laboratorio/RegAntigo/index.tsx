@@ -3,10 +3,12 @@ import { IconQrcode, IconRegAntigo } from '@/components/icons/IconesMaterial';
 import Layout from './../../../components/template/Layout';
 import NavigatePage from '@/components/navigatePage/NavigatePage';
 import { LabUrl } from '@/data/config/labUrl';
+import TabelaRaLab from './TabelaRaLab';
+import { dado } from '@/data/db_teste/dado_teste';
 
 export default function RegAntigoLabo() {
     return (
-        <Layout icone={<IconQrcode fontSize='large' />} texto="Laboratorio">
+        <Layout icone={<IconQrcode fontSize='large' />} texto="Laboratório">
              <div className='flex flex-col'>
                 <div className='h-16 mt-3 mx-3'>
                     <NavigatePage
@@ -15,29 +17,7 @@ export default function RegAntigoLabo() {
                         data={LabUrl} dataMini={LabUrl}
                     />
                 </div>
-                <div className='border mt-10'>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                    <div>conteudo</div>
-                </div>
+                <TabelaRaLab dados={dado}/>
             </div>
         </Layout>
     )
