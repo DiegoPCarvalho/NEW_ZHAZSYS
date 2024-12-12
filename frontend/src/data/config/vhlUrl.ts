@@ -9,15 +9,15 @@ export const VhlUrl= [
     },
     {
         id: 2,
-        nome: "Reg. Antigo",
-        icone: IconRegAntigo,
-        url: "/VHL/RegAntigo"
-    },
-    {
-        id: 3,
         nome: "Tabela",
         icone: IconTabela,
         url: "/VHL/Tabela"
+    },
+    {
+        id: 3,
+        nome: "Reg. Antigo",
+        icone: IconRegAntigo,
+        url: "/VHL/RegAntigo"
     },
     {
         id: 4,

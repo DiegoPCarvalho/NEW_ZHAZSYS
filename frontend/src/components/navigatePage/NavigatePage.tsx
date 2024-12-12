@@ -36,7 +36,7 @@ export default function NavigatePage(props: NavigatePageProps) {
             <div className={`sm:hidden flex items-center ${props.excecao ? "w-[145px]" : "w-[105px]"}  h-[70px]`}>
                 <NavigateMiniPage dado={props.dataMini} tituloMini={props.titulo}/>
             </div>
-            <div className="flex justify-end max-sm:hidden">
+            <div className="flex justify-end max-sm:hidden mr-3">
                 <div className="flex justify-between items-center">
                     {renderNavItem()}
                 </div>

@@ -19,7 +19,7 @@ export default function FileiraCards(){
              <CardInfo 
                 titulo="Limpeza" info={246} 
                 icone={<CleaningServicesIcon fontSize="large"/>} 
-                className="bg-emerald-700 dark:bg-emerald-900 boder-emerald-200 dark:border-emerald-700 text-white"
+                className="bg-red-700 dark:bg-red-900 boder-red-200 dark:border-red-700 text-white"
                 />
         </div>
     )

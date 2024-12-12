@@ -13,7 +13,7 @@ import {
     IconPerfil,
     IconSetaDown,
     IconGerencia,
-    IconDashboard,
+    IconDash,
     IconFila,
     IconTabela,
     IconForm,
@@ -80,7 +80,7 @@ export default function Menu() {
                 <div className="mt-3 ml-5 text-xs font-extrabold text-gray-400">MENU</div>
                 <div className="">
                     <MenuDropDown classe="" icone={<IconGerencia />} texto="Gerencia" marcacao={<IconSetaDown />} down={gnc} executar={() => setGnc(!gnc)}>
-                        <MenuDropDownItem icone={<IconDashboard />} texto="Dashbord" executar={altenarMenu} url="/Gerencia/Dashboard" />
+                        <MenuDropDownItem icone={<IconDash />} texto="Dashbord" executar={altenarMenu} url="/Gerencia/Dashboard" />
                         <MenuDropDownItem icone={<IconFila />} texto="Fila Técnica" executar={altenarMenu} url="/Gerencia/FilaTecnica" />
                         <MenuDropDownItem icone={<IconTabela />} texto="Tabela Geral" executar={altenarMenu} url="/Gerencia/TabelaGeral" />
                     </MenuDropDown>
