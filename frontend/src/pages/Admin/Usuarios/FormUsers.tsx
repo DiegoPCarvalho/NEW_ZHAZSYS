@@ -3,8 +3,18 @@ import Formulario from "@/components/shared/Formulario";
 import Selecione from './../../../components/shared/Selecione';
 import Botao from "@/components/shared/Botao";
 import { Alert, Snackbar } from "@mui/material";
+import { Usuario } from "@/data/interfaces/Usuario";
+import { salvar } from "@/data/functions/Salvar";
 
-export default function FormUsers() {
+interface FormUsersProps {
+    usuario: Usuario
+    baseUrl: string
+    mudar: (novoValor: any) => void
+    limpar: () => void
+}
+
+export default function FormUsers(props: FormUsersProps) {
+    
     return (
         <div className="bg-white w-[100%] mt-2 dark:bg-neutral-950 dark:text-white border shadow-lg dark:border-2 dark:border-neutral-600  rounded-lg">
             <Formulario className="m-5">
@@ -12,6 +22,8 @@ export default function FormUsers() {
                     <Entrada
                         tipo="text"
                         nome="NomeCompleto"
+                        valor={props.usuario?.NomeCompleto}
+                        alterouCampo={(e) => props.mudar(e)}
                         texto="Nome Completo:"
                         className="grow"
                         mensagemCampo="..."
@@ -19,6 +31,8 @@ export default function FormUsers() {
                     <Entrada
                         tipo="text"
                         nome="Email"
+                        valor={props.usuario?.Email}
+                        alterouCampo={(e) => props.mudar(e)}
                         texto="E-mail:"
                         className="grow"
                         mensagemCampo="..."
@@ -26,6 +40,8 @@ export default function FormUsers() {
                     <Selecione
                         texto="Departamento:"
                         nome="Departamento"
+                        valor={props.usuario?.Departamento}
+                        alterouCampo={(e) => props.mudar(e)}
                         className="grow"
                     >
                         <option>aaaaaaaaaaaaaaaaaaaaa</option>
@@ -33,22 +49,30 @@ export default function FormUsers() {
                 </div>
                 <div className="lg:mt-3 flex items-center max-lg:grid max-lg:grid-cols-2 max-sm:grid-cols-1">
                     <Entrada
-                        tipo="password"
+                        tipo="text"
                         nome="Senha"
+                        valor={props.usuario?.Senha}
+                        alterouCampo={(e) => props.mudar(e)}
                         texto="Senha:"
                         className="grow"
                         mensagemCampo="..."
                     />
-                    <Entrada
-                        tipo="password"
-                        nome="ConfirmarSenha"
-                        texto="Confirmar Senha:"
+                    <Selecione
+                        texto="Acesso:"
+                        nome="Acesso"
+                        valor={props.usuario?.Acesso}
+                        alterouCampo={(e) => props.mudar(e)}
                         className="grow"
-                        mensagemCampo="..."
-                    />
+                    >
+                        <option>Level 1</option>
+                        <option>Level 2</option>
+                        <option>Level 3</option>
+                    </Selecione>
                     <Selecione
                         texto="Contrato:"
                         nome="Contrato"
+                        valor={props.usuario?.Contrato}
+                        alterouCampo={(e) => props.mudar(e)}
                         className="grow"
                     >
                         <option>aaaaaaaaaaaaaaaaaaaaa</option>
@@ -58,22 +82,17 @@ export default function FormUsers() {
                     <Selecione
                         texto="Especialidade:"
                         nome="Especialidade"
+                        valor={props.usuario?.Especialidade}
+                        alterouCampo={(e) => props.mudar(e)}
                         className="grow"
                     >
                         <option>aaaaaaaaaaaaaaaaaaaaa</option>
                     </Selecione>
-                    <Selecione
-                        texto="Acesso:"
-                        nome="Acesso"
-                        className="grow"
-                    >
-                        <option>Level 1</option>
-                        <option>Level 2</option>
-                        <option>Level 3</option>
-                    </Selecione>
                     <Entrada
                         tipo="text"
                         nome="FotoUrl"
+                        valor={props.usuario?.FotoUrl}
+                        alterouCampo={(e) => props.mudar(e)}
                         texto="Foto Url:"
                         className="grow"
                         mensagemCampo="..."
@@ -89,7 +108,7 @@ export default function FormUsers() {
                             active:border-b-[2px] active:brightness-90 active:translate-y-[2px] 
                         `}
 
-                            executar={() => console.log("")}
+                            executar={() => salvar(props.usuario, props.baseUrl)}
                         >Salvar</Botao>
                         <Botao
                             className={`
@@ -98,6 +117,7 @@ export default function FormUsers() {
                             border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
                             active:border-b-[2px] active:brightness-90 active:translate-y-[2px]  
                             `}
+                            executar={() => props.limpar()}
                         >Cancelar</Botao>
                     </div>
                 </div>

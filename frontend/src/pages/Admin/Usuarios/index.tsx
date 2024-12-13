@@ -3,13 +3,48 @@ import { IconUser, IconAdmin, IconAddUser, IconVoltarAdmin } from '@/components/
 import NavigatePage from "@/components/navigatePage/NavigatePage";
 import { AdminUrl } from "@/data/config/adminUrl";
 import AddItem from "@/components/shared/AddItem";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FormUsers from "./FormUsers";
 import TableUsers from "./TableUsers";
-import { dado } from "@/data/db_teste/dado_teste";
+import Banco from "@/data/database/banco";
+import { Usuario, initialUser } from "@/data/interfaces/Usuario";
+import { remover } from "@/data/functions/Deletar";
 
 export default function Usuarios(){
     const [tela, setTela] = useState<boolean>(false);
+    const [banco, setBanco] = useState<any[]>([])
+    const [usuario, setUsuario] = useState<Usuario>(initialUser)
+    const baseUrl = Banco("LoginUsuario")
+
+    async function BuscarDados(){
+        const dado = await fetch(baseUrl).then(resp => resp.json())
+        setBanco(dado)
+    }
+
+    useEffect(() => {
+        BuscarDados()
+    }, [])
+
+
+    function mudarCampo(event: any){
+        const User : any = { ...usuario }
+        User[event.target.name] = event.target.value
+        setUsuario(User)
+    }
+
+    function limpar(){
+        setUsuario(initialUser)
+    }
+
+    function load(usuario: Usuario){
+        setUsuario(usuario)
+        setTela(true)
+    }
+
+    function validarRemove(usuario: Usuario){
+       remover(usuario, baseUrl)
+    }
+    
 
     return(
         <Layout icone={<IconAdmin fontSize='large' />} texto="Administrador">
@@ -19,7 +54,6 @@ export default function Usuarios(){
                         titulo="Usuários"
                         iconeTitulo={<IconUser sx={{ fontSize: 60 }} className=" text-neutral-800 dark:text-neutral-200" />}
                         data={AdminUrl} dataMini={AdminUrl} excecao
-                        // centroTela={<CentroTelaForm os="12345" />}
                     />
                 </div>
                 <div className='flex flex-col mt-5 mx-3  rounded-md  overflow-auto'>
@@ -27,8 +61,8 @@ export default function Usuarios(){
                         <AddItem icone={tela ? IconVoltarAdmin : IconAddUser} executar={() => setTela(!tela)} voltar={tela}/>
                     </div>
                     <div className="flex mx-3">
-                        {tela ? <FormUsers /> :                         
-                            <TableUsers dados={dado}/>
+                        {tela ? <FormUsers baseUrl={baseUrl} usuario={usuario} limpar={limpar} mudar={(e) => mudarCampo(e)}/> :                         
+                            <TableUsers remove={validarRemove} dados={banco} load={load}/>
                         }
                     </div>
                 </div>

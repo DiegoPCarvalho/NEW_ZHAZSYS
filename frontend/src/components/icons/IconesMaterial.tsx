@@ -20,6 +20,8 @@ import IconRamal from '@mui/icons-material/PhoneInTalk';
 import IconEquipamento from '@mui/icons-material/Handyman';
 import IconAddUser from '@mui/icons-material/PersonAdd';
 import IconVoltarAdmin from '@mui/icons-material/Reply';
+import IconAlterar from '@mui/icons-material/Draw';
+import IconDeletar from '@mui/icons-material/DeleteForever';
 
 export {
     IconGerencia,
@@ -43,5 +45,7 @@ export {
     IconRamal,
     IconEquipamento,
     IconAddUser,
-    IconVoltarAdmin
+    IconVoltarAdmin,
+    IconAlterar,
+    IconDeletar
 }
