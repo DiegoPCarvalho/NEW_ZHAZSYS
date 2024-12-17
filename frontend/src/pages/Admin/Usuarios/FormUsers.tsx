@@ -4,13 +4,14 @@ import Selecione from './../../../components/shared/Selecione';
 import Botao from "@/components/shared/Botao";
 import { Alert, Snackbar } from "@mui/material";
 import { Usuario } from "@/data/interfaces/Usuario";
-import { salvar } from "@/data/functions/Salvar";
+
 
 interface FormUsersProps {
     usuario: Usuario
     baseUrl: string
     mudar: (novoValor: any) => void
     limpar: () => void
+    verificar: () => void
 }
 
 export default function FormUsers(props: FormUsersProps) {
@@ -27,6 +28,7 @@ export default function FormUsers(props: FormUsersProps) {
                         texto="Nome Completo:"
                         className="grow"
                         mensagemCampo="..."
+                        requerido
                     />
                     <Entrada
                         tipo="text"
@@ -36,6 +38,7 @@ export default function FormUsers(props: FormUsersProps) {
                         texto="E-mail:"
                         className="grow"
                         mensagemCampo="..."
+                        requerido
                     />
                     <Selecione
                         texto="Departamento:"
@@ -43,6 +46,7 @@ export default function FormUsers(props: FormUsersProps) {
                         valor={props.usuario?.Departamento}
                         alterouCampo={(e) => props.mudar(e)}
                         className="grow"
+                        requerido
                     >
                         <option>aaaaaaaaaaaaaaaaaaaaa</option>
                     </Selecione>
@@ -56,6 +60,7 @@ export default function FormUsers(props: FormUsersProps) {
                         texto="Senha:"
                         className="grow"
                         mensagemCampo="..."
+                        requerido
                     />
                     <Selecione
                         texto="Acesso:"
@@ -63,6 +68,7 @@ export default function FormUsers(props: FormUsersProps) {
                         valor={props.usuario?.Acesso}
                         alterouCampo={(e) => props.mudar(e)}
                         className="grow"
+                        requerido
                     >
                         <option>Level 1</option>
                         <option>Level 2</option>
@@ -74,6 +80,7 @@ export default function FormUsers(props: FormUsersProps) {
                         valor={props.usuario?.Contrato}
                         alterouCampo={(e) => props.mudar(e)}
                         className="grow"
+                        requerido
                     >
                         <option>aaaaaaaaaaaaaaaaaaaaa</option>
                     </Selecione>
@@ -85,6 +92,7 @@ export default function FormUsers(props: FormUsersProps) {
                         valor={props.usuario?.Especialidade}
                         alterouCampo={(e) => props.mudar(e)}
                         className="grow"
+                        requerido
                     >
                         <option>aaaaaaaaaaaaaaaaaaaaa</option>
                     </Selecione>
@@ -96,6 +104,7 @@ export default function FormUsers(props: FormUsersProps) {
                         texto="Foto Url:"
                         className="grow"
                         mensagemCampo="..."
+                        requerido
                     />
                 </div>
                 <div className="flex justify-end mt-10">
@@ -108,7 +117,7 @@ export default function FormUsers(props: FormUsersProps) {
                             active:border-b-[2px] active:brightness-90 active:translate-y-[2px] 
                         `}
 
-                            executar={() => salvar(props.usuario, props.baseUrl)}
+                            executar={props.verificar}
                         >Salvar</Botao>
                         <Botao
                             className={`
@@ -117,7 +126,7 @@ export default function FormUsers(props: FormUsersProps) {
                             border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
                             active:border-b-[2px] active:brightness-90 active:translate-y-[2px]  
                             `}
-                            executar={() => props.limpar()}
+                            executar={props.limpar}
                         >Cancelar</Botao>
                     </div>
                 </div>

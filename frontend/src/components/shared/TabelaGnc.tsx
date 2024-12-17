@@ -6,6 +6,7 @@ import Entrada from "./Entrada"
 import jsonToCsvExport from 'json-to-csv-export';
 import { useState, useEffect } from 'react';
 import Selecione from "./Selecione";
+import loding from '@/assets/gifs/carregar.gif';
 import Image from "next/image";
 
 interface TabelaGncProps {
@@ -55,14 +56,14 @@ export default function TabelaGnc(props: TabelaGncProps) {
         inicio()
         paginar(props.dados, currentPage, +limite)
 
-    }, [currentPage, limite, props.dados])
+    }, [currentPage, limite, props.dados, total])
 
 
     function renderBuscando() {
         return (
-            <div className="d-flex justify-content-center align-items-center">
-                {/* <Image src={""} alt="" style={estilo} /> */}
-                <span className="fw-bold mx-2">Aguardando</span>
+            <div className="flex items-center">
+                <Image src={loding} alt="" style={estilo} />
+                <span className="font-bold ml-2">Aguardando</span>
             </div>
         )
     }
@@ -154,7 +155,7 @@ export default function TabelaGnc(props: TabelaGncProps) {
                         </tr>
                     </thead>
                     <tbody style={props.styles} className={props.classe}>
-                        {props.dados === 0 ?
+                        {props.dados?.length === 0 ?
                             renderBuscando()
                             : props.children
                         }

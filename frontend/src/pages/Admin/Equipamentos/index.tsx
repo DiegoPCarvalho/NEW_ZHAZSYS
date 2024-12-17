@@ -5,6 +5,8 @@ import { AdminUrl } from "@/data/config/adminUrl";
 import FormEquipamento from "./FormEquipamentos";
 import TabelaEquipamentos from "./TabelaEquipamentos";
 import { dado } from "@/data/db_teste/dado_teste";
+import AlertDialog from "@/components/shared/DialogExcluir";
+
 
 export default function Equipamentos() {
     return (
@@ -23,7 +25,10 @@ export default function Equipamentos() {
                     <FormEquipamento />
                 </div>
                 <div className="flex w-[90%] max-sm:w-[100%] justify-center">
-                    <TabelaEquipamentos dados={dado}/>
+                    <TabelaEquipamentos dados={[]}/>
+                </div>
+                <div>
+                    <AlertDialog />
                 </div>
             </div>
         </Layout>

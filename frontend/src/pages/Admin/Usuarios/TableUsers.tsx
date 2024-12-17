@@ -18,14 +18,13 @@ export default function TabelaUsers(props: TabelaUsersProps) {
     return data?.map((registro: any, i: number) => {
       return (
         <tr key={registro.id} className={`${intercalado(i)} text-center `}>
-          <td className="h-14">{registro.id}</td>
-          <td className="">{registro.nomeCompleto}</td>
-          <td className="max-sm:hidden">{registro.email}</td>
-          <td className="max-sm:hidden">{registro.departamento}</td>
-          <td className="max-sm:hidden">{registro.departamento}</td>
-          <td className="max-sm:hidden">{registro.departamento}</td>
-          <td className="max-sm:hidden">{registro.departamento}</td>
-          <td className="max-sm:hidden">
+          <td className="">{registro.NomeCompleto}</td>
+          <td className="max-sm:hidden">{registro.Email}</td>
+          <td className="max-sm:hidden">{registro.Departamento}</td>
+          <td className="max-sm:hidden">{registro.Contrato}</td>
+          <td className="max-sm:hidden">{registro.Especialidade}</td>
+          <td className="max-sm:hidden">{registro.Acesso}</td>
+          <td className="">
             <div className="flex justify-around">
               <Botao
                 className="
@@ -67,8 +66,7 @@ export default function TabelaUsers(props: TabelaUsersProps) {
       <TabelaGnc
         head={
           <>
-            <th className="rounded-tl-lg p-2 w-[5%]">id</th>
-            <th className="">Nome</th>
+            <th className="rounded-tl-lg p-2">Nome</th>
             <th className="max-sm:hidden">E-mail</th>
             <th className="max-sm:hidden">Departamento</th>
             <th className="max-sm:hidden">Contrato</th>
