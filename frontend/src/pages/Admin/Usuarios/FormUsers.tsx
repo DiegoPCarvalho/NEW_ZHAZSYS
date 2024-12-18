@@ -4,12 +4,18 @@ import Selecione from './../../../components/shared/Selecione';
 import Botao from "@/components/shared/Botao";
 import { Alert, Snackbar } from "@mui/material";
 import { Usuario } from "@/data/interfaces/Usuario";
+import { Mensagem } from "@/data/interfaces/Mensagem";
 
 
 interface FormUsersProps {
     usuario: Usuario
     baseUrl: string
+    senha: string
+    status?: Mensagem
+    open: boolean
+    close: () => void
     mudar: (novoValor: any) => void
+    setSenha: (novoValor: any) => void
     limpar: () => void
     verificar: () => void
 }
@@ -54,9 +60,9 @@ export default function FormUsers(props: FormUsersProps) {
                 <div className="lg:mt-3 flex items-center max-lg:grid max-lg:grid-cols-2 max-sm:grid-cols-1">
                     <Entrada
                         tipo="text"
-                        nome="Senha"
-                        valor={props.usuario?.Senha}
-                        alterouCampo={(e) => props.mudar(e)}
+                        // nome="Senha"
+                        valor={props.senha}
+                        alterouCampo={(e) => props.setSenha(e.target.value)}
                         texto="Senha:"
                         className="grow"
                         mensagemCampo="..."
@@ -132,17 +138,17 @@ export default function FormUsers(props: FormUsersProps) {
                 </div>
             </Formulario>
             <Snackbar
-            // open={open} 
-            // autoHideDuration={2000} 
-            // onClose={close}              
+                open={props.open} 
+                autoHideDuration={2000} 
+                onClose={props.close}              
             >
                 <Alert
-                    // onClose={close}
-                    severity="error"
-                    variant="filled"
+                    onClose={props.close}
+                    severity={props.status!.severity}
+                    variant={props.status!.variant}
                     sx={{ width: '100%' }}
                 >
-                    error
+                    {props.status!.memsagem}
                 </Alert>
             </Snackbar>
         </div>

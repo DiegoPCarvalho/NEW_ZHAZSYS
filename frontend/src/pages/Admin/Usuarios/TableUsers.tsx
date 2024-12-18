@@ -2,7 +2,9 @@ import TabelaGnc from "@/components/shared/TabelaGnc";
 import useGncData from './../../../data/hook/useGncData';
 import Botao from "@/components/shared/Botao";
 import { IconAlterar, IconDeletar } from "@/components/icons/IconesMaterial";
-import { Usuario } from "@/data/interfaces/Usuario";
+import { initialUser, Usuario } from "@/data/interfaces/Usuario";
+import { useState } from "react";
+import DialogExcluir from "@/components/shared/DialogExcluir";
 
 
 interface TabelaUsersProps {
@@ -13,6 +15,8 @@ interface TabelaUsersProps {
 
 export default function TabelaUsers(props: TabelaUsersProps) {
   const { data } = useGncData()
+  const [excluir, setExcluir] = useState<boolean>(false)
+  const [dado, setDado] = useState<Usuario>(initialUser)
 
   function renderRows() {
     return data?.map((registro: any, i: number) => {
@@ -44,7 +48,7 @@ export default function TabelaUsers(props: TabelaUsersProps) {
                 border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
                 active:border-b-[2px] active:brightness-90 active:translate-y-[2px]
                 "
-                executar={() => props.remove!(registro)}
+                executar={() => abrir(registro)}
               >
                 <IconDeletar />
               </Botao>
@@ -59,6 +63,17 @@ export default function TabelaUsers(props: TabelaUsersProps) {
     let resultado = i % 2
 
     return resultado === 1 ? "bg-neutral-400 dark:bg-neutral-600 text-white" : "dark:text-white"
+  }
+
+  function abrir(registro: Usuario) {
+      setExcluir(true)
+      setDado(registro)
+  }
+
+  function concluirExcluir(){
+      props.remove!(dado)
+      setExcluir(false)
+      setDado(initialUser)
   }
 
   return (
@@ -80,6 +95,11 @@ export default function TabelaUsers(props: TabelaUsersProps) {
       >
         {renderRows()}
       </TabelaGnc>
+      <DialogExcluir
+        open={excluir}
+        exec={concluirExcluir}
+        close={() => setExcluir(false)}
+      />
     </div>
   )
 }

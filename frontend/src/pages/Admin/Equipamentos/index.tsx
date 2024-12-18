@@ -4,8 +4,7 @@ import NavigatePage from "@/components/navigatePage/NavigatePage";
 import { AdminUrl } from "@/data/config/adminUrl";
 import FormEquipamento from "./FormEquipamentos";
 import TabelaEquipamentos from "./TabelaEquipamentos";
-import { dado } from "@/data/db_teste/dado_teste";
-import AlertDialog from "@/components/shared/DialogExcluir";
+
 
 
 export default function Equipamentos() {
@@ -28,7 +27,6 @@ export default function Equipamentos() {
                     <TabelaEquipamentos dados={[]}/>
                 </div>
                 <div>
-                    <AlertDialog />
                 </div>
             </div>
         </Layout>

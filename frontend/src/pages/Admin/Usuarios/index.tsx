@@ -10,16 +10,29 @@ import Banco from "@/data/database/banco";
 import { Usuario, initialUser } from "@/data/interfaces/Usuario";
 import { remover } from "@/data/functions/Deletar";
 import { salvar } from "@/data/functions/Salvar";
+import criptPassword  from "@/data/functions/Password";
+import axios from 'axios'
+import { SnackbarCloseReason } from '@mui/material/Snackbar';
+import Botao from "@/components/shared/Botao";
+import { Mensagem } from "@/data/interfaces/Mensagem";
 
 export default function Usuarios() {
     const [tela, setTela] = useState<boolean>(false);
     const [alterar, setAlterar] = useState<boolean>(false);
     const [banco, setBanco] = useState<any[]>([])
     const [usuario, setUsuario] = useState<Usuario>(initialUser)
+    const [senha, setSenha] = useState<string>("")
+    const [open, setOpen] = useState<boolean>(false)
     const baseUrl = Banco("LoginUsuario")
 
+    const mensagem: Mensagem = {
+        severity: "warning",
+        variant: "standard",
+        memsagem: "Salvo com sucesso !!!"
+    }   
+
     async function BuscarDados() {
-        const dado = await fetch(baseUrl).then(resp => resp.json())
+        const dado = await axios(baseUrl).then(resp => resp.data)
         setBanco(dado)
     }
 
@@ -38,9 +51,11 @@ export default function Usuarios() {
         if(alterar === true){
             setUsuario(initialUser)
             setTela(false)
+
         }else {
             setUsuario(initialUser)
             setAlterar(false)
+            setSenha("")
         }
     }
 
@@ -48,6 +63,7 @@ export default function Usuarios() {
         setUsuario(usuario)
         setTela(true)
         setAlterar(true)
+        setSenha("")
     }
 
     function validarRemove(usuario: Usuario) {
@@ -55,24 +71,36 @@ export default function Usuarios() {
         atualizarLista(usuario, false)
     }
 
-    async function validarCampo(){
-        const { NomeCompleto, Email, Departamento, Senha, Acesso, Contrato, FotoUrl } = usuario
+    const close = (
+        event?: React.SyntheticEvent | Event,
+        reason?: SnackbarCloseReason,
+      ) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpen(false);
+      };
 
-        if(NomeCompleto === '' || Email === '' || Departamento === '' || Senha === '' || Acesso === '' || Contrato === '' || FotoUrl === ''){
+ function validarCampo(){
+        const { NomeCompleto, Email, Departamento, Acesso, Contrato, FotoUrl } = usuario
+
+        if(NomeCompleto === '' || Email === '' || Departamento === '' || Acesso === '' || Contrato === '' || FotoUrl === ''){
             console.log("faltou campo")
         }else {
             try{
                 if(alterar){
+                    usuario.Senha = senha === "" ? usuario.Senha : criptPassword(senha)
                     salvar(usuario, baseUrl)
                     setUsuario(initialUser)
-                    atualizarLista(usuario, true)
-                    await BuscarDados()
-                    setTela(false)
+                    mudarTela(!tela)
+                    setSenha("")
                 }else {
+                    usuario.Senha = criptPassword(senha)
                     salvar(usuario, baseUrl)
                     setUsuario(initialUser)
-                    atualizarLista(usuario, true)
-                    await BuscarDados()
+                    setSenha("")
+                    setAlterar(false)
                 }
             }catch(e){
 
@@ -85,6 +113,15 @@ export default function Usuarios() {
         const list = banco.filter(a => a.id !== Usuario.id)
         if (add) list.push(Usuario)
         setBanco(list)
+    }
+
+    async function mudarTela(tela: boolean){
+        if(tela){
+            await BuscarDados()
+            setTela(tela)
+        }else {
+            setTela(tela)
+        }
     }
 
 
@@ -100,10 +137,10 @@ export default function Usuarios() {
                 </div>
                 <div className='flex flex-col mt-5 mx-3  rounded-md  overflow-auto'>
                     <div className="flex justify-end mr-2 h-16">
-                        <AddItem icone={tela ? IconVoltarAdmin : IconAddUser} executar={() => setTela(!tela)} voltar={tela} />
+                        <AddItem icone={tela ? IconVoltarAdmin : IconAddUser} executar={() => mudarTela(!tela)} voltar={tela} />
                     </div>
                     <div className="flex mx-3">
-                        {tela ? <FormUsers verificar={() => validarCampo()} baseUrl={baseUrl} usuario={usuario} limpar={limpar} mudar={(e) => mudarCampo(e)} /> :
+                        {tela ? <FormUsers status={mensagem} open={open} close={close} senha={senha} setSenha={setSenha} verificar={() => validarCampo()} baseUrl={baseUrl} usuario={usuario} limpar={limpar} mudar={(e) => mudarCampo(e)} /> :
                             <TableUsers remove={validarRemove} dados={banco} load={load} />
                         }
                     </div>
