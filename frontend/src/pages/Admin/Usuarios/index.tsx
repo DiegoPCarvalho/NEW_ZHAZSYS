@@ -10,11 +10,12 @@ import Banco from "@/data/database/banco";
 import { Usuario, initialUser } from "@/data/interfaces/Usuario";
 import { remover } from "@/data/functions/Deletar";
 import { salvar } from "@/data/functions/Salvar";
-import criptPassword  from "@/data/functions/Password";
+import criptPassword from "@/data/functions/Password";
 import axios from 'axios'
 import { SnackbarCloseReason } from '@mui/material/Snackbar';
-import Botao from "@/components/shared/Botao";
-import { Mensagem } from "@/data/interfaces/Mensagem";
+import { Alert, Snackbar } from "@mui/material";
+import { Mensagem, initialMSG } from "@/data/interfaces/Mensagem";
+import { severity, variant } from "@/data/type/mensagemSistema";
 
 export default function Usuarios() {
     const [tela, setTela] = useState<boolean>(false);
@@ -23,17 +24,17 @@ export default function Usuarios() {
     const [usuario, setUsuario] = useState<Usuario>(initialUser)
     const [senha, setSenha] = useState<string>("")
     const [open, setOpen] = useState<boolean>(false)
+    const [mensagem, setMensagem] = useState<Mensagem>(initialMSG)
     const baseUrl = Banco("LoginUsuario")
 
-    const mensagem: Mensagem = {
-        severity: "warning",
-        variant: "standard",
-        memsagem: "Salvo com sucesso !!!"
-    }   
-
+    
     async function BuscarDados() {
-        const dado = await axios(baseUrl).then(resp => resp.data)
-        setBanco(dado)
+        try{
+            const dado = await axios(baseUrl).then(resp => resp.data)
+            setBanco(dado)
+        }catch(e){
+            mensagemSistema("error", "filled", "Banco de Dados Offline !!!")
+        }
     }
 
     useEffect(() => {
@@ -48,11 +49,11 @@ export default function Usuarios() {
     }
 
     function limpar() {
-        if(alterar === true){
+        if (alterar === true) {
             setUsuario(initialUser)
             setTela(false)
 
-        }else {
+        } else {
             setUsuario(initialUser)
             setAlterar(false)
             setSenha("")
@@ -64,46 +65,63 @@ export default function Usuarios() {
         setTela(true)
         setAlterar(true)
         setSenha("")
+        mensagemSistema("success", "filled", "Carregado com Sucesso !!!")
     }
 
     function validarRemove(usuario: Usuario) {
-        remover(usuario, baseUrl)
-        atualizarLista(usuario, false)
+        try{
+            remover(usuario, baseUrl)
+            atualizarLista(usuario, false)
+            mensagemSistema("success", "filled", "Excluido com Sucesso !!!")
+        }catch(e){
+            mensagemSistema("error", "filled", "Falha em Excluir !!!")
+        }
     }
 
     const close = (
         event?: React.SyntheticEvent | Event,
         reason?: SnackbarCloseReason,
-      ) => {
+    ) => {
         if (reason === 'clickaway') {
-          return;
+            return;
         }
-    
-        setOpen(false);
-      };
 
- function validarCampo(){
+        setOpen(false);
+    };
+
+    function mensagemSistema(tipo: severity, modelo: variant, mensagem: string) {
+        setOpen(true)
+        setMensagem({
+            severity: tipo,
+            variant: modelo,
+            mensagem: mensagem
+        })
+    }
+
+    function validarCampo() {
         const { NomeCompleto, Email, Departamento, Acesso, Contrato, FotoUrl } = usuario
 
-        if(NomeCompleto === '' || Email === '' || Departamento === '' || Acesso === '' || Contrato === '' || FotoUrl === ''){
-            console.log("faltou campo")
-        }else {
-            try{
-                if(alterar){
+        if (NomeCompleto === '' || Email === '' || Departamento === '' || Acesso === '' || Contrato === '' || FotoUrl === '') {
+            mensagemSistema("error", "filled", "Faltou preencher algum(s) campo(s)")
+        } else {
+            try {
+                if (alterar) {
                     usuario.Senha = senha === "" ? usuario.Senha : criptPassword(senha)
                     salvar(usuario, baseUrl)
                     setUsuario(initialUser)
                     mudarTela(!tela)
                     setSenha("")
-                }else {
+                    mensagemSistema("success", "filled", "Alterado com Sucesso !!!")
+                } else {
                     usuario.Senha = criptPassword(senha)
                     salvar(usuario, baseUrl)
                     setUsuario(initialUser)
                     setSenha("")
                     setAlterar(false)
+                    mensagemSistema("success", "filled", "Salvo com Sucesso !!!")
                 }
-            }catch(e){
-
+            } catch (e) {
+                mensagemSistema("error", "filled", "Sem Comunicação com Banco de Dados")
             }
         }
 
@@ -115,13 +133,11 @@ export default function Usuarios() {
         setBanco(list)
     }
 
-    async function mudarTela(tela: boolean){
-        if(tela){
-            await BuscarDados()
-            setTela(tela)
-        }else {
-            setTela(tela)
-        }
+    async function mudarTela(tela: boolean) {
+        await BuscarDados()
+        setUsuario(initialUser)
+        setSenha("")
+        setTela(tela)
     }
 
 
@@ -140,11 +156,25 @@ export default function Usuarios() {
                         <AddItem icone={tela ? IconVoltarAdmin : IconAddUser} executar={() => mudarTela(!tela)} voltar={tela} />
                     </div>
                     <div className="flex mx-3">
-                        {tela ? <FormUsers status={mensagem} open={open} close={close} senha={senha} setSenha={setSenha} verificar={() => validarCampo()} baseUrl={baseUrl} usuario={usuario} limpar={limpar} mudar={(e) => mudarCampo(e)} /> :
+                        {tela ? <FormUsers senha={senha} setSenha={setSenha} verificar={() => validarCampo()} usuario={usuario} limpar={limpar} mudar={(e) => mudarCampo(e)} /> :
                             <TableUsers remove={validarRemove} dados={banco} load={load} />
                         }
                     </div>
                 </div>
+                <Snackbar
+                    open={open}
+                    autoHideDuration={2000}
+                    onClose={close}
+                >
+                    <Alert
+                        onClose={close}
+                        severity={mensagem.severity}
+                        variant={mensagem.variant}
+                        sx={{ width: '100%' }}
+                    >
+                        {mensagem.mensagem}
+                    </Alert>
+                </Snackbar>
             </div>
         </Layout>
     )

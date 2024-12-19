@@ -63,7 +63,7 @@ export default function TabelaGnc(props: TabelaGncProps) {
         return (
             <div className="flex items-center">
                 <Image src={loding} alt="" style={estilo} />
-                <span className="font-bold ml-2">Aguardando</span>
+                <span className="font-bold ml-2 dark:text-white">Aguardando</span>
             </div>
         )
     }

@@ -2,18 +2,12 @@ import Entrada from "@/components/shared/Entrada";
 import Formulario from "@/components/shared/Formulario";
 import Selecione from './../../../components/shared/Selecione';
 import Botao from "@/components/shared/Botao";
-import { Alert, Snackbar } from "@mui/material";
-import { Usuario } from "@/data/interfaces/Usuario";
-import { Mensagem } from "@/data/interfaces/Mensagem";
 
+import { Usuario } from "@/data/interfaces/Usuario";
 
 interface FormUsersProps {
     usuario: Usuario
-    baseUrl: string
     senha: string
-    status?: Mensagem
-    open: boolean
-    close: () => void
     mudar: (novoValor: any) => void
     setSenha: (novoValor: any) => void
     limpar: () => void
@@ -137,20 +131,6 @@ export default function FormUsers(props: FormUsersProps) {
                     </div>
                 </div>
             </Formulario>
-            <Snackbar
-                open={props.open} 
-                autoHideDuration={2000} 
-                onClose={props.close}              
-            >
-                <Alert
-                    onClose={props.close}
-                    severity={props.status!.severity}
-                    variant={props.status!.variant}
-                    sx={{ width: '100%' }}
-                >
-                    {props.status!.memsagem}
-                </Alert>
-            </Snackbar>
         </div>
     )
 }

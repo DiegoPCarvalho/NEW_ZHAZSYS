@@ -1,11 +1,11 @@
 export interface Mensagem {
     severity: "success" | "error" | "warning"
     variant: "filled" | "outlined" | "standard"
-    memsagem: string
+    mensagem: string
 }
 
-export const initialMSG = {
-    severity: "",
-    variant: "",
+export const initialMSG: Mensagem = {
+    severity: "success",
+    variant: "standard",
     mensagem: ""
 }
