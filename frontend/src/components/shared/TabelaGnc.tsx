@@ -21,6 +21,9 @@ interface TabelaGncProps {
     page?: number
     active?: any
     export?: boolean
+    valorBusca?: string
+    busca: any
+    novaBusca: (novoValor: any) => void
 }
 
 const estilo = {
@@ -72,22 +75,9 @@ export default function TabelaGnc(props: TabelaGncProps) {
         let key = event.keyCode
 
         if (key === 13) {
-            const resp = props.dados.filter((result: any) => {
-                if (result.nome === item) {
-                    return result
-                }
-                setShowPage(false)
-            })
-
-            const id = props.dados.find((result: any) => {
-                setShowPage(false)
-                return result.id === +item
-            })
-
-            vl === "" ? paginar(props.dados, 1, limite) :
-                resp.length !== 0 ? novaData!(resp)
-                    : id !== undefined ? novaData!([id])
-                        : paginar(props.dados, 1, limite)
+            props.valorBusca === "" ? paginar(props.dados, 1, limite) :
+                props.dados?.length !== 0 ? novaData!(props.busca)
+                    : paginar(props.dados, 1, limite)
         }
     }
 
@@ -95,9 +85,6 @@ export default function TabelaGnc(props: TabelaGncProps) {
         jsonToCsvExport({ data: props.dados })
     }
 
-    function novoValor(event: any) {
-        setVl(event)
-    }
 
     function paginar(item: any, pageActual: number, limited: number) {
         let result: any = []
@@ -141,9 +128,9 @@ export default function TabelaGnc(props: TabelaGncProps) {
                         nome="vl"
                         tipo="text"
                         mensagemCampo="Buscar..."
-                        buscarPesquisa={(e) => buscar(vl, e)}
-                        alterouCampo={(event) => novoValor(event.target.value)}
-                        valor={vl}
+                        buscarPesquisa={(e) => buscar(props.valorBusca, e)}
+                        alterouCampo={(event) => props.novaBusca(event.target.value)}
+                        valor={props.valorBusca}
                     />
                 </div>
             </div>

@@ -99,21 +99,21 @@ export default function Usuarios() {
     }
 
     function validarCampo() {
-        const { NomeCompleto, Email, Departamento, Acesso, Contrato, FotoUrl } = usuario
+        const { nomeCompleto, email, departamento, acesso, contrato } = usuario
 
-        if (NomeCompleto === '' || Email === '' || Departamento === '' || Acesso === '' || Contrato === '' || FotoUrl === '') {
+        if (nomeCompleto === '' || email === '' || departamento === '' || acesso === '' || contrato === '') {
             mensagemSistema("error", "filled", "Faltou preencher algum(s) campo(s)")
         } else {
             try {
                 if (alterar) {
-                    usuario.Senha = senha === "" ? usuario.Senha : criptPassword(senha)
+                    usuario.senha = senha === "" ? usuario.senha : criptPassword(senha)
                     salvar(usuario, baseUrl)
                     setUsuario(initialUser)
                     mudarTela(!tela)
                     setSenha("")
                     mensagemSistema("success", "filled", "Alterado com Sucesso !!!")
                 } else {
-                    usuario.Senha = criptPassword(senha)
+                    usuario.senha = criptPassword(senha)
                     salvar(usuario, baseUrl)
                     setUsuario(initialUser)
                     setSenha("")

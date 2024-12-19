@@ -4,5 +4,5 @@ export interface AdminGnc {
 }
 
 export const initialAdminGnc = {
-    nome: "",
+    nome: ""
 }

@@ -1,21 +1,22 @@
 export interface Usuario {
-    NomeCompleto: string
-    Email: string
-    Departamento: string
-    Senha: string
-    Contrato: string
-    Especialidade: string
-    Acesso: string
-    FotoUrl: string
+    id?: number
+    nomeCompleto: string
+    email: string
+    departamento: string
+    senha: string
+    contrato: string
+    especialidade: string
+    acesso: string
+    fotoUrl: string
 }
 
 export const initialUser = {
-    NomeCompleto: "",
-    Email: "",
-    Departamento: "",
-    Senha: "",
-    Contrato: "",
-    Especialidade: "",
-    Acesso: "",
-    FotoUrl: ""
+    nomeCompleto: "",
+    email: "",
+    departamento: "",
+    senha: "",
+    contrato: "",
+    especialidade: "",
+    acesso: "",
+    fotoUrl: ""
 }

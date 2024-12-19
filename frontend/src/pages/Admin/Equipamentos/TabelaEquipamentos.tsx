@@ -25,7 +25,7 @@ export default function TabelaEquipamentos(props: TabelaEquipamentosProps) {
           <td className="">{registro.id}</td>
           <td className="">{registro.nome}</td>
           <td>
-          <div className="flex justify-around">
+          <div className="flex justify-around h-12">
               <Botao
                 className="
                 transition-all bg-yellow-500  text-white px-3 py-2 rounded-lg

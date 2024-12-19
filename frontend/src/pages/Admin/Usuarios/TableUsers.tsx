@@ -17,19 +17,21 @@ export default function TabelaUsers(props: TabelaUsersProps) {
   const { data } = useGncData()
   const [excluir, setExcluir] = useState<boolean>(false)
   const [dado, setDado] = useState<Usuario>(initialUser)
+  const [vl, setVl] = useState<string>("")
 
   function renderRows() {
     return data?.map((registro: any, i: number) => {
       return (
         <tr key={registro.id} className={`${intercalado(i)} text-center `}>
-          <td className="">{registro.NomeCompleto}</td>
-          <td className="max-sm:hidden">{registro.Email}</td>
-          <td className="max-sm:hidden">{registro.Departamento}</td>
-          <td className="max-sm:hidden">{registro.Contrato}</td>
-          <td className="max-sm:hidden">{registro.Especialidade}</td>
-          <td className="max-sm:hidden">{registro.Acesso}</td>
+          <td className="">{registro.id}</td>
+          <td className="">{registro.nomeCompleto}</td>
+          <td className="max-sm:hidden">{registro.email}</td>
+          <td className="max-sm:hidden">{registro.departamento}</td>
+          <td className="max-sm:hidden">{registro.contrato}</td>
+          <td className="max-sm:hidden">{registro.especialidade}</td>
+          <td className="max-sm:hidden">{registro.acesso}</td>
           <td className="">
-            <div className="flex justify-around">
+            <div className="flex justify-around h-12">
               <Botao
                 className="
                 transition-all bg-yellow-500  text-white px-3 py-2 rounded-lg
@@ -66,14 +68,28 @@ export default function TabelaUsers(props: TabelaUsersProps) {
   }
 
   function abrir(registro: Usuario) {
-      setExcluir(true)
-      setDado(registro)
+    setExcluir(true)
+    setDado(registro)
   }
 
-  function concluirExcluir(){
-      props.remove!(dado)
-      setExcluir(false)
-      setDado(initialUser)
+  function concluirExcluir() {
+    props.remove!(dado)
+    setExcluir(false)
+    setDado(initialUser)
+  }
+
+  function dadosSearch() {
+      let dado: any = []
+      const resultado = props.dados?.map((registro: any) =>{
+        if(registro.id === +vl){
+          dado.push({...registro})
+        }else
+        if(registro.nomeCompleto === vl){
+          dado.push({...registro})
+        }
+      })
+
+      return dado
   }
 
   return (
@@ -81,7 +97,8 @@ export default function TabelaUsers(props: TabelaUsersProps) {
       <TabelaGnc
         head={
           <>
-            <th className="rounded-tl-lg p-2">Nome</th>
+            <th className="rounded-tl-lg p-2 w-10">id</th>
+            <th className="p-2">Nome</th>
             <th className="max-sm:hidden">E-mail</th>
             <th className="max-sm:hidden">Departamento</th>
             <th className="max-sm:hidden">Contrato</th>
@@ -92,6 +109,9 @@ export default function TabelaUsers(props: TabelaUsersProps) {
         }
         tb="w-full"
         dados={props.dados}
+        busca={dadosSearch}
+        valorBusca={vl}
+        novaBusca={setVl}
       >
         {renderRows()}
       </TabelaGnc>
@@ -103,4 +123,3 @@ export default function TabelaUsers(props: TabelaUsersProps) {
     </div>
   )
 }
-
