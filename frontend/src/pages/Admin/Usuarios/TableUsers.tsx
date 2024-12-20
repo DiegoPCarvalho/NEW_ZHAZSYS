@@ -80,15 +80,27 @@ export default function TabelaUsers(props: TabelaUsersProps) {
 
   function dadosSearch() {
       let dado: any = []
-      const resultado = props.dados?.map((registro: any) =>{
-        if(registro.id === +vl){
+      props.dados?.map((registro: any) =>{
+        if(registro.id?.toString().match(vl)){
           dado.push({...registro})
         }else
-        if(registro.nomeCompleto === vl){
+        if(registro.nomeCompleto?.toLowerCase().match(vl.toLowerCase())){
+          dado.push({...registro})
+        }else
+        if(registro.departamento?.toLowerCase().match(vl.toLowerCase())){
+          dado.push({...registro})
+        }else
+        if(registro.contrato?.toLowerCase().match(vl.toLowerCase())){
+          dado.push({...registro})
+        }else
+        if(registro.especialidade?.toLowerCase().match(vl.toLowerCase())){
+          dado.push({...registro})
+        }else
+        if(registro.email?.toLowerCase().match(vl.toLowerCase())){
           dado.push({...registro})
         }
       })
-
+      
       return dado
   }
 

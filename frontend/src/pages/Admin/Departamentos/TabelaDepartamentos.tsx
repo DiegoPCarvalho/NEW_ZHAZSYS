@@ -18,6 +18,7 @@ export default function TabelaDepartamentos(props: TabelaDepartamentosProps) {
   const { data } = useGncData()
   const [excluir, setExcluir] = useState<boolean>(false)
   const [dado, setDado] = useState<AdminGnc>(initialAdminGnc)
+  const [vl, setVl] = useState<string>("")
 
   function renderRows() {
     return data?.map((registro: any, i: number) => {
@@ -73,6 +74,18 @@ export default function TabelaDepartamentos(props: TabelaDepartamentosProps) {
     setDado(initialAdminGnc)
   }
 
+  function dadosSearch() {
+    let dado: any = []
+    props.dados?.map((registro: any) =>{
+      if(registro.id?.toString().match(vl)){
+        dado.push({...registro})
+      }else
+      if(registro.nome?.toLowerCase().match(vl.toLowerCase())){
+        dado.push({...registro})
+      }
+    })
+    return dado
+  }
 
   return (
     <div className="w-[100%] mt-3">
@@ -87,6 +100,9 @@ export default function TabelaDepartamentos(props: TabelaDepartamentosProps) {
         tb="w-full"
         classe="border-separate border-spacing-2"
         dados={props.dados}
+        valorBusca={vl}
+        busca={dadosSearch}
+        novaBusca={setVl}
       >
         {renderRows()}
       </TabelaGnc>

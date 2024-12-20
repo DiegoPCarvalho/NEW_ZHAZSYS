@@ -1,6 +1,6 @@
 import useGncData from "@/data/hook/useGncData";
-import Pagination from "../Pagination/Pagination"
-import PaginationItem from "../Pagination/PaginationItem";
+import Pagination from '@mui/material/Pagination';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Botao from "./Botao";
 import Entrada from "./Entrada"
 import jsonToCsvExport from 'json-to-csv-export';
@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import Selecione from "./Selecione";
 import loding from '@/assets/gifs/carregar.gif';
 import Image from "next/image";
+import useAppData from "@/data/hook/useAppData";
 
 interface TabelaGncProps {
     tb?: string
@@ -34,25 +35,18 @@ const estilo = {
 
 export default function TabelaGnc(props: TabelaGncProps) {
     const { novaData } = useGncData()
-    const [vl, setVl] = useState<string>("")
+    const { tema } = useAppData()
     const [total, setTotal] = useState<number>(0)
     const [limite, setLimite] = useState<number>(10)
-    const [pages, setPages] = useState<number[]>(props.pages)
-    const [lastPage, setLastPage] = useState<number>()
+    const [pages, setPages] = useState<number>(0)
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [showPage, setShowPage] = useState<boolean>(true)
 
-    async function inicio(){
-       await setTotal(props.dados.length)
+    async function inicio() {
+        await setTotal(props.dados.length)
         const totalPages = Math.ceil(total / limite)
-        let resultPages: any = []
 
-
-        for (let i = 1; i <= totalPages; i++) {
-            resultPages.push(i)
-        }
-        setPages(resultPages)
-        setLastPage(totalPages)
+        setPages(totalPages)
     }
 
     useEffect(() => {
@@ -76,8 +70,10 @@ export default function TabelaGnc(props: TabelaGncProps) {
 
         if (key === 13) {
             props.valorBusca === "" ? paginar(props.dados, 1, limite) :
-                props.dados?.length !== 0 ? novaData!(props.busca)
-                    : paginar(props.dados, 1, limite)
+                props.dados?.length !== 0 ? novaData!(props.busca) :
+                    props.busca?.length === 0 ? novaData!(props.dados)
+                        : paginar(props.dados, 1, limite)
+
         }
     }
 
@@ -85,6 +81,17 @@ export default function TabelaGnc(props: TabelaGncProps) {
         jsonToCsvExport({ data: props.dados })
     }
 
+    const theme = createTheme({
+        palette: {
+            mode: 'dark', // Set to 'dark' for dark mode, 'light' for light mode
+            primary: {
+                main: '#ffffff', // Define the primary color for Pagination in dark mode
+            },
+            background: {
+                paper: '#121212', // Define the background color for Pagination in dark mode
+            },
+        },
+    });
 
     function paginar(item: any, pageActual: number, limited: number) {
         let result: any = []
@@ -102,6 +109,10 @@ export default function TabelaGnc(props: TabelaGncProps) {
 
         return novaData!(result)
     }
+
+    const MudarPagina = (event: React.ChangeEvent<unknown>, value: number) => {
+        setCurrentPage(value);
+    };
 
     function novoLimite(event: any) {
         setLimite(event)
@@ -172,16 +183,11 @@ export default function TabelaGnc(props: TabelaGncProps) {
                             </Selecione>
                             <span className="ml-2 text-lg dark:text-white">Resultados por página</span>
                         </div>
-                        <Pagination dados={props.dados}
-                            previus={() => setCurrentPage(currentPage === 1 ? currentPage : currentPage - 1)}
-                            next={() => setCurrentPage(currentPage === lastPage ? currentPage : currentPage + 1)}
-                        >
-                            {pages?.map((page: any) => {
-                                return (
-                                    <PaginationItem key={page} item={page} page={currentPage} funcao={() => setCurrentPage(page)} />
-                                )
-                            })}
-                        </Pagination>
+                        <div className="mt-3 dark:text-white">
+                            <ThemeProvider theme={tema === "dark" ? theme : {}}>
+                                <Pagination siblingCount={0} variant="text" color={"success"} shape="rounded" count={pages} page={currentPage} onChange={MudarPagina} />
+                            </ThemeProvider>
+                        </div>
                     </>
                 ) : false}
             </div>

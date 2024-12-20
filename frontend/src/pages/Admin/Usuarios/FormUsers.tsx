@@ -22,7 +22,7 @@ export default function FormUsers(props: FormUsersProps) {
                 <div className="flex items-center max-lg:grid max-lg:grid-cols-2 max-sm:grid-cols-1">
                     <Entrada
                         tipo="text"
-                        nome="NomeCompleto"
+                        nome="nomeCompleto"
                         valor={props.usuario?.nomeCompleto}
                         alterouCampo={(e) => props.mudar(e)}
                         texto="Nome Completo:"
@@ -32,7 +32,7 @@ export default function FormUsers(props: FormUsersProps) {
                     />
                     <Entrada
                         tipo="text"
-                        nome="Email"
+                        nome="email"
                         valor={props.usuario?.email}
                         alterouCampo={(e) => props.mudar(e)}
                         texto="E-mail:"
@@ -42,7 +42,7 @@ export default function FormUsers(props: FormUsersProps) {
                     />
                     <Selecione
                         texto="Departamento:"
-                        nome="Departamento"
+                        nome="departamento"
                         valor={props.usuario?.departamento}
                         alterouCampo={(e) => props.mudar(e)}
                         className="grow"
@@ -64,7 +64,7 @@ export default function FormUsers(props: FormUsersProps) {
                     />
                     <Selecione
                         texto="Acesso:"
-                        nome="Acesso"
+                        nome="acesso"
                         valor={props.usuario?.acesso}
                         alterouCampo={(e) => props.mudar(e)}
                         className="grow"
@@ -76,7 +76,7 @@ export default function FormUsers(props: FormUsersProps) {
                     </Selecione>
                     <Selecione
                         texto="Contrato:"
-                        nome="Contrato"
+                        nome="contrato"
                         valor={props.usuario?.contrato}
                         alterouCampo={(e) => props.mudar(e)}
                         className="grow"
@@ -88,7 +88,7 @@ export default function FormUsers(props: FormUsersProps) {
                 <div className="lg:mt-3 flex items-center max-lg:grid max-lg:grid-cols-2 max-sm:grid-cols-1">
                     <Selecione
                         texto="Especialidade:"
-                        nome="Especialidade"
+                        nome="especialidade"
                         valor={props.usuario?.especialidade}
                         alterouCampo={(e) => props.mudar(e)}
                         className="grow"
@@ -98,7 +98,7 @@ export default function FormUsers(props: FormUsersProps) {
                     </Selecione>
                     <Entrada
                         tipo="text"
-                        nome="FotoUrl"
+                        nome="fotoUrl"
                         valor={props.usuario?.fotoUrl}
                         alterouCampo={(e) => props.mudar(e)}
                         texto="Foto Url:"
