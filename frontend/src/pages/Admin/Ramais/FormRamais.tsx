@@ -18,9 +18,9 @@ export default function FormRamais(props: FormRamaisProps) {
                 <div className="flex max-sm:flex-col items-center w-[100%]">
                     <Selecione
                         texto="Departamento:"
-                        nome="departamento"
+                        nome="Departamento"
                         className="grow"
-                        valor={props.ramal.departamento}
+                        valor={props.ramal.Departamento}
                         alterouCampo={(e) => props.mudar(e)}
                         requerido
                     >
@@ -28,21 +28,21 @@ export default function FormRamais(props: FormRamaisProps) {
                     </Selecione>
                     <Entrada
                         tipo="text"
-                        nome="usuario"
+                        nome="Usuario"
                         texto="Usuário:"
                         className="grow mx-2 max-sm:mx-0"
                         mensagemCampo="..."
-                        valor={props.ramal.usuario}
+                        valor={props.ramal.Usuario}
                         alterouCampo={(e) => props.mudar(e)}
                         requerido
                     />
                     <Entrada
                         tipo="number"
-                        nome="numero"
+                        nome="Ramal"
                         texto="Ramal:"
                         className="grow mx-2 max-sm:mx-0"
                         mensagemCampo="..."
-                        valor={props.ramal.numero}
+                        valor={props.ramal.Ramal}
                         alterouCampo={(e) => props.mudar(e)}
                         requerido
                     />

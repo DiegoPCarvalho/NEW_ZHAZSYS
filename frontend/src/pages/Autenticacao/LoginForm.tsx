@@ -6,13 +6,15 @@ import Botao from "@/components/shared/Botao";
 import { useState } from "react";
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import KeyIcon from '@mui/icons-material/Key';
+import useAuthData from "@/data/hook/useAuthData";
 
-export default function LoginForm() {
+
+export default function LoginForm(){
+    const { mudarTela } = useAuthData()
     const [erro, setErro] = useState<boolean>(false)
 
     return (
-        <div className="flex justify-center items-center h-screen">
-            <div className="flex flex-col items-center w-[400px] max-sm:w-[350px] bg-neutral-950 bg-opacity-70 py-5 rounded-lg">
+        <>
                 <div className="flex justify-center">
                     <Image src={Logo} alt="" className="w-44 h-16 " />
                 </div>
@@ -47,7 +49,7 @@ export default function LoginForm() {
                         erro={erro}
                     />  
                     </div>
-                    <div className="flex justify-end mt-5 mb-3 h-5 text-sm">
+                    <div className="flex justify-end mt-5 mb-3 h-5 text-sm" onClick={() => mudarTela("validarEmail")}>
                             <a className="cursor-pointer hover:border-b hover:border-blue-300 hover:text-blue-300">
                                 esqueceu a senha?
                             </a>
@@ -77,9 +79,7 @@ export default function LoginForm() {
                             >Cancelar</Botao>
                         </div>
                     </div>
-                    
                 </div>
-            </div>
-        </div>
+        </>
     )
 }

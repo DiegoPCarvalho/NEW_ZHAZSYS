@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
-import LoginForm from "./Login";
+import AutenticacaoMain from "./AutenticacaoMain";
+
 
 export default function LoginMain() {
 
@@ -30,7 +31,7 @@ export default function LoginMain() {
             fixed 
             bg-neutral-950 bg-opacity-65
             ">
-                <LoginForm />
+                <AutenticacaoMain />
             </div>
         </div>
     )

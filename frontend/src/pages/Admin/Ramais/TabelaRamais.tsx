@@ -24,9 +24,9 @@ export default function TabelaRamais(props: TabelaRamaisProps) {
       return (
         <tr key={registro.id} className={`${intercalado(i)} text-center`}>
           <td className="">{registro.id}</td>
-          <td className="">{registro.usuario}</td>
-          <td className="">{registro.numero}</td>
-          <td className="">{registro.departamento}</td>
+          <td className="">{registro.Usuario}</td>
+          <td className="">{registro.Ramal}</td>
+          <td className="">{registro.Departamento}</td>
           <td>
             <div className="flex justify-around h-12">
               <Botao

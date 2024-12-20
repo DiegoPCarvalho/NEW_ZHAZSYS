@@ -92,9 +92,9 @@ export default function Ramais() {
     }
 
     function validarCampo() {
-        const { departamento, usuario, numero } = ramal
+        const { Departamento, Usuario, Ramal } = ramal
 
-        if (departamento === '' || usuario === '' || numero === 0) {
+        if (Departamento === '' || Usuario === '' || Ramal === 0) {
             mensagemSistema("error", "filled", "Faltou preencher o campo")
         } else {
             try {

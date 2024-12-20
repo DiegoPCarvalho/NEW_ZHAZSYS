@@ -1,12 +1,12 @@
 export interface Ramal {
     id?: number
-    departamento: string
-    usuario: string
-    numero: number
+    Departamento: string
+    Usuario: string
+    Ramal: number
 }
 
 export const initialRamal : Ramal = {
-    departamento: "",
-    usuario: "",
-    numero: 0
+    Departamento: "",
+    Usuario: "",
+    Ramal: 0
 }
