@@ -2,8 +2,8 @@ import Entrada from "@/components/shared/Entrada";
 import Formulario from "@/components/shared/Formulario";
 import Selecione from './../../../components/shared/Selecione';
 import Botao from "@/components/shared/Botao";
-
 import { Usuario } from "@/data/interfaces/Usuario";
+import useGncData from "@/data/hook/useGncData";
 
 interface FormUsersProps {
     usuario: Usuario
@@ -15,6 +15,8 @@ interface FormUsersProps {
 }
 
 export default function FormUsers(props: FormUsersProps) {
+
+    const {contratos, departamentos, equipamentos } = useGncData()
     
     return (
         <div className="bg-white w-[100%] mt-2 dark:bg-neutral-950 dark:text-white border shadow-lg dark:border-2 dark:border-neutral-600  rounded-lg">
@@ -48,7 +50,11 @@ export default function FormUsers(props: FormUsersProps) {
                         className="grow"
                         requerido
                     >
-                        <option>aaaaaaaaaaaaaaaaaaaaa</option>
+                        {departamentos?.map((registro: any, i: number) => {
+                            return (
+                                <option key={i}>{registro.nome}</option>
+                            )
+                        })}
                     </Selecione>
                 </div>
                 <div className="lg:mt-3 flex items-center max-lg:grid max-lg:grid-cols-2 max-sm:grid-cols-1">
@@ -82,7 +88,12 @@ export default function FormUsers(props: FormUsersProps) {
                         className="grow"
                         requerido
                     >
-                        <option>aaaaaaaaaaaaaaaaaaaaa</option>
+                        <option>Avulso</option>
+                        {contratos?.map((registro: any, i: number) => {
+                            return (
+                                <option key={i}>{registro.nome}</option>
+                            )
+                        })}
                     </Selecione>
                 </div>
                 <div className="lg:mt-3 flex items-center max-lg:grid max-lg:grid-cols-2 max-sm:grid-cols-1">
@@ -94,7 +105,11 @@ export default function FormUsers(props: FormUsersProps) {
                         className="grow"
                         requerido
                     >
-                        <option>aaaaaaaaaaaaaaaaaaaaa</option>
+                       {equipamentos?.map((registro: any, i: number) => {
+                            return (
+                                <option key={i}>{registro.nome}</option>
+                            )
+                        })}
                     </Selecione>
                     <Entrada
                         tipo="text"

@@ -3,6 +3,7 @@ import Header from './header/Index';
 import useAppData from '@/data/hook/useAppData';
 import Menu from './menu';
 import MenuUser from './User/MenuUser';
+import ForcarAutenticacao from '../Auth/ForcarAutenticacao';
 
 interface LayoutProps {
     children?: any
@@ -12,8 +13,9 @@ interface LayoutProps {
 
 export default function Layout(props: LayoutProps) {
     const { menu, avaUser, tema } = useAppData()
-    
+
     return (
+        <ForcarAutenticacao>
             <div className={`${tema} flex flex-row h-screen w-screen`}>
                 <div className={`
                 flex w-52 bg-zinc-700
@@ -58,5 +60,6 @@ export default function Layout(props: LayoutProps) {
                     <MenuUser />
                 </div>
             </div>
+        </ForcarAutenticacao>
     )
 }

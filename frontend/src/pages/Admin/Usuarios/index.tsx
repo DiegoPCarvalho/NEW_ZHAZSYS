@@ -16,8 +16,10 @@ import { SnackbarCloseReason } from '@mui/material/Snackbar';
 import { Alert, Snackbar } from "@mui/material";
 import { Mensagem, initialMSG } from "@/data/interfaces/Mensagem";
 import { severity, variant } from "@/data/type/mensagemSistema";
+import useGncData from "@/data/hook/useGncData";
 
 export default function Usuarios() {
+    const { buscarDados } = useGncData()
     const [tela, setTela] = useState<boolean>(false);
     const [alterar, setAlterar] = useState<boolean>(false);
     const [banco, setBanco] = useState<any[]>([])
@@ -39,6 +41,7 @@ export default function Usuarios() {
 
     useEffect(() => {
         BuscarDados()
+        buscarDados!()
     }, [])
 
 

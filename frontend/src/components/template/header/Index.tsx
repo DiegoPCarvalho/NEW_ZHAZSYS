@@ -20,6 +20,13 @@ export default function Header(props: HeaderProps) {
     const { altenarMenu, menu } = useAppData();
     const { get } = useLocalStorage();
 
+    function NomeUsuario(){
+        const dado = get("UserMain")
+        const obj = dado === undefined ? false : JSON.parse(dado!)
+        return obj?.nomeCompleto
+    }
+
+
     return (
         <div className="flex justify-between h-16 bg-white dark:bg-zinc-950">
             <div className="flex items-center">
@@ -56,7 +63,7 @@ export default function Header(props: HeaderProps) {
                         Bem Vindo,
                     </div>
                     <div className="text-sm font-bold text-black dark:text-zinc-200">
-                        {get("usuario")}
+                        {NomeUsuario()}
                     </div>
                 </div>
                 <AvatarUser />

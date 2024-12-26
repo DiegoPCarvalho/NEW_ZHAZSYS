@@ -11,14 +11,15 @@ export default function useLocalStorage() {
 
     const get = (chave: string) => {
         const valorLocal = state?.getItem(chave)
-        return valorLocal ? valorLocal : ''
+        return valorLocal
     }
+    
     const remove = (chave: string) => {
-        state?.removeItem(chave)
+        return state?.removeItem(chave)
     }
 
     const set = (chave: string, valor: any) => {
-        state?.setItem(chave, valor)
+        return state?.setItem(chave, JSON.stringify(valor))
     }
 
     return { get, set, remove }

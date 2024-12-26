@@ -6,6 +6,7 @@ interface MenuItemUserProps {
     icone: any
     url?: string
     className?: string
+    sair?: () => void
     executar?: (evento: any) => void
 }
 
@@ -18,7 +19,7 @@ export default function MenuItemUser(props: MenuItemUserProps){
                 flex flex-row items-center px-2
                 w-full h-14 ${props.className} 
                 text-neutral-800 dark:text-neutral-200
-            `}>
+            `} onClick={props.sair}>
                 {props.icone}
                 <span className="text-sm font-bold ml-2">
                     {props.texto}
