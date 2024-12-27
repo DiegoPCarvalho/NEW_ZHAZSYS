@@ -5,6 +5,8 @@ import Banco from "../database/banco";
 import axios from "axios";
 import bcrypt from "bcryptjs";
 import useLocalStorage from "../hook/useLocalStorage";
+import { salvar } from "../functions/Salvar";
+import { criptgrafiaSenha } from "../functions/CriptoSenha";
 
 interface AuthContextProps {
     usuario?: any
@@ -13,8 +15,9 @@ interface AuthContextProps {
     carregando?: boolean
     setErro?: (valor: boolean) => void
     mudarTela?: (valor: string) => void
-    login?:(email: string, senha: string) => Promise<void>
+    login?: (email: string, senha: string) => Promise<void>
     validarEmail?: (email: string) => Promise<void>
+    novaSenha?: (senha: string, confirmarSenha: string) => Promise<void>
     logout?: () => void
     cancelar?: () => void
 }
@@ -22,7 +25,7 @@ interface AuthContextProps {
 
 const AuthContext = createContext<AuthContextProps>({})
 
-export function AuthProvider({ children } : any){
+export function AuthProvider({ children }: any) {
     const { set, remove } = useLocalStorage()
     const [tela, setTela] = useState<string>("login")
     const [erro, setErro] = useState<boolean>(false)
@@ -30,7 +33,7 @@ export function AuthProvider({ children } : any){
     const [usuario, setUsuario] = useState<any>({})
     const baseUrl = Banco("LoginUsuario")
 
-    function mudarTela(valor: string){
+    function mudarTela(valor: string) {
         setTela(valor)
     }
 
@@ -44,69 +47,105 @@ export function AuthProvider({ children } : any){
         }
     }
 
-    async function login(email: string, senha: string){
-        try{
+    async function login(email: string, senha: string) {
+        try {
             setErro(false)
             setCarregando(true)
 
             const resp = await axios(baseUrl).then(resp => {
                 let dado = resp.data
 
-                const dadoFinal = dado.filter((registro : any) => registro.email === email)
+                const dadoFinal = dado.filter((registro: any) => registro.email === email)
 
                 return dadoFinal
             }).catch(erro => console.log(erro + "Banco está Offline"))
 
             const pass = await bcrypt.compareSync(senha, resp[0].senha)
-             
-            if(email === resp[0].email && pass){
+
+            if (email === resp[0].email && pass) {
                 set("UserMain", resp[0])
                 gerenciarCookie(true)
                 router.push('/')
+            } else {
+                setErro(true)
+                setTimeout(() => {
+                    setErro(false)
+                }, 2000)
             }
 
-        }catch(e){
+        } catch (e) {
             setErro(true)
             console.log(e)
-            setTimeout(()=>{
+            setTimeout(() => {
                 setErro(false)
-            },2000)
-        }finally{
+            }, 2000)
+        } finally {
             setCarregando(false)
         }
     }
 
-    async function validarEmail(email: string){
-        try{
-            const resp = await axios(baseUrl).then(resp => {
-                let dado = resp.data
+    async function validarEmail(email: string) {
+        try {
+            if (email === "") {
 
-                const dadoFinal = dado.filter((registro : any) => registro.email === email)
+            } else {
+                const resp = await axios(baseUrl).then(resp => {
+                    let dado = resp.data
 
-                return dadoFinal
-            })
+                    const dadoFinal = dado.filter((registro: any) => registro.email === email)
 
-            if(email === resp[0].email){
-                setUsuario(resp[0])
-                mudarTela("novaSenha")
-                console.log(usuario)
+                    return dadoFinal
+                })
+
+                if (email === resp[0].email) {
+                    setUsuario(resp[0])
+                    mudarTela("novaSenha")
+                }
             }
 
-        }catch(e){
+        } catch (e) {
             setErro(true)
-            setTimeout(()=>{
+            setTimeout(() => {
                 setErro(false)
-            },2000)
+            }, 2000)
         }
     }
 
-    function logout(){
+
+    async function novaSenha(senha: string, confirmarSenha: string) {
+        try {
+            if (senha === "" || confirmarSenha === "") {
+
+            } else {
+                if (senha === confirmarSenha) {
+                    const dadoSenha = criptgrafiaSenha(senha)
+                    usuario.senha = dadoSenha
+
+                    salvar(usuario, baseUrl)
+                    mudarTela("login")
+                    
+                } else {
+                    setErro(true)
+                    setTimeout(() => {
+                        setErro(false)
+                    }, 2000)
+                }
+            }
+        } catch (e) {
+            setErro(true)
+            setTimeout(() => {
+                setErro(false)
+            }, 2000)
+        }
+    }
+
+    function logout() {
         gerenciarCookie(false)
         router.push('/Autenticacao')
         remove("UserMain")
     }
 
-    function cancelar(){
+    function cancelar() {
         mudarTela("login")
         setUsuario({})
         setErro(false)
@@ -124,7 +163,8 @@ export function AuthProvider({ children } : any){
                 login,
                 logout,
                 validarEmail,
-                cancelar
+                cancelar,
+                novaSenha
             }}
         >
             {children}

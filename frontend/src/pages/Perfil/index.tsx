@@ -3,6 +3,7 @@ import { IconPerfil } from '@/components/icons/IconesMaterial';
 import Layout from './../../components/template/Layout';
 import FormPerfil from './FormPerfil';
 import FotoPerfil from './FotoPerfil';
+import BasicModal from '@/components/Modal/ModalFotoUser';
 
 export default function Perfil() {
     return (
@@ -15,6 +16,7 @@ export default function Perfil() {
                     <div className='flex items-center w-[100%] h-[50%] max-sm:h-[100%]'>
                         <FotoPerfil />
                     </div>
+                    <BasicModal />
                 </div>
             </div>
         </Layout>

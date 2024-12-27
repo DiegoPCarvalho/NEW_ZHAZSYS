@@ -1,8 +1,12 @@
-import Head from "next/head"
-import Image from "next/image"
+import Head from "next/head";
+import Image from "next/image";
 import loading from "@/assets/gifs/carregar.gif";
+import router from "next/router";
+import useAuthData from "@/data/hook/useAuthData";
 
 export default function ForcarAutenticacao({children} : any){
+    const { carregando } = useAuthData()
+
     function renderizarConteudo(){
         return(
             <>
@@ -31,5 +35,9 @@ export default function ForcarAutenticacao({children} : any){
         )
     }
 
-    return renderizarConteudo()
+    if(carregando){
+        return renderizarCarregando()
+    }else{
+        return renderizarConteudo()
+    }
 }
