@@ -2,13 +2,27 @@ import Botao from "@/components/shared/Botao";
 import Entrada from "@/components/shared/Entrada";
 import Formulario from "@/components/shared/Formulario";
 import useAppData from "@/data/hook/useAppData";
+import { Mensagem } from "@/data/interfaces/Mensagem";
 import DrawIcon from '@mui/icons-material/Draw';
 import { Alert, Snackbar } from "@mui/material";
-import { useState } from 'react';
 
-export default function FormPerfil() {
+interface FormPerfilProps {
+    user?: any
+    open: boolean
+    senha: string
+    confirmarSenha: string
+    setSenha: (novoValor: any) => void
+    setConfirmarSenha: (novoValor: any) => void
+    close: () => void
+    salvar: () => void
+    editar: boolean
+    setEditar: () => void
+    cancelar: () => void
+    mensagem: Mensagem
+}
+
+export default function FormPerfil(props: FormPerfilProps) {
     const { tema } = useAppData();
-    const [editar, setEditar] = useState<boolean>(false);
 
     return (
         <div className="bg-white dark:bg-neutral-950 m-4 flex flex-col w-[100%] h-[90%] shadow-lg rounded-lg ">
@@ -17,14 +31,14 @@ export default function FormPerfil() {
                     Meus Dados
                 </div>
                 <div className="mr-5">
-                    {!editar ? (
+                    {!props.editar ? (
                          <Botao className={`
                          transition-all bg-yellow-500  text-white px-3 py-2 rounded-lg
                          border-yellow-600
                          border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
                          active:border-b-[2px] active:brightness-90 active:translate-y-[2px]
                      `}
-                     executar={() => setEditar(true)}
+                     executar={props.setEditar}
                      >
                          <DrawIcon />
                      </Botao>
@@ -36,16 +50,15 @@ export default function FormPerfil() {
                     <Entrada
                         texto="Nome Completo:"
                         tipo="text"
-                        nome="NomeCompleto"
                         className="grow"
-                        valor={"Diego Carvalho"}
+                        valor={props.user.nomeCompleto}
                         desativar
                     />
                     <Entrada
                         texto="E-mail:"
                         tipo="text"
-                        nome="Email"
                         className="grow"
+                        valor={props.user.email}
                         desativar
                     />
                 </div>
@@ -53,22 +66,22 @@ export default function FormPerfil() {
                     <Entrada
                         texto="Departamento:"
                         tipo="text"
-                        nome="Departamento"
                         className="grow"
+                        valor={props.user.departamento}
                         desativar
                     />
                     <Entrada
                         texto="Contrato:"
                         tipo="text"
-                        nome="Contrato"
                         className="grow"
+                        valor={props.user.contrato}
                         desativar
                     />
                     <Entrada
                         texto="Especialidade:"
                         tipo="text"
-                        nome="Especialidade"
                         className="grow"
+                        valor={props.user.especialidade}
                         desativar
                     />
                 </div>
@@ -77,21 +90,23 @@ export default function FormPerfil() {
                         id={tema === 'dark' ? "dataDark" : ""}
                         texto="Nova Senha:"
                         tipo="password"
-                        nome="Senha"
                         className="grow"
-                        desativar={!editar}
-                    />
+                        valor={props.senha}
+                        alterouCampo={e => props.setSenha(e.target.value)}
+                        desativar={!props.editar}
+                        />
                     <Entrada
                         id={tema === 'dark' ? "dataDark" : ""}
                         texto="Confirmar Senha:"
                         tipo="password"
-                        nome="ConfirmarSenha"
                         className="grow"
-                        desativar={!editar}
+                        valor={props.confirmarSenha}
+                        alterouCampo={e => props.setConfirmarSenha(e.target.value)}
+                        desativar={!props.editar}
                     />
                 </div>
                 <div className="flex justify-end mt-3 h-10">
-                    {editar ? (
+                    {props.editar ? (
                         <>
                             <div className="mr-3">
                                 <Botao
@@ -101,7 +116,7 @@ export default function FormPerfil() {
                             border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
                             active:border-b-[2px] active:brightness-90 active:translate-y-[2px] 
                             `}
-
+                                executar={props.salvar}
                                 >Salvar</Botao>
                             </div>
                             <div>
@@ -112,7 +127,7 @@ export default function FormPerfil() {
                             border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
                             active:border-b-[2px] active:brightness-90 active:translate-y-[2px]  
                             `}
-                                executar={() => setEditar(false)}
+                                executar={props.cancelar}
                                 >Cancelar</Botao>
                             </div>
                         </>
@@ -120,17 +135,17 @@ export default function FormPerfil() {
                 </div>
             </Formulario>
             <Snackbar
-                // open={open} 
+                open={props.open} 
                 autoHideDuration={2000}
-                // onClose={close}
+                onClose={props.close}
             >
                 <Alert
-                    // onClose={close}
-                    severity="error"
-                    variant="filled"
+                    onClose={props.close}
+                    severity={props.mensagem.severity}
+                    variant={props.mensagem.variant}
                     sx={{ width: '100%' }}
                 >
-                    error
+                  {props.mensagem.mensagem}
                 </Alert>
             </Snackbar>
         </div>

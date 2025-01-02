@@ -12,6 +12,7 @@ interface FormUsersProps {
     setSenha: (novoValor: any) => void
     limpar: () => void
     verificar: () => void
+   
 }
 
 export default function FormUsers(props: FormUsersProps) {

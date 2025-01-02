@@ -4,6 +4,7 @@ import useAppData from '@/data/hook/useAppData';
 import Menu from './menu';
 import MenuUser from './User/MenuUser';
 import ForcarAutenticacao from '../Auth/ForcarAutenticacao';
+import { useEffect } from 'react';
 
 interface LayoutProps {
     children?: any
@@ -12,7 +13,11 @@ interface LayoutProps {
 }
 
 export default function Layout(props: LayoutProps) {
-    const { menu, avaUser, tema } = useAppData()
+    const { menu, avaUser, tema, BuscarDadosUser } = useAppData()
+
+    useEffect(() => {
+        BuscarDadosUser!()
+    },[])
 
     return (
         <ForcarAutenticacao>

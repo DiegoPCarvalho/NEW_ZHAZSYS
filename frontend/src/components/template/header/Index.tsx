@@ -8,8 +8,6 @@ import AvatarUser from "../User/AvatarUser";
 import MenuIcon from '@mui/icons-material/Menu';
 import MudarTema from "./MudarTema"
 import MudarTemaMini from "./MudarTemaMini";
-import useLocalStorage from "@/data/hook/useLocalStorage";
-
 
 interface HeaderProps {
     icone: any
@@ -17,15 +15,7 @@ interface HeaderProps {
 }
 
 export default function Header(props: HeaderProps) {
-    const { altenarMenu, menu } = useAppData();
-    const { get } = useLocalStorage();
-
-    function NomeUsuario(){
-        const dado = get("UserMain")
-        const obj = dado === undefined ? false : JSON.parse(dado!)
-        return obj?.nomeCompleto
-    }
-
+    const { altenarMenu, menu, perfilUser } = useAppData();
 
     return (
         <div className="flex justify-between h-16 bg-white dark:bg-zinc-950">
@@ -63,7 +53,7 @@ export default function Header(props: HeaderProps) {
                         Bem Vindo,
                     </div>
                     <div className="text-sm font-bold text-black dark:text-zinc-200">
-                        {NomeUsuario()}
+                        {perfilUser.nomeCompleto}
                     </div>
                 </div>
                 <AvatarUser />
