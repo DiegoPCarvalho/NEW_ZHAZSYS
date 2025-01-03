@@ -9,6 +9,7 @@ interface GncBancoContextProps {
     departamentos?: any[]
     novaData?: (novo: any[]) => void
     buscarDados?: () => Promise<void>
+    buscarContrato?: () => Promise<void>
 }
 
 const GncBancoContext = createContext<GncBancoContextProps>({});
@@ -35,10 +36,14 @@ export function GncProvider({ children } : any){
 
     function banco(nome: string){
         const baseUrl = Banco(nome)
-
         return baseUrl
     }
-
+    
+    
+    async function buscarContrato(){
+        const contrato = await axios(banco("Contrato")).then(resp => resp.data)
+        setContratos(contrato)
+    }
 
     return (
         <GncBancoContext.Provider value={{
@@ -47,7 +52,8 @@ export function GncProvider({ children } : any){
                 equipamentos,
                 departamentos,
                 novaData,
-                buscarDados
+                buscarDados,
+                buscarContrato
             }}>
             {children}
         </GncBancoContext.Provider>

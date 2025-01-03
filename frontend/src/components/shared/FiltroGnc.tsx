@@ -1,35 +1,55 @@
+import useGncData from "@/data/hook/useGncData";
 import Botao from "./Botao";
 import Selecione from "./Selecione";
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import { FiltroGncProps } from "@/data/interfaces/FiltroGncProps";
 
 interface FiltroGnc {
     modo?: string
     semDia?: boolean
+    filtro: FiltroGncProps
+    alterarCampo:(novoValor: any) => void
+    buscar?: () => void 
 }
 
 export default function FiltroGnc(props: FiltroGnc){
+    const { contratos } = useGncData()
+
     return(
         <div className="flex justify-center max-sm:grid max-sm:grid-cols-1">
             <div className="max-sm:hidden mr-3 flex items-center"><FilterAltIcon sx={{ fontSize: 50 }} className="text-red-500 dark:text-red-800"/></div>
             <div className="flex max-sm:grid max-sm:grid-cols-1 max-sm:w-[100%]">
              {props.modo === "contrato" ?  <Selecione
                     texto="Contrato:"
-                    nome="Contrato"
+                    nome="contrato"
                     className="grow"
+                    valor={props.filtro?.contrato}
+                    alterouCampo={e => props.alterarCampo(e)}
+                    filtro
                 >
-                    <option>aaaaaaaaaaaaaaaaaaaaa</option>
+                    {contratos!.map((registro: any) => {
+                        return(
+                            <option key={registro.id}>{registro.nome}</option>
+                        )
+                    })}
                 </Selecione> : false}
                 {props.modo === "gerencia" ?  <Selecione
                     texto="Técnico:"
-                    nome="Tecnico"
+                    nome="tecnico"
                     className="grow"
+                    valor={props.filtro?.tecnico}
+                    alterouCampo={e => props.alterarCampo(e)}
+                    filtro
                 >
-                    <option>aaaaaaaaaaaaaaaaaaaaa</option>
+                    
                 </Selecione> : false}
                 {props.semDia === true ? false : <Selecione
                     texto="Dia:"
-                    nome="Dia"
+                    nome="dia"
                     className="grow"
+                    valor={props.filtro?.dia}
+                    alterouCampo={e => props.alterarCampo(e)}
+                    filtro
                 >
                     <option>1</option>
                     <option>2</option>
@@ -65,8 +85,11 @@ export default function FiltroGnc(props: FiltroGnc){
                 </Selecione> }
                 <Selecione
                     texto="Mês:"
-                    nome="Mes"
+                    nome="mes"
                     className="grow"
+                    valor={props.filtro?.mes}
+                    alterouCampo={e => props.alterarCampo(e)}
+                    filtro
                 >
                     <option>1</option>
                     <option>2</option>
@@ -83,8 +106,11 @@ export default function FiltroGnc(props: FiltroGnc){
                 </Selecione>
                 <Selecione
                     texto="Ano:"
-                    nome="Ano"
+                    nome="ano"
                     className="grow"
+                    valor={props.filtro?.ano}
+                    alterouCampo={e => props.alterarCampo(e)}
+                    filtro
                 >
                     <option>2023</option>
                     <option>2024</option>
@@ -95,7 +121,7 @@ export default function FiltroGnc(props: FiltroGnc){
                     <option>2030</option>
                 </Selecione>
             </div>
-            <div className="flex items-end ml-3 max-sm:justify-end max-sm:h-16">
+            <div className="flex items-center ml-3 max-sm:justify-end max-sm:h-16">
                 <Botao
                     className={`
                             cursor-pointer transition-all bg-emerald-500 dark:bg-emerald-700 text-white px-5 py-2 rounded-lg
@@ -104,7 +130,7 @@ export default function FiltroGnc(props: FiltroGnc){
                             active:border-b-[2px] active:brightness-90 active:translate-y-[2px] 
                         `}
 
-                    executar={() => console.log("")}
+                    executar={props.buscar}
                 >Buscar</Botao>
             </div>
         </div>
