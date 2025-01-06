@@ -5,9 +5,19 @@ import Selecione from "@/components/shared/Selecione";
 import AreaTexto from "@/components/shared/AreaTexto";
 import Botao from "@/components/shared/Botao";
 import AddIcon from '@mui/icons-material/Add';
+import useGncData from "@/data/hook/useGncData";
+import useVhlData from "@/data/hook/useVhlContext";
 
 export default function FormVhl() {
-    const { tema } = useAppData()
+    const { tema } = useAppData();
+    const { servicoVhl, equipamentos } = useGncData();
+    const { vhlForm, alterarCampoVhlForm, vhlEquip, alterarCampoVhlEquip, equipLista } = useVhlData()
+
+    function intercalado(i: number) {
+        let resultado = i % 2
+    
+        return resultado === 1 ? "bg-neutral-400 dark:bg-neutral-600 text-white" : "dark:text-white"
+    }
 
     return (
         <Formulario className="max-sm:h-[96%] dark:text-white">
@@ -19,12 +29,16 @@ export default function FormVhl() {
                             texto="Data:"
                             tipo="datetime-local"
                             nome="Data"
+                            valor={vhlForm!.Data}
+                            alterouCampo={alterarCampoVhlForm}
                             className="grow"
                         />
                         <Entrada
                             texto="Pedido:"
                             tipo="text"
                             nome="Pedido"
+                            valor={vhlForm!.Pedido}
+                            alterouCampo={alterarCampoVhlForm}
                             className="grow"
                             mensagemCampo="..."
                         />
@@ -34,6 +48,8 @@ export default function FormVhl() {
                             texto="Cliente:"
                             tipo="text"
                             nome="Cliente"
+                            valor={vhlForm!.Cliente}
+                            alterouCampo={alterarCampoVhlForm}
                             className="grow"
                             mensagemCampo="..."
                         />
@@ -42,14 +58,20 @@ export default function FormVhl() {
                         <Selecione
                             texto="Serviço:"
                             nome="Servico"
+                            valor={vhlForm!.Servico}
+                            alterouCampo={alterarCampoVhlForm}
                             className="grow"
                         >
-                            <option>aaaaaaaaaaaaaaaaaaaaa</option>
+                            {servicoVhl!.map((registro: any) => {
+                                return <option key={registro.id}>{registro.nome}</option>
+                            })}
                         </Selecione>
                         <Entrada
                             tipo="number"
                             texto="QTDE:"
                             nome="QTDE"
+                            valor={vhlForm!.QTDE}
+                            alterouCampo={alterarCampoVhlForm}
                         />
                     </div>
                     <div className="mt-5">
@@ -57,6 +79,8 @@ export default function FormVhl() {
                             texto="Observação:"
                             linhas={5}
                             nome="Observacao"
+                            valor={vhlForm!.Observacao}
+                            alterouCampo={alterarCampoVhlForm}
                             mensagemCampo="..."
                             className="grow"
                         />
@@ -67,14 +91,20 @@ export default function FormVhl() {
                         <Selecione
                             texto="Equipamento:"
                             nome="Equipamento"
+                            valor={vhlEquip!.Equipamento}
+                            alterouCampo={alterarCampoVhlEquip}
                             className="grow"
                         >
-                            <option>aaaaaaaaaaaaaaaaaaaaa</option>
+                            {equipamentos!.map((registro: any) => {
+                                return <option key={registro.id}>{registro.nome}</option>
+                            })}
                         </Selecione>
                         <Entrada
                             texto="Modelo:"
                             tipo="text"
                             nome="Modelo"
+                            valor={vhlEquip!.Modelo}
+                            alterouCampo={alterarCampoVhlEquip}
                             className="grow"
                             mensagemCampo="..."
                         />
@@ -82,6 +112,8 @@ export default function FormVhl() {
                             texto="NS:"
                             tipo="text"
                             nome="NS"
+                            valor={vhlEquip!.NS}
+                            alterouCampo={alterarCampoVhlEquip}
                             className="grow"
                             mensagemCampo="..."
                         />
@@ -90,7 +122,9 @@ export default function FormVhl() {
                         <Entrada
                             texto="Obs. Item:"
                             tipo="text"
-                            nome="ObsItem"
+                            nome="Observacao"
+                            valor={vhlEquip!.Observacao}
+                            alterouCampo={alterarCampoVhlEquip}
                             className="grow"
                             mensagemCampo="..."
                         />
@@ -114,48 +148,17 @@ export default function FormVhl() {
                                 </tr>
                             </thead>
                             <tbody className="block overflow-auto h-[150px] rounded-b-lg border-2 dark:border-neutral-700" id="hiddenScroll">
-                                <tr className="flex justify-between">
-                                    <td className="">Cabo COnfec.</td>
-                                    <td>LS2208</td>
-                                    <td className="">13246578966</td>
-                                    <td>sem dado</td>
-                                </tr>
-                                <tr className="flex justify-between bg-neutral-400 text-white dark:bg-neutral-600">
-                                    <td className="">Cabo COnfec.</td>
-                                    <td>LS2208</td>
-                                    <td className="">13246578966</td>
-                                    <td>sem dado</td>
-                                </tr>
-                                <tr className="flex justify-between">
-                                    <td className="">Cabo COnfec.</td>
-                                    <td>LS2208</td>
-                                    <td className="">13246578966</td>
-                                    <td>sem dado</td>
-                                </tr>
-                                <tr className="flex justify-between">
-                                    <td className="">Cabo COnfec.</td>
-                                    <td>LS2208</td>
-                                    <td className="">13246578966</td>
-                                    <td>sem dado</td>
-                                </tr>
-                                <tr className="flex justify-between">
-                                    <td className="">Cabo COnfec.</td>
-                                    <td>LS2208</td>
-                                    <td className="">13246578966</td>
-                                    <td>sem dado</td>
-                                </tr>
-                                <tr className="flex justify-between">
-                                    <td className="">Cabo COnfec.</td>
-                                    <td>LS2208</td>
-                                    <td className="">13246578966</td>
-                                    <td>sem dado</td>
-                                </tr>
-                                <tr className="flex justify-between">
-                                    <td className="">Cabo COnfec.</td>
-                                    <td>LS2208</td>
-                                    <td className="">13246578966</td>
-                                    <td>sem dado</td>
-                                </tr>
+                            {equipLista!.map((registro: any, i: number) => {
+                                return(
+                                    <tr className={`flex justify-between ${intercalado(i)}`} key={registro.id}>
+                                        <td>{registro.id}</td>
+                                        <td>{registro.Equipamento}</td>
+                                        <td>{registro.Modelo}</td>
+                                        <td>{registro.NS}</td>
+                                    </tr>
+                                )
+                            })}
+
                             </tbody>
                         </table>
                     </div>

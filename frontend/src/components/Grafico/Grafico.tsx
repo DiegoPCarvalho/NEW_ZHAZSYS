@@ -15,7 +15,7 @@ interface GraficoProps{
     rotacao?: string
     nomeSerie?: string
     cor?: boolean
-    dado?: any
+    dado?: any[]
     serie?: any
     mudar?: boolean
     categoria?: any
@@ -27,8 +27,8 @@ export default function GraficoGNC(props: GraficoProps){
     const {tema} = useAppData()
 
     const dados = {
-        colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572',
-             '#FF9655', '#FFF263', '#6AF9C4'],
+        // colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572',
+        //      '#FF9655', '#FFF263', '#6AF9C4'],
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: null,
@@ -145,7 +145,7 @@ export default function GraficoGNC(props: GraficoProps){
             labels: {
                 rotation: props.rotacao,
                 style: {
-                    fontSize: '20px',
+                    fontSize: '12px',
                     color: tema === 'dark' ? 'white' : 'black'
                 }
             },

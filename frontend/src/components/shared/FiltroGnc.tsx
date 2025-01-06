@@ -17,7 +17,7 @@ export default function FiltroGnc(props: FiltroGnc){
 
     return(
         <div className="flex justify-center max-sm:grid max-sm:grid-cols-1">
-            <div className="max-sm:hidden mr-3 flex items-center"><FilterAltIcon sx={{ fontSize: 50 }} className="text-red-500 dark:text-red-800"/></div>
+            <div className="max-sm:hidden mr-3 flex items-end"><FilterAltIcon sx={{ fontSize: 50 }} className="text-red-500 dark:text-red-800"/></div>
             <div className="flex max-sm:grid max-sm:grid-cols-1 max-sm:w-[100%]">
              {props.modo === "contrato" ?  <Selecione
                     texto="Contrato:"
@@ -121,7 +121,7 @@ export default function FiltroGnc(props: FiltroGnc){
                     <option>2030</option>
                 </Selecione>
             </div>
-            <div className="flex items-center ml-3 max-sm:justify-end max-sm:h-16">
+            <div className="flex items-end ml-3 max-sm:justify-end max-sm:h-16">
                 <Botao
                     className={`
                             cursor-pointer transition-all bg-emerald-500 dark:bg-emerald-700 text-white px-5 py-2 rounded-lg

@@ -7,9 +7,11 @@ interface GncBancoContextProps {
     contratos?: any[]
     equipamentos?: any[]
     departamentos?: any[]
+    servicoVhl?: any[]
     novaData?: (novo: any[]) => void
     buscarDados?: () => Promise<void>
     buscarContrato?: () => Promise<void>
+    buscarVhl?: () => Promise<void>
 }
 
 const GncBancoContext = createContext<GncBancoContextProps>({});
@@ -19,6 +21,7 @@ export function GncProvider({ children } : any){
     const [contratos, setContratos] = useState<any[]>([])
     const [equipamentos, setEquipamentos] = useState<any[]>([])
     const [departamentos, setDepartamentos] = useState<any[]>([])
+    const [servicoVhl, setServicoVhl] = useState<any[]>([])
 
     function novaData(novo: any){
         setData(novo)
@@ -45,15 +48,27 @@ export function GncProvider({ children } : any){
         setContratos(contrato)
     }
 
+    async function buscarVhl(){
+        const equipamento = await axios(banco("Equipamento")).then(resp => resp.data)
+        const servicoVhl = await axios(banco("Servico")).then(resp => {
+            let dado = resp.data.filter((registro: any) => registro.tipo === "VHL")
+            return dado
+        })
+        setEquipamentos(equipamento)
+        setServicoVhl(servicoVhl)
+    }
+
     return (
         <GncBancoContext.Provider value={{
                 data,
                 contratos,
                 equipamentos,
                 departamentos,
+                servicoVhl,
                 novaData,
                 buscarDados,
-                buscarContrato
+                buscarContrato,
+                buscarVhl
             }}>
             {children}
         </GncBancoContext.Provider>

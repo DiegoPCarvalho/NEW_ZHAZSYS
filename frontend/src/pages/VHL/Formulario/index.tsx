@@ -4,8 +4,16 @@ import Layout from './../../../components/template/Layout';
 import { VhlUrl } from '@/data/config/vhlUrl';
 import NavigatePage from '@/components/navigatePage/NavigatePage';
 import FormVhl from './FormVHL';
+import useGncData from '@/data/hook/useGncData';
+import { useEffect } from 'react';
 
 export default function FormularioVHL() {
+    const { buscarVhl } = useGncData()
+
+    useEffect(() => {
+        buscarVhl!()
+    },[])
+
     return (
         <Layout icone={<IconVHL fontSize='large' />} texto="VHL">
             <div className='flex flex-col item-center h-full overflow-auto'>
