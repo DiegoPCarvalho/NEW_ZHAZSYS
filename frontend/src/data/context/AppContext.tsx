@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
+import useLocalStorage from "../hook/useLocalStorage";
 
 interface AppContextProps {
     menu?: boolean
@@ -18,8 +19,14 @@ export function AppProvider({ children} : any){
 
     const [menu, setMenu] = useState<boolean>(false)
     const [avaUser, setAvaUser] = useState<boolean>(false)
-    const [tema, setMudarTema] = useState<string>('')
+    const [tema, setMudarTema] = useState<string>('dark')
     const [perfilUser, setPerfilUser] = useState<any>({});
+    const { set } = useLocalStorage()
+
+    useEffect(() => {
+        const temaSalvo = localStorage.getItem('tema')
+        setMudarTema(temaSalvo!)
+    }, [])
 
      function BuscarDadosUser(){
         const string = localStorage.UserMain
@@ -43,7 +50,9 @@ export function AppProvider({ children} : any){
     }
     
     function mudarTema() {
-       tema === "dark" ? setMudarTema('') : setMudarTema('dark')
+        const novoTema = tema === '' ? 'dark' : ''
+        setMudarTema(novoTema)
+        localStorage.tema = novoTema
     }
 
     return(

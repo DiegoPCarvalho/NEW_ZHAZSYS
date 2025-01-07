@@ -64,6 +64,7 @@ export function AuthProvider({ children }: any) {
 
             if (email === resp[0].email && pass) {
                 set("UserMain", resp[0])
+                localStorage.Tecnico = resp[0].nomeCompleto
                 gerenciarCookie(true)
                 router.push('/')
             } else {

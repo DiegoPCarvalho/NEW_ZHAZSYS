@@ -1,6 +1,6 @@
 export interface Vhl {
     id?: number
-    Data: string
+    Data: any
     Dia: number
     Mes: number
     Ano: number
@@ -8,7 +8,7 @@ export interface Vhl {
     Cliente: string
     Servico: string
     Observacao: string
-    QTDE: string
+    QTDE: number
     Tecnico: string
     Equipamento: any[]
 }
@@ -22,7 +22,7 @@ export const initialVhl: Vhl = {
     Cliente: "",
     Servico: "",
     Observacao: "",
-    QTDE: "",
+    QTDE: 0,
     Tecnico: "",
     Equipamento: []
 }

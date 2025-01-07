@@ -8,6 +8,7 @@ import AvatarUser from "../User/AvatarUser";
 import MenuIcon from '@mui/icons-material/Menu';
 import MudarTema from "./MudarTema"
 import MudarTemaMini from "./MudarTemaMini";
+import Link from "next/link";
 
 interface HeaderProps {
     icone: any
@@ -30,7 +31,9 @@ export default function Header(props: HeaderProps) {
                     <>
                         <Botao className=" ml-2 p-2 rounded-lg hover:bg-zinc-700 hover:text-zinc-200 dark:hover:bg-zinc-700 dark:text-zinc-200 " executar={altenarMenu}><MenuIcon fontSize="large"></MenuIcon></Botao>
                         <div className={`ml-3 flex items-center justify-center`}>
-                            <Image src={logo} alt="" className="h-10 w-36 max-sm:w-20" />
+                            <Link href={"/"} legacyBehavior>
+                                <Image src={logo} alt="" className="h-10 w-36 max-sm:w-20 cursor:pointer" />
+                            </Link>
                         </div>
                         <div className={`ml-5 flex items-center`}>
                             <Titulo icone={props.icone} texto={props.texto} className={""} />

@@ -6,13 +6,29 @@ import NavigatePage from '@/components/navigatePage/NavigatePage';
 import FormVhl from './FormVHL';
 import useGncData from '@/data/hook/useGncData';
 import { useEffect } from 'react';
+import useVhlData from '@/data/hook/useVhlContext';
+import { SnackbarCloseReason } from '@mui/material/Snackbar';
+import { Alert, Snackbar } from "@mui/material";
 
 export default function FormularioVHL() {
     const { buscarVhl } = useGncData()
+    const { limparCampos, alterar, open, setOpen, mensagem } = useVhlData()
 
     useEffect(() => {
         buscarVhl!()
-    },[])
+        limparCampos!()
+    }, [])
+
+    const close = (
+        event?: React.SyntheticEvent | Event,
+        reason?: SnackbarCloseReason,
+    ) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen!(false);
+    };
 
     return (
         <Layout icone={<IconVHL fontSize='large' />} texto="VHL">
@@ -27,6 +43,20 @@ export default function FormularioVHL() {
                 <div className='max-sm:mt-1 mx-3 mt-5 max-sm:w-[100%] max-sm:h-[97%]'>
                     <FormVhl />
                 </div>
+                <Snackbar
+                    open={open}
+                    autoHideDuration={2000}
+                    onClose={close}
+                >
+                    <Alert
+                        onClose={close}
+                        severity={mensagem!.severity}
+                        variant={mensagem!.variant}
+                        sx={{ width: '100%' }}
+                    >
+                        {mensagem!.mensagem}
+                    </Alert>
+                </Snackbar>
             </div>
         </Layout>
     )

@@ -7,15 +7,28 @@ import Botao from "@/components/shared/Botao";
 import AddIcon from '@mui/icons-material/Add';
 import useGncData from "@/data/hook/useGncData";
 import useVhlData from "@/data/hook/useVhlContext";
+import { IconDeletar } from "@/components/icons/IconesMaterial";
 
 export default function FormVhl() {
     const { tema } = useAppData();
     const { servicoVhl, equipamentos } = useGncData();
-    const { vhlForm, alterarCampoVhlForm, vhlEquip, alterarCampoVhlEquip, equipLista } = useVhlData()
+    const { 
+            vhlForm, 
+            alterarCampoVhlForm, 
+            vhlEquip, 
+            alterarCampoVhlEquip, 
+            limparCampos, 
+            addEquipamento, 
+            equipLista, 
+            alterar, 
+            removeEquipamento,
+            quantidade,
+            verificar
+         } = useVhlData()
 
     function intercalado(i: number) {
         let resultado = i % 2
-    
+
         return resultado === 1 ? "bg-neutral-400 dark:bg-neutral-600 text-white" : "dark:text-white"
     }
 
@@ -41,6 +54,7 @@ export default function FormVhl() {
                             alterouCampo={alterarCampoVhlForm}
                             className="grow"
                             mensagemCampo="..."
+                            requerido
                         />
                     </div>
                     <div className="mt-5">
@@ -52,6 +66,7 @@ export default function FormVhl() {
                             alterouCampo={alterarCampoVhlForm}
                             className="grow"
                             mensagemCampo="..."
+                            requerido
                         />
                     </div>
                     <div className="flex mt-5 max-sm:grid max-sm:grid-cols-1">
@@ -61,6 +76,7 @@ export default function FormVhl() {
                             valor={vhlForm!.Servico}
                             alterouCampo={alterarCampoVhlForm}
                             className="grow"
+                            requerido
                         >
                             {servicoVhl!.map((registro: any) => {
                                 return <option key={registro.id}>{registro.nome}</option>
@@ -70,8 +86,8 @@ export default function FormVhl() {
                             tipo="number"
                             texto="QTDE:"
                             nome="QTDE"
-                            valor={vhlForm!.QTDE}
-                            alterouCampo={alterarCampoVhlForm}
+                            valor={quantidade}
+                            desativar
                         />
                     </div>
                     <div className="mt-5">
@@ -136,7 +152,7 @@ export default function FormVhl() {
                             border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
                             active:border-b-[2px] active:brightness-90 active:translate-y-[2px] 
                         `}
-
+                                executar={addEquipamento}
                             ><AddIcon fontSize="large" /></Botao>
                         </div>
                     </div>
@@ -148,21 +164,46 @@ export default function FormVhl() {
                                 </tr>
                             </thead>
                             <tbody className="block overflow-auto h-[150px] rounded-b-lg border-2 dark:border-neutral-700" id="hiddenScroll">
-                            {equipLista!.map((registro: any, i: number) => {
-                                return(
-                                    <tr className={`flex justify-between ${intercalado(i)}`} key={registro.id}>
-                                        <td>{registro.id}</td>
-                                        <td>{registro.Equipamento}</td>
-                                        <td>{registro.Modelo}</td>
-                                        <td>{registro.NS}</td>
-                                    </tr>
-                                )
-                            })}
+                                {equipLista!.map((registro: any, i: number) => {
+                                    return (
+                                        <tr className={`flex justify-between items-center ${intercalado(i)}`} key={registro.id}>
+                                            <td className="ml-1">{registro.id}</td>
+                                            <td>{registro.Equipamento}</td>
+                                            <td>{registro.Modelo}</td>
+                                            <td>{registro.NS}</td>
+                                            <td className="h-12 mr-1">
+                                                <Botao
+                                                    className="
+                                                    transition-all bg-red-500  text-white px-3 py-2 rounded-lg
+                                                    border-red-600
+                                                    border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
+                                                    active:border-b-[2px] active:brightness-90 active:translate-y-[2px]
+                                                    "
+                                                    executar={() => removeEquipamento!(registro)}
+                                                >
+                                                    <IconDeletar />
+                                                </Botao>
+                                            </td>
+                                        </tr>
+                                    )
+                                })}
 
                             </tbody>
                         </table>
                     </div>
-                    <div className="flex justify-end mt-5 max-sm:mt-3">
+                    <div className="flex justify-between mt-5 max-sm:mt-3">
+                        <div className="flex items-center mr-5">
+                            {alterar ?
+                                <Botao
+                                    className={`
+                                cursor-pointer transition-all bg-lime-500 dark:bg-lime-700 text-white px-5 py-2 rounded-lg
+                                border-lime-600 dark:border-lime-800
+                                border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
+                                active:border-b-[2px] active:brightness-90 active:translate-y-[2px] 
+                            `}
+                                >Finalizar</Botao>
+                                : false}
+                        </div>
                         <div className="flex justify-between items-center w-60 h-12">
                             <Botao
                                 className={`
@@ -171,15 +212,16 @@ export default function FormVhl() {
                             border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
                             active:border-b-[2px] active:brightness-90 active:translate-y-[2px] 
                         `}
-
+                            executar={verificar}
                             >Salvar</Botao>
                             <Botao
                                 className={`
-                            cursor-pointer transition-all bg-red-500 dark:bg-red-700 text-white px-5 py-2 rounded-lg
-                            border-red-600 dark:border-red-800
-                            border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
-                            active:border-b-[2px] active:brightness-90 active:translate-y-[2px]  
-                            `}
+                                    cursor-pointer transition-all bg-red-500 dark:bg-red-700 text-white px-5 py-2 rounded-lg
+                                    border-red-600 dark:border-red-800
+                                    border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
+                                    active:border-b-[2px] active:brightness-90 active:translate-y-[2px]  
+                                    `}
+                                executar={limparCampos}
                             >Cancelar</Botao>
                         </div>
                     </div>
