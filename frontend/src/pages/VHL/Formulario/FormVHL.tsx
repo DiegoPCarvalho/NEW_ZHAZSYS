@@ -9,7 +9,11 @@ import useGncData from "@/data/hook/useGncData";
 import useVhlData from "@/data/hook/useVhlContext";
 import { IconDeletar } from "@/components/icons/IconesMaterial";
 
-export default function FormVhl() {
+interface FormVhlProps{
+    table?: boolean
+}
+
+export default function FormVhl(props: FormVhlProps) {
     const { tema } = useAppData();
     const { servicoVhl, equipamentos } = useGncData();
     const { 
@@ -23,7 +27,8 @@ export default function FormVhl() {
             alterar, 
             removeEquipamento,
             quantidade,
-            verificar
+            verificar,
+            finalizarEdit
          } = useVhlData()
 
     function intercalado(i: number) {
@@ -34,9 +39,9 @@ export default function FormVhl() {
 
     return (
         <Formulario className="max-sm:h-[96%] dark:text-white">
-            <div className="flex justify-between w-[100%] max-sm:w-[98%] max-sm:grid max-sm:grid-cols-1">
-                <div className="flex flex-col grow p-5 max-sm:w-[95%] bg-white dark:bg-neutral-950 dark:border-2 rounded-lg dark:border-neutral-600 border shadow-lg">
-                    <div className="flex max-sm:grid max-sm:grid-cols-1">
+            <div className="flex justify-between  max-sm:w-[98%] max-sm:grid max-sm:grid-cols-1">
+                <div className="flex flex-col overflow-hidden w-[50%] grow p-5 max-sm:w-[95%] bg-white dark:bg-neutral-950 dark:border-2 rounded-lg dark:border-neutral-600 border shadow-lg">
+                    <div className="grid grid-cols-2 max-sm:grid max-sm:grid-cols-1">
                         <Entrada
                             id={tema === 'dark' ? "dataDark" : ""}
                             texto="Data:"
@@ -69,7 +74,7 @@ export default function FormVhl() {
                             requerido
                         />
                     </div>
-                    <div className="flex mt-5 max-sm:grid max-sm:grid-cols-1">
+                    <div className="flex max-2xl:grid max-2xl:grid-cols-2 mt-5 max-sm:grid max-sm:grid-cols-1">
                         <Selecione
                             texto="Serviço:"
                             nome="Servico"
@@ -102,10 +107,10 @@ export default function FormVhl() {
                         />
                     </div>
                 </div>
-                <div className="flex flex-col ml-5 max-sm:grid p-5 max-sm:grid-cols-1 max-sm:mt-1 max-sm:w-[95%] bg-white dark:bg-neutral-950 dark:border-2 rounded-lg dark:border-neutral-600 border shadow-lg">
-                    <div className="flex max-sm:grid max-sm:grid-cols-1 ">
+                <div className="flex flex-col w-[50%] overflow-hidden ml-5 max-sm:ml-0 max-sm:grid p-5 max-sm:grid-cols-1 max-sm:mt-1 max-sm:w-[95%] bg-white dark:bg-neutral-950 dark:border-2 rounded-lg dark:border-neutral-600 border shadow-lg">
+                    <div className="grid grid-cols-3 max-sm:grid max-sm:grid-cols-1 ">
                         <Selecione
-                            texto="Equipamento:"
+                            texto={props.table ? "Equip.:" : "Equipamento:"}
                             nome="Equipamento"
                             valor={vhlEquip!.Equipamento}
                             alterouCampo={alterarCampoVhlEquip}
@@ -121,7 +126,6 @@ export default function FormVhl() {
                             nome="Modelo"
                             valor={vhlEquip!.Modelo}
                             alterouCampo={alterarCampoVhlEquip}
-                            className="grow"
                             mensagemCampo="..."
                         />
                         <Entrada
@@ -130,7 +134,6 @@ export default function FormVhl() {
                             nome="NS"
                             valor={vhlEquip!.NS}
                             alterouCampo={alterarCampoVhlEquip}
-                            className="grow"
                             mensagemCampo="..."
                         />
                     </div>
@@ -201,6 +204,7 @@ export default function FormVhl() {
                                 border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
                                 active:border-b-[2px] active:brightness-90 active:translate-y-[2px] 
                             `}
+                                executar={finalizarEdit}
                                 >Finalizar</Botao>
                                 : false}
                         </div>

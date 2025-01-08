@@ -5,8 +5,9 @@ import useGncData from "@/data/hook/useGncData";
 import { IconAlterar, IconDeletar } from "@/components/icons/IconesMaterial";
 import useVhlData from "@/data/hook/useVhlContext";
 import DialogExcluir from "@/components/shared/DialogExcluir";
-import ModalForm from "@/components/Modal/ModalForm";
 import FormVhl from "../Formulario/FormVHL";
+import ModalForm from "@/components/Modal/ModalForm";
+
 
 interface TabelaVhlProps {
     dados?: any[]
@@ -15,7 +16,7 @@ interface TabelaVhlProps {
 export default function TabelaVhl(props: TabelaVhlProps) {
 
     const { data } = useGncData()
-    const { abrirRemove, confirmeRemove, setExcluir, excluir, vl, setVl, openM, setOpenM } = useVhlData()
+    const { abrirRemove, confirmeRemove, setExcluir, excluir, vl, setVl, openM, loadVhl } = useVhlData()
 
     function renderRows() {
         return data?.map((registro: any, i: number) => {
@@ -23,9 +24,9 @@ export default function TabelaVhl(props: TabelaVhlProps) {
                 <tr key={registro.id} className={`${intercalado(i)} text-center`}>
                     <td className="">{dataNova(registro.Data)}</td>
                     <td className="">{registro.Pedido}</td>
-                    <td className="">{registro.Cliente}</td>
-                    <td className="">{registro.Servico}</td>
-                    <td>{registro.Equipamento.map((reg: any) => {
+                    <td className="max-sm:hidden">{registro.Cliente}</td>
+                    <td className="max-sm:hidden">{registro.Servico}</td>
+                    <td className="max-sm:hidden">{registro.Equipamento?.map((reg: any) => {
                         return (
                             <>
                                 <span style={{ fontSize: 12 }}>NS: {reg.NS}</span>
@@ -33,8 +34,8 @@ export default function TabelaVhl(props: TabelaVhlProps) {
                             </>
                         )
                     })}</td>
-                    <td className="">{registro.QTDE}</td>
-                    <td className="">{registro.Tecnico}</td>
+                    <td className="max-sm:hidden">{registro.QTDE}</td>
+                    <td className="max-sm:hidden">{registro.Tecnico}</td>
                     <td className="">
                         <div className="flex justify-around h-12">
                             <Botao
@@ -44,7 +45,7 @@ export default function TabelaVhl(props: TabelaVhlProps) {
                                     border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
                                     active:border-b-[2px] active:brightness-90 active:translate-y-[2px]
                                     "
-                                executar={() => setOpenM!(!openM)}
+                                executar={() => loadVhl!(registro)}
                             >
                                 <IconAlterar />
                             </Botao>
@@ -127,8 +128,8 @@ export default function TabelaVhl(props: TabelaVhlProps) {
                 exec={confirmeRemove!}
                 close={() => setExcluir!(!excluir)}
             />
-            <ModalForm open={openM!} close={() => setOpenM!(!openM)} save={() => console.log("salvar")}>
-                <FormVhl />
+            <ModalForm open={openM!}>
+                <FormVhl table/>
             </ModalForm>
         </div>
     )

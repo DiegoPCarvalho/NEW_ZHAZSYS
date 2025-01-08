@@ -1,51 +1,23 @@
-import * as React from 'react';
-import useAppData from '@/data/hook/useAppData';
-import Modal from 'react-modal';
-
-const MODAL_STYLE: any = {
-    content: {
-        position: 'relative',
-        top: '25%',
-        left: '10%',
-        right: 'auto',
-        bottom: 'auto',
-        width: '80%'
-    },
-    overlay: {
-        position: 'fixed',
-        top: '0',
-        bottom: '0',
-        left: '0',
-        right: '0',
-        backgroundColor: 'rgb(0,0,0, 0.7)',
-        zIndex: '1000'
-    }
-}
-
+import { SnackbarCloseReason } from '@mui/material/Snackbar';
 
 interface ModalFormProps {
     children?: any
-    open: boolean
-    close: () => void
-    fotoUrl?: string
-    save: () => void
-    mudarValorCampo?: (novoValor: any) => void
+    open?: boolean
 }
 
 export default function ModalForm(props: ModalFormProps) {
-    const { tema } = useAppData()
-
     return (
-        <div>
-            <Modal
-                isOpen={props.open}
-                style={MODAL_STYLE}
-                onRequestClose={props.close}
-            >
-                <div className={`${tema === "dark" ? "text-white bg-neutral-800" : "bg-white"} rounded-lg p-10`}>
-                    {props.children}
-                </div>
-            </Modal>
+        <div className={`
+                bg-white overflow-y-auto
+                border-2 border-neutral-200
+                dark:border-neutral-600
+                rounded-lg p-4
+                dark:bg-neutral-950
+                fixed left-[10%] right-[10%] max-2xl:left-[10%] max-2xl:right-[10%] top-[20%] z-99999
+                duration-300 ease-linear
+                ${props.open ? "translate-x-0" : "hidden"}
+            `}>
+            {props.children}
         </div>
-    );
+    )
 }

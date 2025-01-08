@@ -4,15 +4,18 @@ import Layout from './../../../components/template/Layout';
 import NavigatePage from '@/components/navigatePage/NavigatePage';
 import { VhlUrl } from '@/data/config/vhlUrl';
 import TabelaVhl from './TabelaVhl';
+import useGncData from '@/data/hook/useGncData';
 import useVhlData from '@/data/hook/useVhlContext';
 import { SnackbarCloseReason } from '@mui/material/Snackbar';
 import { useEffect } from 'react';
 import { Alert, Snackbar } from "@mui/material";
 
 export default function TabelaMainVHL() {
+    const { buscarVhl } = useGncData()
     const { banco, BuscarTabelaVhl, open, setOpen, mensagem } = useVhlData()
 
     useEffect(() => {
+        buscarVhl!()
         BuscarTabelaVhl!()
     }, [])
 

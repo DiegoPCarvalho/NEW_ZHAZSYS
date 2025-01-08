@@ -40,7 +40,7 @@ export default function FormularioVHL() {
                         data={VhlUrl} dataMini={VhlUrl}
                     />
                 </div>
-                <div className='max-sm:mt-1 mx-3 mt-5 max-sm:w-[100%] max-sm:h-[97%]'>
+                <div className='max-sm:mt-1 mx-1 mt-5 max-sm:w-[100%] max-sm:h-[97%]'>
                     <FormVhl />
                 </div>
                 <Snackbar

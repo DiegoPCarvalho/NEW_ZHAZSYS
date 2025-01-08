@@ -31,6 +31,8 @@ interface VhlContextProps {
     BuscarTabelaVhl?: () => Promise<void>
     confirmeRemove?: () => void
     abrirRemove?: (vhl: Vhl) => void
+    loadVhl?: (vhl: Vhl) => void
+    finalizarEdit?: () => void
 }
 
 const VhlContext = createContext<VhlContextProps>({})
@@ -51,7 +53,14 @@ export function VhlProvider({ children }: any) {
     const baseUrl = Banco("VHL")
 
     async function BuscarTabelaVhl() {
-        const tabela = await axios(baseUrl).then(resp => resp.data)
+        const tabela = await axios(baseUrl).then(resp => {
+                let dado = resp.data
+                let data = new Date()
+
+                const result = dado.filter((registro: any) => registro.Ano === data.getFullYear())
+                const resultFinal = result.filter((registro: any) => registro.Mes === data.getMonth() + 1)
+                return resultFinal
+        })
 
         return setBanco(tabela)
     }
@@ -71,12 +80,21 @@ export function VhlProvider({ children }: any) {
     function limparCampos() {
         if (alterar) {
             setOpenM(!openM)
-        }            
+            setAlterar(!alterar)
+        }
         setVhlForm(initialVhl)
         setVhlEquip(initialVhlEquip)
         setEquipLitsa([])
         setQuantidade(0)
         setSoExcluir(initialVhl)
+    }
+
+    async function loadVhl(vhl: Vhl) {
+        setAlterar(!alterar)
+        setOpenM(!openM)
+        await setVhlForm(vhl)
+        setEquipLitsa(vhl.Equipamento)
+        setQuantidade(vhl.QTDE)
     }
 
     function addEquipamento() {
@@ -162,7 +180,15 @@ export function VhlProvider({ children }: any) {
                 }
 
                 if (alterar) {
-
+                    const Data = vhlForm
+                    const method = Data.id ? 'put' : 'post'
+                    const url = Data.id ? `${baseUrl}/${Data.id}` : baseUrl
+                    axios[method](url, Data)
+                        .then(resp => {
+                            const banco = atualizarLista(resp.data)
+                            setBanco(banco)
+                            mensagemSistema("success", "filled", "Salvo Com Sucesso !!!")
+                        }).catch(erro => console.log(erro))
                 } else {
                     salvar(vhlForm, baseUrl)
                     limparCampos()
@@ -172,6 +198,21 @@ export function VhlProvider({ children }: any) {
 
         } catch (e) {
             mensagemSistema("error", "filled", "Sem Comunicação com Banco de Dados")
+        }
+    }
+
+    function finalizarEdit() {
+        if (alterar) {
+            const Data = vhlForm
+            const method = Data.id ? 'put' : 'post'
+            const url = Data.id ? `${baseUrl}/${Data.id}` : baseUrl
+            axios[method](url, Data)
+                .then(resp => {
+                    const banco = atualizarLista(resp.data)
+                    setBanco(banco)
+                    mensagemSistema("success", "filled", "Salvo Com Sucesso !!!")
+                    limparCampos()
+                }).catch(erro => console.log(erro))
         }
     }
 
@@ -210,7 +251,9 @@ export function VhlProvider({ children }: any) {
                 verificar,
                 BuscarTabelaVhl,
                 confirmeRemove,
-                abrirRemove
+                abrirRemove,
+                loadVhl,
+                finalizarEdit
             }}
         >
             {children}
