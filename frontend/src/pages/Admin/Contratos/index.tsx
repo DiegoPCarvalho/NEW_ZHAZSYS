@@ -1,6 +1,5 @@
 import Layout from "@/components/template/Layout"
 import { IconAdmin, IconContrato } from '@/components/icons/IconesMaterial';
-import { dado } from "@/data/db_teste/dado_teste";
 import NavigatePage from "@/components/navigatePage/NavigatePage";
 import { AdminUrl } from "@/data/config/adminUrl";
 import FormContratos from "./FormContratos";
@@ -12,6 +11,7 @@ import { AdminGnc, initialAdminGnc } from "@/data/interfaces/AdminGnc";
 import { Alert, Snackbar, SnackbarCloseReason } from "@mui/material";
 import { Mensagem, initialMSG } from "@/data/interfaces/Mensagem";
 import { severity, variant } from "@/data/type/mensagemSistema";
+import useAppData from "@/data/hook/useAppData";
 
 export default function Contratos(){
     const [banco, setBanco] = useState<any[]>([])
@@ -19,6 +19,7 @@ export default function Contratos(){
     const [open, setOpen] = useState<boolean>(false)
     const [mensagem, setMensagem] = useState<Mensagem>(initialMSG)
     const baseUrl = Banco("Contrato")
+    const { adminL3 } = useAppData()
 
     async function BuscarDado() {
         try {
@@ -30,6 +31,7 @@ export default function Contratos(){
     }
 
     useEffect(() => {
+        adminL3!()
         BuscarDado()
     }, [])
 

@@ -5,7 +5,7 @@ import Selecione from "@/components/shared/Selecione";
 import { Ramal } from "@/data/interfaces/Ramal";
 
 interface FormRamaisProps {
-    ramal: Ramal
+    ramal?: Ramal
     mudar: (novoValor: any) => void
     verificar: () => void
     limpar: () => void
@@ -20,7 +20,7 @@ export default function FormRamais(props: FormRamaisProps) {
                         texto="Departamento:"
                         nome="Departamento"
                         className="grow"
-                        valor={props.ramal.Departamento}
+                        valor={props.ramal?.Departamento}
                         alterouCampo={(e) => props.mudar(e)}
                         requerido
                     >
@@ -32,7 +32,7 @@ export default function FormRamais(props: FormRamaisProps) {
                         texto="Usuário:"
                         className="grow mx-2 max-sm:mx-0"
                         mensagemCampo="..."
-                        valor={props.ramal.Usuario}
+                        valor={props.ramal?.Usuario}
                         alterouCampo={(e) => props.mudar(e)}
                         requerido
                     />
@@ -42,7 +42,7 @@ export default function FormRamais(props: FormRamaisProps) {
                         texto="Ramal:"
                         className="grow mx-2 max-sm:mx-0"
                         mensagemCampo="..."
-                        valor={props.ramal.Ramal}
+                        valor={props.ramal?.Ramal}
                         alterouCampo={(e) => props.mudar(e)}
                         requerido
                     />

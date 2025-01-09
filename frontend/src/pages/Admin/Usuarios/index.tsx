@@ -17,6 +17,7 @@ import { Alert, Snackbar } from "@mui/material";
 import { Mensagem, initialMSG } from "@/data/interfaces/Mensagem";
 import { severity, variant } from "@/data/type/mensagemSistema";
 import useGncData from "@/data/hook/useGncData";
+import useAppData from "@/data/hook/useAppData";
 
 export default function Usuarios() {
     const { buscarDados } = useGncData()
@@ -28,6 +29,7 @@ export default function Usuarios() {
     const [open, setOpen] = useState<boolean>(false)
     const [mensagem, setMensagem] = useState<Mensagem>(initialMSG)
     const baseUrl = Banco("LoginUsuario")
+    const { adminL3 } = useAppData()
 
     
     async function BuscarDados() {
@@ -40,6 +42,7 @@ export default function Usuarios() {
     }
 
     useEffect(() => {
+        adminL3!()
         BuscarDados()
         buscarDados!()
     }, [])
@@ -101,7 +104,7 @@ export default function Usuarios() {
         })
     }
 
-    function validarCampo() {
+    async function validarCampo() {
         const { nomeCompleto, email, departamento, acesso, contrato } = usuario
 
         if (nomeCompleto === '' || email === '' || departamento === '' || acesso === '' || contrato === '') {
@@ -110,14 +113,16 @@ export default function Usuarios() {
             try {
                 if (alterar) {
                     usuario.senha = senha === "" ? usuario.senha : criptPassword(senha)
-                    salvar(usuario, baseUrl)
-                    setUsuario(initialUser)
-                    mudarTela(!tela)
-                    setSenha("")
-                    mensagemSistema("success", "filled", "Alterado com Sucesso !!!")
+                   await salvar(usuario, baseUrl)
+                   mensagemSistema("success", "filled", "Alterado com Sucesso !!!")
+                   setTimeout(() => {
+                       mudarTela(!tela)
+                       setUsuario(initialUser)
+                       setSenha("")
+                    },1000)
                 } else {
                     usuario.senha = criptPassword(senha)
-                    salvar(usuario, baseUrl)
+                    await salvar(usuario, baseUrl)
                     setUsuario(initialUser)
                     setSenha("")
                     setAlterar(false)

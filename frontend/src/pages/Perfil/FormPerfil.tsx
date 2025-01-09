@@ -51,14 +51,14 @@ export default function FormPerfil(props: FormPerfilProps) {
                         texto="Nome Completo:"
                         tipo="text"
                         className="grow"
-                        valor={props.user.nomeCompleto}
+                        valor={props.user?.nomeCompleto}
                         desativar
                     />
                     <Entrada
                         texto="E-mail:"
                         tipo="text"
                         className="grow"
-                        valor={props.user.email}
+                        valor={props.user?.email}
                         desativar
                     />
                 </div>
@@ -67,21 +67,21 @@ export default function FormPerfil(props: FormPerfilProps) {
                         texto="Departamento:"
                         tipo="text"
                         className="grow"
-                        valor={props.user.departamento}
+                        valor={props.user?.departamento}
                         desativar
                     />
                     <Entrada
                         texto="Contrato:"
                         tipo="text"
                         className="grow"
-                        valor={props.user.contrato}
+                        valor={props.user?.contrato}
                         desativar
                     />
                     <Entrada
                         texto="Especialidade:"
                         tipo="text"
                         className="grow"
-                        valor={props.user.especialidade}
+                        valor={props.user?.especialidade}
                         desativar
                     />
                 </div>
@@ -141,11 +141,11 @@ export default function FormPerfil(props: FormPerfilProps) {
             >
                 <Alert
                     onClose={props.close}
-                    severity={props.mensagem.severity}
-                    variant={props.mensagem.variant}
+                    severity={props.mensagem?.severity}
+                    variant={props.mensagem?.variant}
                     sx={{ width: '100%' }}
                 >
-                  {props.mensagem.mensagem}
+                  {props.mensagem?.mensagem}
                 </Alert>
             </Snackbar>
         </div>

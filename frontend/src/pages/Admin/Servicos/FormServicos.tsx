@@ -5,7 +5,7 @@ import Selecione from "@/components/shared/Selecione";
 import { Servico } from "@/data/interfaces/Servico";
 
 interface FormServicosProps {
-    servico: Servico
+    servico?: Servico
     mudar: (novoValor: any) => void
     verificar: () => void
     limpar: () => void
@@ -22,7 +22,7 @@ export default function FormServicos(props: FormServicosProps) {
                         nome="nome"
                         texto="Serviço:"
                         className="grow mx-2 max-sm:mx-0"
-                        valor={props.servico.nome}
+                        valor={props.servico?.nome}
                         alterouCampo={(e) => props.mudar(e)}
                         requerido
                     />
@@ -30,7 +30,7 @@ export default function FormServicos(props: FormServicosProps) {
                         texto="Tipo:"
                         nome="tipo"
                         className="grow max-sm:mx-0 max-sm:w-[80%]"
-                        valor={props.servico.tipo}
+                        valor={props.servico?.tipo}
                         alterouCampo={(e) => props.mudar(e)}
                         requerido
                     >

@@ -6,7 +6,7 @@ export interface FiltroGncProps {
     ano: string
 }
 
-export const initialFiltroGnc = {
+export const initialFiltroGnc: FiltroGncProps = {
     contrato: "Todos",
     tecnico: "Todos",
     dia: "Todos",

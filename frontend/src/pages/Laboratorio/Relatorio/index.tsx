@@ -19,7 +19,7 @@ export default function RelatorioLabo() {
                     />
                 </div>
                 <div className='mt-5'>
-                    <FiltroGnc />
+                    {/* <FiltroGnc /> */}
                 </div>
                 <div className="flex mt-5 h-full max-sm:grid max-sm:grid-cols-1">
                     <CardsLab />

@@ -9,9 +9,8 @@ import { useEffect, useState } from 'react';
 import { FiltroGncProps, initialFiltroGnc } from '@/data/interfaces/FiltroGncProps';
 import axios from 'axios';
 import Banco from '@/data/database/banco';
-import Image from 'next/image';
-import carregar from "@/assets/gifs/carregar.gif"
 import { ArrayParaObjeto } from '@/data/functions/ArrayParaObjeto';
+import Carregando from '@/components/shared/Carregando';
 
 export default function Contrato() {
     const { buscarContrato } = useGncData()
@@ -100,7 +99,7 @@ export default function Contrato() {
                 <div className='flex mt-7 h-[86%] max-sm:grid max-sm:grid-cols-1 justify-between'>
                     {carregando ?
                         <div className="flex justify-center items-center w-full">
-                            <Image src={carregar} alt="" className="w-80" />
+                            <Carregando cor="success" tamanho={300}/>
                         </div> :
                         <><div className='max-sm:w-[100%]'>
                             <FileiraCards OS={totalOS} Servico={totalServico} Limpeza={limpeza} />

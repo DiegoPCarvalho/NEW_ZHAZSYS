@@ -6,9 +6,8 @@ import Entrada from "./Entrada"
 import jsonToCsvExport from 'json-to-csv-export';
 import { useState, useEffect } from 'react';
 import Selecione from "./Selecione";
-import loding from '@/assets/gifs/carregar.gif';
-import Image from "next/image";
 import useAppData from "@/data/hook/useAppData";
+import Carregando from '@/components/shared/Carregando';
 
 interface TabelaGncProps {
     tb?: string
@@ -59,7 +58,7 @@ export default function TabelaGnc(props: TabelaGncProps) {
     function renderBuscando() {
         return (
             <div className="flex items-center">
-                <Image src={loding} alt="" style={estilo} />
+                <Carregando cor="success" tamanho={60}/>
                 <span className="font-bold ml-2 dark:text-white">Aguardando</span>
             </div>
         )
@@ -185,7 +184,7 @@ export default function TabelaGnc(props: TabelaGncProps) {
                         </div>
                         <div className="mt-3 dark:text-white">
                             <ThemeProvider theme={tema === "dark" ? theme : {}}>
-                                <Pagination siblingCount={0} variant="text" color={"success"} shape="rounded" count={pages} page={currentPage} onChange={MudarPagina} />
+                                <Pagination siblingCount={0} variant="text" color={"standard"} shape="rounded" count={pages} page={currentPage} onChange={MudarPagina} />
                             </ThemeProvider>
                         </div>
                     </>

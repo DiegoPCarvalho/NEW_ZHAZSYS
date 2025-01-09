@@ -6,8 +6,16 @@ import { GenUrl } from '@/data/config/GenUrl';
 import NavigatePage from '@/components/navigatePage/NavigatePage';
 import TabelaGen from './Tabela';
 import { dado } from '@/data/db_teste/dado_teste';
+import useAppData from "@/data/hook/useAppData";
+import {useEffect} from 'react'
 
 export default function TabelaGeral(){
+    const { adminL2 } = useAppData()
+
+    useEffect(() => {
+        adminL2!()
+    }, [])
+    
     return(
         <Layout icone={<IconGerencia fontSize='large'/>} texto="Gerência">
              <div className='flex flex-col max-sm:grid'>
@@ -19,7 +27,7 @@ export default function TabelaGeral(){
                     />
                 </div>
                 <div className='max-sm:grid max-sm:grid-cols-1'>
-                    <FiltroGnc modo='gerencia' semDia/>
+                    {/* <FiltroGnc modo='gerencia' semDia/> */}
                 </div>
                 <div className=''>
                     <TabelaGen dados={dado}/>

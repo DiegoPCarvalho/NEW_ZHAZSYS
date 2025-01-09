@@ -28,7 +28,7 @@ export default function TabelaGen(props: TabelaUsersProps){
   
   return (
     <div className="w-[100%]">
-      <TabelaGnc
+      {/* <TabelaGnc
         head={
           <>
             <th className="rounded-tl-lg p-2">id</th>
@@ -46,7 +46,7 @@ export default function TabelaGen(props: TabelaUsersProps){
         dados={props.dados}
       >
         {renderRows()}
-      </TabelaGnc>
+      </TabelaGnc> */}
     </div>
     )
 }

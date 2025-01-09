@@ -30,10 +30,10 @@ export default function TabelaRaLab(props: TabelaRaLabProps) {
     return (
         <div className="flex flex-col mt-3">
             <div className="my-5">
-                <FiltroGnc semDia />
+                {/* <FiltroGnc semDia /> */}
             </div>
             <div className="mt-5">
-                <TabelaGnc
+                {/* <TabelaGnc
                     dados={props.dados}
                     head={<>
                         <th className="rounded-tl-lg p-2">id</th>
@@ -49,7 +49,7 @@ export default function TabelaRaLab(props: TabelaRaLabProps) {
                     tb="w-full"
                 >
                     {renderRows()}
-                </TabelaGnc>
+                </TabelaGnc> */}
             </div>
         </div>
     )

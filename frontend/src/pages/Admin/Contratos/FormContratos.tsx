@@ -4,7 +4,7 @@ import Formulario from "@/components/shared/Formulario";
 import { AdminGnc } from "@/data/interfaces/AdminGnc";
 
 interface FormContratosProps {
-    contrato: AdminGnc
+    contrato?: AdminGnc
     mudar: (novoValor: any) => void
     verificar: () => void
     limpar: () => void
@@ -20,7 +20,7 @@ export default function FormContratos(props: FormContratosProps) {
                             nome="nome"
                             texto="Contrato:"
                             className="grow mx-2 max-sm:mx-0"
-                            valor={props.contrato.nome}
+                            valor={props.contrato?.nome}
                             alterouCampo={(e) => props.mudar(e)}
                             requerido
                         />

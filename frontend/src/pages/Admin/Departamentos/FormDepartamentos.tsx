@@ -4,7 +4,7 @@ import Formulario from "@/components/shared/Formulario";
 import { AdminGnc } from "@/data/interfaces/AdminGnc";
 
 interface FormDepartamentosProps {
-    departamento: AdminGnc
+    departamento?: AdminGnc
     mudar: (novoValor: any) => void
     verificar: () => void
     limpar: () => void
@@ -18,7 +18,7 @@ export default function FormDepartamentos(props: FormDepartamentosProps) {
                         <Entrada
                             tipo="text"
                             nome="nome"
-                            valor={props.departamento.nome}
+                            valor={props.departamento?.nome}
                             alterouCampo={(e) => props.mudar(e)}
                             texto="Departamento:"
                             className="grow mx-2 max-sm:mx-0"

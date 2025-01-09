@@ -73,7 +73,7 @@ export default function LoginForm(){
                             border-teal-600 dark:border-teal-800
                             border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
                             active:border-b-[2px] active:brightness-90 active:translate-y-[2px] 
-                        `}
+                        `} id="meuBotao"
                             executar={() => login!(email, senha)}
                             >Entrar</Botao>
                         </div>

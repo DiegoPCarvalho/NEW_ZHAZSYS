@@ -6,8 +6,16 @@ import { GenUrl } from '@/data/config/GenUrl';
 import FiltroGnc from '@/components/shared/FiltroGnc';
 import Cards from './Cards';
 import Graficos from './Graficos';
+import useAppData from "@/data/hook/useAppData";
+import {useEffect} from 'react'
 
 export default function Dashboard(){
+    const { adminL2 } = useAppData()
+
+    useEffect(() => {
+        adminL2!()
+    }, [])
+
     return(
         <Layout icone={<IconGerencia fontSize='large'/>} texto="Gerência">
             <div className='flex flex-col max-sm:grid'>
@@ -19,7 +27,7 @@ export default function Dashboard(){
                     />
                 </div>
                 <div className='max-sm:grid max-sm:grid-cols-1'>
-                    <FiltroGnc modo='gerencia'/>
+                    {/* <FiltroGnc modo='gerencia'/> */}
                 </div>
                 <div className='flex mt-2 max-sm:grid max-sm:grid-cols-1'>
                     <Cards />

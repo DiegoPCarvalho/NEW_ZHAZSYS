@@ -1,31 +1,38 @@
 import { createContext, useState, useEffect } from "react";
-import useLocalStorage from "../hook/useLocalStorage";
+import { UserMain, initialUserMain } from "../interfaces/UserMain";
+import useAuthData from "@/data/hook/useAuthData";
 
 interface AppContextProps {
     menu?: boolean
     avaUser?: boolean
     tema?: string
     perfilUser?: any
+    userMain?: UserMain
     mudarTema?: () => void
     altenarMenu?: () => void
     altenarAvatarUser?: () => void
     BuscarDadosUser?: () => void
     mudarCampo?: (novoValor: any) => void
+    BuscarDadoUserAcesso?: () => void
+    adminL3?: () => void
+    adminL2?: () => void
 }
 
 const AppContext = createContext<AppContextProps>({});
 
 export function AppProvider({ children} : any){
+    const { logout } = useAuthData()
 
     const [menu, setMenu] = useState<boolean>(false)
+    const [userMain, setUserMain] = useState<UserMain>(initialUserMain)
     const [avaUser, setAvaUser] = useState<boolean>(false)
     const [tema, setMudarTema] = useState<string>('dark')
     const [perfilUser, setPerfilUser] = useState<any>({});
-    const { set } = useLocalStorage()
 
     useEffect(() => {
         const temaSalvo = localStorage.getItem('tema')
         setMudarTema(temaSalvo!)
+        BuscarDadoUserAcesso()
     }, [])
 
      function BuscarDadosUser(){
@@ -33,6 +40,25 @@ export function AppProvider({ children} : any){
         const user = string === undefined ? "" : JSON.parse(string!)
 
         setPerfilUser(user)
+    }
+
+    function adminL3(){
+        if(userMain.acesso !== "Level 3"){
+            logout!()
+        }
+    }
+
+    function adminL2(){
+        if(userMain.acesso !== "Level 3" || "Level 2"){
+            logout!()
+        }
+    }
+
+    function BuscarDadoUserAcesso(){
+        const string = localStorage.UserMain
+        const user = string === undefined ? "" : JSON.parse(string!)
+
+        setUserMain(user)
     }
 
     function mudarCampo(event: any) {
@@ -61,11 +87,15 @@ export function AppProvider({ children} : any){
             avaUser,
             tema,
             perfilUser,
+            userMain,
             altenarMenu,
             altenarAvatarUser,
             mudarTema,
             BuscarDadosUser,
-            mudarCampo
+            mudarCampo,
+            BuscarDadoUserAcesso,
+            adminL3,
+            adminL2
         }}>
             {children}
         </AppContext.Provider>

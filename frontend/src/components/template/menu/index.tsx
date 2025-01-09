@@ -38,7 +38,7 @@ export default function Menu() {
     const [lbo, setLbo] = useState<boolean>(false)
     const [vhl, setVHL] = useState<boolean>(false)
     const [adm, setAdm] = useState<boolean>(false)
-    const { altenarMenu, menu } = useAppData()
+    const { altenarMenu, menu, userMain } = useAppData()
 
     useEffect(() => {
         if (!menu) {
@@ -79,11 +79,14 @@ export default function Menu() {
             <div className="overflow-auto" id="hiddenScroll">
                 <div className="mt-3 ml-5 text-xs font-extrabold text-gray-400">MENU</div>
                 <div className="">
-                    <MenuDropDown classe="" icone={<IconGerencia />} texto="Gerencia" marcacao={<IconSetaDown />} down={gnc} executar={() => setGnc(!gnc)}>
-                        <MenuDropDownItem icone={<IconDash />} texto="Dashbord" executar={altenarMenu} url="/Gerencia/Dashboard" />
-                        <MenuDropDownItem icone={<IconFila />} texto="Fila Técnica" executar={altenarMenu} url="/Gerencia/FilaTecnica" />
-                        <MenuDropDownItem icone={<IconTabela />} texto="Tabela Geral" executar={altenarMenu} url="/Gerencia/TabelaGeral" />
-                    </MenuDropDown>
+                    {userMain!.acesso === "Level 3" || userMain!.acesso === "Level 2" ?
+                        <MenuDropDown classe="" icone={<IconGerencia />} texto="Gerencia" marcacao={<IconSetaDown />} down={gnc} executar={() => setGnc(!gnc)}>
+                            <MenuDropDownItem icone={<IconDash />} texto="Dashbord" executar={altenarMenu} url="/Gerencia/Dashboard" />
+                            <MenuDropDownItem icone={<IconFila />} texto="Fila Técnica" executar={altenarMenu} url="/Gerencia/FilaTecnica" />
+                            <MenuDropDownItem icone={<IconTabela />} texto="Tabela Geral" executar={altenarMenu} url="/Gerencia/TabelaGeral" />
+                        </MenuDropDown>
+                        : false
+                    }
                     <MenuDropDown classe="" icone={<IconQrcode />} texto="Laboratório" marcacao={<IconSetaDown />} down={lbo} executar={() => setLbo(!lbo)}>
                         <MenuDropDownItem icone={< IconFila />} texto="Fila Técnica" executar={altenarMenu} url="/Laboratorio/FilaTecnica" />
                         <MenuDropDownItem icone={<IconForm />} texto="Formulário" executar={altenarMenu} url="/Laboratorio/Formulario" />
@@ -107,14 +110,17 @@ export default function Menu() {
                     {renderSettings()}
                 </div>
                 <div className="">
-                    <MenuDropDown classe="" icone={<IconAdmin />} texto="Admin" marcacao={<IconSetaDown />} down={adm} executar={() => setAdm(!adm)}>
-                        <MenuDropDownItem icone={<IconUser />} texto="Usuários" executar={altenarMenu} url="/Admin/Usuarios" />
-                        <MenuDropDownItem icone={<IconEquipamento />} texto="Equipamentos" executar={altenarMenu} url="/Admin/Equipamentos" />
-                        <MenuDropDownItem icone={<IconDepartamento/>} texto="Departamentos" executar={altenarMenu} url="/Admin/Departamentos" />
-                        <MenuDropDownItem icone={<IconContrato />} texto="Contratos" executar={altenarMenu} url="/Admin/Contratos" />
-                        <MenuDropDownItem icone={<IconServico />} texto="Serviços" executar={altenarMenu} url="/Admin/Servicos" />
-                        <MenuDropDownItem icone={<IconRamal />} texto="Ramais" executar={altenarMenu} url="/Admin/Ramais" />
-                    </MenuDropDown>
+                    {userMain!.acesso === "Level 3" ? 
+                        <MenuDropDown classe="" icone={<IconAdmin />} texto="Admin" marcacao={<IconSetaDown />} down={adm} executar={() => setAdm(!adm)}>
+                            <MenuDropDownItem icone={<IconUser />} texto="Usuários" executar={altenarMenu} url="/Admin/Usuarios" />
+                            <MenuDropDownItem icone={<IconEquipamento />} texto="Equipamentos" executar={altenarMenu} url="/Admin/Equipamentos" />
+                            <MenuDropDownItem icone={<IconDepartamento/>} texto="Departamentos" executar={altenarMenu} url="/Admin/Departamentos" />
+                            <MenuDropDownItem icone={<IconContrato />} texto="Contratos" executar={altenarMenu} url="/Admin/Contratos" />
+                            <MenuDropDownItem icone={<IconServico />} texto="Serviços" executar={altenarMenu} url="/Admin/Servicos" />
+                            <MenuDropDownItem icone={<IconRamal />} texto="Ramais" executar={altenarMenu} url="/Admin/Ramais" />
+                        </MenuDropDown>
+                        : false
+                    }
                 </div>
             </div>
         </div>

@@ -11,6 +11,7 @@ import { Alert, Snackbar, SnackbarCloseReason } from "@mui/material";
 import { Mensagem, initialMSG } from "@/data/interfaces/Mensagem";
 import { severity, variant } from "@/data/type/mensagemSistema";
 import { Servico, initialServico } from "@/data/interfaces/Servico";
+import useAppData from "@/data/hook/useAppData";
 
 export default function Servicos() {
     const [banco, setBanco] = useState<any[]>([])
@@ -18,6 +19,7 @@ export default function Servicos() {
     const [open, setOpen] = useState<boolean>(false)
     const [mensagem, setMensagem] = useState<Mensagem>(initialMSG)
     const baseUrl = Banco("Servico")
+    const { adminL3 } = useAppData()
 
     async function BuscarDado() {
         try {
@@ -29,6 +31,7 @@ export default function Servicos() {
     }
 
     useEffect(() => {
+        adminL3!()
         BuscarDado()
     }, [])
 

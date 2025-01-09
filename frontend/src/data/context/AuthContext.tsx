@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import Cookies from 'js-cookie';
 import router from "next/router";
 import Banco from "../database/banco";
@@ -7,6 +7,7 @@ import bcrypt from "bcryptjs";
 import useLocalStorage from "../hook/useLocalStorage";
 import { salvar } from "../functions/Salvar";
 import { criptgrafiaSenha } from "../functions/CriptoSenha";
+import $ from 'jquery';
 
 interface AuthContextProps {
     usuario?: any
@@ -33,6 +34,10 @@ export function AuthProvider({ children }: any) {
     const [usuario, setUsuario] = useState<any>({})
     const baseUrl = Banco("LoginUsuario")
 
+    useEffect(() => {
+        enterLogin()
+    }, [])
+
     function mudarTela(valor: string) {
         setTela(valor)
     }
@@ -45,6 +50,12 @@ export function AuthProvider({ children }: any) {
         } else {
             Cookies.remove('admin-template-auth')
         }
+    }
+
+    function enterLogin(){
+        $(document).keypress(function(e: any) {
+            if(e.which == 13) $('#meuBotao').click();
+        });
     }
 
     async function login(email: string, senha: string) {

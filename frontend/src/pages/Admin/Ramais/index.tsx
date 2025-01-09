@@ -12,6 +12,7 @@ import { Alert, Snackbar, SnackbarCloseReason } from "@mui/material";
 import { Mensagem, initialMSG } from "@/data/interfaces/Mensagem";
 import { severity, variant } from "@/data/type/mensagemSistema";
 import { Ramal, initialRamal } from "@/data/interfaces/Ramal";
+import useAppData from "@/data/hook/useAppData";
 
 export default function Ramais() {
     const [banco, setBanco] = useState<any[]>([])
@@ -19,6 +20,7 @@ export default function Ramais() {
     const [open, setOpen] = useState<boolean>(false)
     const [mensagem, setMensagem] = useState<Mensagem>(initialMSG)
     const baseUrl = Banco("Ramal")
+    const { adminL3 } = useAppData()
 
     async function BuscarDado() {
         try {
@@ -30,6 +32,7 @@ export default function Ramais() {
     }
 
     useEffect(() => {
+        adminL3!()
         BuscarDado()
     }, [])
 
