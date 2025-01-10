@@ -78,12 +78,12 @@ export default function RelatorioVHL() {
                         data={VhlUrl} dataMini={VhlUrl}
                     />
                 </div>
-                <div className='flex justify-center mb-4'>
+                <div className='mb-20 flex justify-center'>
                     <FiltroGnc filtro={filtro} buscar={buscarDado} alterarCampo={AlterarCampo} />
                 </div>
                 <div className="flex max-sm:justify-center max-sm:grid max-sm:grid-cols-1">
                     {carregando ? 
-                        <div className="mt-16 flex justify-center items-center w-full">
+                        <div className="flex justify-center items-center w-full">
                             <Carregando cor="success" tamanho={300}/>
                         </div>
                         :<>

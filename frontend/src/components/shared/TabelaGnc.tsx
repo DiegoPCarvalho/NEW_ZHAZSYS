@@ -9,6 +9,7 @@ import Selecione from "./Selecione";
 import useAppData from "@/data/hook/useAppData";
 import Carregando from '@/components/shared/Carregando';
 
+
 interface TabelaGncProps {
     tb?: string
     id?: string
@@ -25,6 +26,9 @@ interface TabelaGncProps {
     busca: any
     novaBusca: (novoValor: any) => void
 }
+
+
+
 
 const estilo = {
     height: 70,
@@ -84,7 +88,7 @@ export default function TabelaGnc(props: TabelaGncProps) {
         palette: {
             mode: 'dark', // Set to 'dark' for dark mode, 'light' for light mode
             primary: {
-                main: '#ffffff', // Define the primary color for Pagination in dark mode
+                main: '#17328a', // Define the primary color for Pagination in dark mode
             },
             background: {
                 paper: '#121212', // Define the background color for Pagination in dark mode
@@ -184,7 +188,7 @@ export default function TabelaGnc(props: TabelaGncProps) {
                         </div>
                         <div className="mt-3 dark:text-white">
                             <ThemeProvider theme={tema === "dark" ? theme : {}}>
-                                <Pagination siblingCount={0} variant="text" color={"standard"} shape="rounded" count={pages} page={currentPage} onChange={MudarPagina} />
+                                <Pagination siblingCount={0} variant="text" color={"primary"} shape="rounded" count={pages} page={currentPage} onChange={MudarPagina} />
                             </ThemeProvider>
                         </div>
                     </>

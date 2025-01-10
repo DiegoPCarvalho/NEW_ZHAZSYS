@@ -96,9 +96,9 @@ export default function Contrato() {
                 <div className="max-sm:h-[30%] flex justify-center mt-3 max-sm:mt-3">
                     <FiltroGnc modo="contrato" filtro={filtro} alterarCampo={alterarCampo} buscar={filtrarDados} />
                 </div>
-                <div className='flex mt-7 h-[86%] max-sm:grid max-sm:grid-cols-1 justify-between'>
+                <div className='flex mt-7 max-sm:grid max-sm:grid-cols-1 justify-between'>
                     {carregando ?
-                        <div className="flex justify-center items-center w-full">
+                        <div className="flex mt-44 justify-center items-center w-full">
                             <Carregando cor="success" tamanho={300}/>
                         </div> :
                         <><div className='max-sm:w-[100%]'>

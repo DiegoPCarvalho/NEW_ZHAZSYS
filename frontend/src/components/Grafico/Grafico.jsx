@@ -1,28 +1,33 @@
 import useAppData from '@/data/hook/useAppData';
 import HighCharts from 'highcharts';
 import HighChartsReact from 'highcharts-react-official';
+import drilldown from 'highcharts-drilldown';
+import { useEffect } from 'react';
 
-interface GraficoProps{
-    vertical?: number
-    horizontal?: number
-    tipo?: string
-    titulo?: string
-    subTitulo?: string
-    formate?: any
-    size?: number
-    texto?: string
-    legenda?: boolean
-    rotacao?: string
-    nomeSerie?: string
-    cor?: boolean
-    dado?: any[]
-    serie?: any
-    mudar?: boolean
-    categoria?: any
-}
+// interface GraficoProps{
+//     vertical?: number
+//     horizontal?: number
+//     tipo?: string
+//     titulo?: string
+//     subTitulo?: string
+//     formate?: any
+//     size?: number
+//     texto?: string
+//     legenda?: boolean
+//     rotacao?: string
+//     nomeSerie?: string
+//     cor?: boolean
+//     dado?: any[]
+//     serie?: any
+//     mudar?: boolean
+//     categoria?: any
+// }
 
-export default function GraficoGNC(props: GraficoProps){
-    // drilldown(HighCharts);
+export default function GraficoGNC(props){
+
+    useEffect(() => {
+        drilldown(HighCharts);
+    }, [])
 
     const {tema} = useAppData()
 
@@ -166,14 +171,14 @@ export default function GraficoGNC(props: GraficoProps){
                 data: props.dado,
             }
         ],
-        // // drilldown: {
-        //     breadcrumbs: {
-        //         position: {
-        //             align: 'right'
-        //         }
-        //     },
-        //     series: props.serie
-        // }
+        drilldown: {
+            breadcrumbs: {
+                position: {
+                    align: 'right'
+                }
+            },
+            series: props.serie
+        }
 
     };
     
