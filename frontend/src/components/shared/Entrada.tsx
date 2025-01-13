@@ -1,4 +1,4 @@
-import { EntradaProps } from "@/data/config/interfaceCampos";
+import { EntradaProps } from "@/data/interfaces/interfaceCampos";
 
 
 export default function Entrada(props: EntradaProps){

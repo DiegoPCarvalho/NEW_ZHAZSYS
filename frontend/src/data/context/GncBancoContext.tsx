@@ -8,10 +8,12 @@ interface GncBancoContextProps {
     equipamentos?: any[]
     departamentos?: any[]
     servicoVhl?: any[]
+    servicoLab?: any[]
     novaData?: (novo: any[]) => void
     buscarDados?: () => Promise<void>
     buscarContrato?: () => Promise<void>
     buscarVhl?: () => Promise<void>
+    buscarDadosLab?: () => Promise<void>
 }
 
 const GncBancoContext = createContext<GncBancoContextProps>({});
@@ -22,6 +24,7 @@ export function GncProvider({ children } : any){
     const [equipamentos, setEquipamentos] = useState<any[]>([])
     const [departamentos, setDepartamentos] = useState<any[]>([])
     const [servicoVhl, setServicoVhl] = useState<any[]>([])
+    const [servicoLab, setServicoLab] = useState<any[]>([])
 
     function novaData(novo: any){
         setData(novo)
@@ -58,6 +61,19 @@ export function GncProvider({ children } : any){
         setServicoVhl(servicoVhl)
     }
 
+    async function buscarDadosLab(){
+        const equipamento = await axios(banco("Equipamento")).then(resp => resp.data)
+        const contrato = await axios(banco("Contrato")).then(resp => resp.data)
+        const servicoLab = await axios(banco("Servico")).then(resp => {
+            let dado = resp.data.filter((registro: any) => registro.tipo === "Laboratório")
+            return dado
+        })
+
+        setContratos(contrato)
+        setEquipamentos(equipamento)
+        setServicoLab(servicoLab)
+    }
+
     return (
         <GncBancoContext.Provider value={{
                 data,
@@ -65,10 +81,12 @@ export function GncProvider({ children } : any){
                 equipamentos,
                 departamentos,
                 servicoVhl,
+                servicoLab,
                 novaData,
                 buscarDados,
                 buscarContrato,
-                buscarVhl
+                buscarVhl,
+                buscarDadosLab
             }}>
             {children}
         </GncBancoContext.Provider>

@@ -8,6 +8,8 @@ import { useState, useEffect } from 'react';
 import Selecione from "./Selecione";
 import useAppData from "@/data/hook/useAppData";
 import Carregando from '@/components/shared/Carregando';
+import loading from '@/assets/gifs/tabSup.gif';
+import Image from "next/image";
 
 
 interface TabelaGncProps {
@@ -62,7 +64,8 @@ export default function TabelaGnc(props: TabelaGncProps) {
     function renderBuscando() {
         return (
             <div className="flex items-center">
-                <Carregando cor="success" tamanho={60}/>
+                {/* <Carregando cor="success" tamanho={60} /> */}
+                <Image src={loading} alt="" height={50} width={50}/>
                 <span className="font-bold ml-2 dark:text-white">Aguardando</span>
             </div>
         )

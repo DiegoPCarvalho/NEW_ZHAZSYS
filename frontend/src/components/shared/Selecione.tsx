@@ -1,4 +1,4 @@
-import { EntradaProps } from "@/data/config/interfaceCampos";
+import { EntradaProps } from "@/data/interfaces/interfaceCampos";
 
 export default function Selecione(props: EntradaProps){
     return(
@@ -19,7 +19,7 @@ export default function Selecione(props: EntradaProps){
                 `}
                 required={props.requerido}
             >
-                <option selected>{props.filtro ? "Todos" : "..."}</option>
+                <option selected disabled value="">{props.filtro ? "Todos" : "..."}</option>
                 {props.children}
             </select>
         </div>

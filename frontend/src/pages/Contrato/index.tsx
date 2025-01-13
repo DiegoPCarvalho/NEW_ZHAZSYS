@@ -99,7 +99,7 @@ export default function Contrato() {
                 <div className='flex mt-7 max-sm:grid max-sm:grid-cols-1 justify-between'>
                     {carregando ?
                         <div className="flex mt-44 justify-center items-center w-full">
-                            <Carregando cor="success" tamanho={300}/>
+                            <Carregando cor="success" tamanho={300} grafico/>
                         </div> :
                         <><div className='max-sm:w-[100%]'>
                             <FileiraCards OS={totalOS} Servico={totalServico} Limpeza={limpeza} />

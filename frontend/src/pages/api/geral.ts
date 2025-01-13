@@ -24,7 +24,7 @@ export default async function Geral(
             Servico: servico(tabelaGeral.EstagioDescricao, tabelaGeral.DescricaoTipoOS),
             Equipamento: equipamento(tabelaGeral.NomeEquipamento),
             Modelo: tabelaGeral.NomeEquipamento,
-            TipoOS: contrato(tabelaGeral.DescricaoTipoOS),
+            Contrato: contrato(tabelaGeral.DescricaoTipoOS),
             NS: tabelaGeral.EquipamentoLTS
         })
     })

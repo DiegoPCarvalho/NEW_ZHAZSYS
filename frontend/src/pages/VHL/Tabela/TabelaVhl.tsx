@@ -16,7 +16,11 @@ interface TabelaVhlProps {
 export default function TabelaVhl(props: TabelaVhlProps) {
 
     const { data } = useGncData()
-    const { abrirRemove, confirmeRemove, setExcluir, excluir, vl, setVl, openM, loadVhl } = useVhlData()
+    const { abrirRemove, confirmeRemove, setExcluir, excluir, vl, setVl, openM, setOpenM, loadVhl } = useVhlData()
+
+    function fecharModal(){
+        setOpenM!(!openM)
+    }
 
     function renderRows() {
         return data?.map((registro: any, i: number) => {
@@ -26,7 +30,7 @@ export default function TabelaVhl(props: TabelaVhlProps) {
                     <td className="">{registro.Pedido}</td>
                     <td className="max-sm:hidden">{registro.Cliente}</td>
                     <td className="max-sm:hidden">{registro.Servico}</td>
-                    <td className="max-sm:hidden">{registro.Equipamento?.map((reg: any) => {
+                    <td className="max-sm:hidden">{registro?.Equipamento?.map((reg: any) => {
                         return (
                             <>
                                 <span style={{ fontSize: 12 }}>NS: {reg.NS}</span>
@@ -128,7 +132,7 @@ export default function TabelaVhl(props: TabelaVhlProps) {
                 exec={confirmeRemove!}
                 close={() => setExcluir!(!excluir)}
             />
-            <ModalForm open={openM!}>
+            <ModalForm open={openM!} className="top-[20%] left-[10%] right-[10%] max-2xl:left-[5%] max-2xl:right-[5%]" close={fecharModal}>
                 <FormVhl table/>
             </ModalForm>
         </div>

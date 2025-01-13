@@ -105,7 +105,7 @@ export default function RelatorioLabo() {
                 <div className="flex justify-between mt-5 max-sm:grid max-sm:grid-cols-1">
                     {carregando ?
                         <div className=" mt-44 flex justify-center items-center w-full">
-                            <Carregando cor="success" tamanho={300} />
+                            <Carregando cor="success" tamanho={300} grafico/>
                         </div> :
                         <><div className='max-sm:w-[100%]'>
                             <CardsLab 
