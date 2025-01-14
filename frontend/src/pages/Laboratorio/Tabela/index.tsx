@@ -41,20 +41,14 @@ export default function TabelaLabo() {
         setOpen!(false);
     };
 
-    function fecharModal(){
-        setOpenM(!openM)
-    }
-
     async function buscarTabela(){
         const tabela = await axios(baseUrl).then(resp => {
             let dado = resp.data
             let data = new Date()
 
-            let tecnico = dado.filter((registro: any) => registro.Tecnico === localStorage.Tecnico)
-            let ano = tecnico.filter((registro: any) => registro.Ano === data.getFullYear())
-            let mes = ano.filter((registro: any) => registro.Mes === data.getMonth() + 1)
+            let tecnico = dado.filter((registro: any) => (registro.Tecnico === localStorage.Tecnico && registro.Ano === data.getFullYear() && registro.Mes === data.getMonth() + 1))
 
-            return mes
+            return tecnico
         })
 
         return setBanco(tabela)
@@ -179,7 +173,6 @@ export default function TabelaLabo() {
                 </div>
                 <div className='mt-10'>
                     <TabelaLab 
-                        close={fecharModal} 
                         dados={banco} 
                         openM={openM} 
                         Atividade={atividade} 

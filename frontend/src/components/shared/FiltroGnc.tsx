@@ -13,7 +13,7 @@ interface FiltroGnc {
 }
 
 export default function FiltroGnc(props: FiltroGnc){
-    const { contratos } = useGncData()
+    const { contratos, tecnicos } = useGncData()
 
     return(
         <div className="flex justify-center max-sm:grid max-sm:grid-cols-1">
@@ -33,7 +33,7 @@ export default function FiltroGnc(props: FiltroGnc){
                         )
                     })}
                 </Selecione> : false}
-                {props.modo === "gerencia" ?  <Selecione
+                {props.modo === "gerencia" ? <Selecione
                     texto="Técnico:"
                     nome="tecnico"
                     className="grow"
@@ -41,7 +41,11 @@ export default function FiltroGnc(props: FiltroGnc){
                     alterouCampo={e => props.alterarCampo(e)}
                     filtro
                 >
-                    
+                    {tecnicos!.map((registro: any) => {
+                        return(
+                            <option key={registro.id}>{registro.nomeCompleto}</option>
+                        )
+                    })}
                 </Selecione> : false}
                 {props.semDia === true ? false : <Selecione
                     texto="Dia:"

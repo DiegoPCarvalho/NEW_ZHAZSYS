@@ -22,6 +22,7 @@ import IconAddUser from '@mui/icons-material/PersonAdd';
 import IconVoltarAdmin from '@mui/icons-material/Reply';
 import IconAlterar from '@mui/icons-material/Draw';
 import IconDeletar from '@mui/icons-material/DeleteForever';
+import IconMeta from '@mui/icons-material/LineAxis';
 
 export {
     IconGerencia,
@@ -47,5 +48,6 @@ export {
     IconAddUser,
     IconVoltarAdmin,
     IconAlterar,
-    IconDeletar
+    IconDeletar,
+    IconMeta
 }

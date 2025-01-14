@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import { UserMain, initialUserMain } from "../interfaces/UserMain";
 import useAuthData from "@/data/hook/useAuthData";
+import Cookies from 'js-cookie';
 
 interface AppContextProps {
     menu?: boolean
@@ -43,13 +44,21 @@ export function AppProvider({ children} : any){
     }
 
     function adminL3(){
-        if(userMain.acesso !== "Level 3"){
+        const cookies = Cookies.get("acesso-user")
+        
+        if(cookies !== "Level 3"){
             logout!()
         }
     }
-
+    
     function adminL2(){
-        if(userMain.acesso !== "Level 3" || "Level 2"){
+        const cookies = Cookies.get("acesso-user")
+
+        if(cookies === "Level 3"){
+        
+        }else if(cookies === "Level 2") {
+        
+        }else {
             logout!()
         }
     }

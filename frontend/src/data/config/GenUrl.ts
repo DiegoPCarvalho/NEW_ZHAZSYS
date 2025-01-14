@@ -1,5 +1,5 @@
 
-import { IconDash, IconTabela, IconFila,  } from "@/components/icons/IconesMaterial"
+import { IconDash, IconTabela, IconFila, IconMeta } from "@/components/icons/IconesMaterial"
 
 export const GenUrl= [
     {
@@ -19,5 +19,11 @@ export const GenUrl= [
         nome: "Tabela Geral",
         icone: IconTabela,
         url: "/Gerencia/TabelaGeral"
+    },
+    {
+        id: 4,
+        nome: "Meta Lab.",
+        icone: IconMeta,
+        url: "/Gerencia/MetaLab"
     }
 ]

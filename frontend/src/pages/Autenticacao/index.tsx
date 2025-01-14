@@ -1,20 +1,22 @@
 import { useEffect, useState } from "react"
 import AutenticacaoMain from "./AutenticacaoMain";
 import axios from "axios"
+import { BancoApiLocal } from "@/data/database/bancoApiLocal";
 
 export default function LoginMain() {
 
     const [img, setImg] = useState<string>();
+    const baseUrl = BancoApiLocal("imagemLogin");
 
     async function buscarFoto() {
-        const dado = await axios("http://localhost:3000/api/imagemLogin")
+        const imagem = await axios(baseUrl)
             .then(resp => resp.data)
             .then(dado => dado.images)
-            .then(img => img.map((registro: any) => {
-                return registro.url
-            }))
+            .then(img => img?.map((registro: any) => {return registro.url}))
 
-        const final = "https://www.bing.com" + dado[0]
+                
+
+        const final = imagem === undefined ? "https://www.bing.com/th?id=OHR.CadizSpain_PT-BR3104311078_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp" : "https://www.bing.com" + imagem[0]
 
         setImg(final)
     }

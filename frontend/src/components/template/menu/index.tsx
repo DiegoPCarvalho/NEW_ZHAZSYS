@@ -25,7 +25,8 @@ import {
     IconDepartamento,
     IconServico,
     IconRamal,
-    IconEquipamento
+    IconEquipamento,
+    IconMeta
 } from "@/components/icons/IconesMaterial";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
@@ -84,6 +85,7 @@ export default function Menu() {
                             <MenuDropDownItem icone={<IconDash />} texto="Dashbord" executar={altenarMenu} url="/Gerencia/Dashboard" />
                             <MenuDropDownItem icone={<IconFila />} texto="Fila Técnica" executar={altenarMenu} url="/Gerencia/FilaTecnica" />
                             <MenuDropDownItem icone={<IconTabela />} texto="Tabela Geral" executar={altenarMenu} url="/Gerencia/TabelaGeral" />
+                            <MenuDropDownItem icone={<IconMeta />} texto="Meta Lab." executar={altenarMenu} url="/Gerencia/MetaLab" />
                         </MenuDropDown>
                         : false
                     }

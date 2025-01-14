@@ -51,6 +51,16 @@ export function AuthProvider({ children }: any) {
             Cookies.remove('admin-template-auth')
         }
     }
+    
+    function gerenciarAcesso(acesso: string, logado: boolean){
+        if(logado){
+            Cookies.set("acesso-user", `${acesso}`, {
+                expires: 5
+            })
+        }else {
+            Cookies.remove('acesso-user')
+        }
+    }
 
     function enterLogin(){
         $(document).keypress(function(e: any) {
@@ -77,6 +87,7 @@ export function AuthProvider({ children }: any) {
                 set("UserMain", resp[0])
                 localStorage.Tecnico = resp[0].nomeCompleto
                 gerenciarCookie(true)
+                gerenciarAcesso(resp[0].acesso, true)
                 router.push('/')
             } else {
                 setErro(true)
@@ -153,6 +164,7 @@ export function AuthProvider({ children }: any) {
 
     function logout() {
         gerenciarCookie(false)
+        gerenciarAcesso("vazio", false)
         router.push('/Autenticacao')
         remove("UserMain")
     }

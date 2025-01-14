@@ -5,7 +5,7 @@ type Data = {
     name: string[]
 }
 
-export default async function LoginPage(
+export default  async function LoginPage(
     req: NextApiRequest,
     res: NextApiResponse<Data[]>
 ){

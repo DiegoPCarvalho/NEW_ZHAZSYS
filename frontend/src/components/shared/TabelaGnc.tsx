@@ -10,6 +10,7 @@ import useAppData from "@/data/hook/useAppData";
 import Carregando from '@/components/shared/Carregando';
 import loading from '@/assets/gifs/tabSup.gif';
 import Image from "next/image";
+import { Tempo } from "@/data/functions/Tempo";
 
 
 interface TabelaGncProps {
@@ -84,7 +85,27 @@ export default function TabelaGnc(props: TabelaGncProps) {
     }
 
     function exportar() {
-        jsonToCsvExport({ data: props.dados })
+        let exportCsv: any = []
+
+        props.dados.map((registro: any) => {
+            exportCsv.push({
+                id: registro.id,
+                Data: registro.Data,
+                Cliente: registro.Cliente,
+                Servico: registro.Servico,
+                RecPlaca: registro.Placa,
+                Equip: registro.Equipamento,
+                Tecnico: registro.Tecnico,
+                TempBruto: Tempo(registro.DataInicialBruto, registro.DataFinalBruto),
+                TempoLiquido: registro.TempoLiquido ? registro.TempoLiquido : "00:00:00",
+                TempoProblem: Tempo(registro.DataInicialProblema, registro.DataFinalProblema),
+                ProblemaObs: registro.ProblemObs
+            })
+        })
+
+        if(props.dados?.length > 0){
+            jsonToCsvExport({ data: exportCsv })
+        }
     }
 
     const theme = createTheme({
@@ -132,7 +153,7 @@ export default function TabelaGnc(props: TabelaGncProps) {
                     {props.export ? (
                         <Botao className="
                          cursor-pointer transition-all bg-teal-500 dark:bg-teal-700 text-white px-3 py-2 rounded-lg
-                         border-teal-600 dark:border-teal-800
+                         border-teal-600 dark:border-teal-800 ml-3
                          border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
                          active:border-b-[2px] active:brightness-90 active:translate-y-[2px] 
                      "

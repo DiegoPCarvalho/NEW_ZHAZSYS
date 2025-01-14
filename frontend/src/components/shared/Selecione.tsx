@@ -19,7 +19,7 @@ export default function Selecione(props: EntradaProps){
                 `}
                 required={props.requerido}
             >
-                <option selected disabled value="">{props.filtro ? "Todos" : "..."}</option>
+                <option selected disabled={props.optionDisabled} value="">{props.filtro ? "Todos" : "..."}</option>
                 {props.children}
             </select>
         </div>

@@ -27,7 +27,7 @@ export default function Dashboard(){
                     />
                 </div>
                 <div className='max-sm:grid max-sm:grid-cols-1'>
-                    {/* <FiltroGnc modo='gerencia'/> */}
+                    <FiltroGnc modo='gerencia'/>
                 </div>
                 <div className='flex mt-2 max-sm:grid max-sm:grid-cols-1'>
                     <Cards />

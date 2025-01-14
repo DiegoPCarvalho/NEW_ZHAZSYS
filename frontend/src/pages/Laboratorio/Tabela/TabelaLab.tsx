@@ -19,7 +19,6 @@ interface TabelaUsersProps {
   mudarCampo: (novoValor: any) => void
   limpar: () => void
   salvar: () => void
-  close: () => void
   load?: (novoValor: Atividade) => void
   remove: (dado: Atividade) => void
 }
@@ -132,7 +131,7 @@ export default function TabelaLab(props: TabelaUsersProps) {
       >
         {renderRows()}
       </TabelaGnc>
-        <ModalForm open={props.openM} close={props.close} className="top-36 left-[25%] max-xl:left-[20%]">
+        <ModalForm open={props.openM} className="top-36 left-[25%] max-xl:left-[20%]">
           <FormLab Atividade={props.Atividade} mudarCampo={(e) => props.mudarCampo(e)} limpar={props.limpar} salvar={props.salvar} />
         </ModalForm>
       <DialogExcluir

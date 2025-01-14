@@ -1,7 +1,3 @@
-// import useAppData from "../hook/useAppData"
-
-// const { userMain } = useAppData()
-
 export interface Atividade {
     id?: number
     Data: string
@@ -17,11 +13,14 @@ export interface Atividade {
     Placa: string
     Contrato: string
     Observacao: String
-    ProblemObs: string
     Estagio: string
-    DataInicialBruto: string
-    DataFinalBruto: string
-    TempoLiquido: string
+    ProblemObs?: string
+    DataInicialBruto?: string
+    DataFinalBruto?: string
+    TempoLiquido?: string
+    DataInicialProblema?: string
+    DataFinalProblema?: string
+    ContProblema?: number
     Tecnico: string
 }
 
@@ -39,10 +38,6 @@ export const initialAtividade: Atividade = {
     Placa: '',
     Contrato: '',
     Observacao: '',
-    ProblemObs: '',
     Estagio: '',
-    DataInicialBruto: '',
-    DataFinalBruto: '',
-    TempoLiquido: '',
     Tecnico: ""
 }

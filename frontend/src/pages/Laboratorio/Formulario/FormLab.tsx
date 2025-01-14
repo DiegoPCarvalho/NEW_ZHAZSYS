@@ -22,7 +22,6 @@ interface FormLabProps {
     limpar: () => void
     close?: () => void
     salvar: () => void
-    
 }   
 
 export default function FormLab(props: FormLabProps) {
@@ -67,6 +66,7 @@ export default function FormLab(props: FormLabProps) {
                     valor={props.Atividade?.Servico}
                     alterouCampo={(e) => props.mudarCampo(e)}
                     requerido
+                    optionDisabled
                 >
                     {servicoLab!.map((registro: any) => {
                         return <option key={registro.id}>{registro.nome}</option>
@@ -91,6 +91,7 @@ export default function FormLab(props: FormLabProps) {
                     valor={props.Atividade?.Contrato}
                     alterouCampo={(e) => props.mudarCampo(e)}
                     requerido
+                    optionDisabled
                     >
                     <option>Avulso</option>
                     {contratos!.map((registro: any) => {
@@ -106,6 +107,7 @@ export default function FormLab(props: FormLabProps) {
                     valor={props.Atividade?.Equipamento}
                     alterouCampo={(e) => props.mudarCampo(e)}
                     requerido
+                    optionDisabled
                     >
                     {equipamentos!.map((registro: any) => {
                         return <option key={registro.id}>{registro.nome}</option>

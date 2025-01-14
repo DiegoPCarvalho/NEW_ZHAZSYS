@@ -3,7 +3,6 @@ import { SnackbarCloseReason } from '@mui/material/Snackbar';
 interface ModalFormProps {
     children?: any
     open?: boolean
-    close?: () => void
     className?: string
 }
 
@@ -12,9 +11,8 @@ export default function ModalForm(props: ModalFormProps) {
         <div className={`
                  fixed top-0 left-0 h-screen w-screen
                 bg-neutral-900 bg-opacity-60
-                 cursor-pointer
                  ${props.open ? "translate-x-0" : "hidden"}
-            `} onClick={props.close}>  
+            `}>  
                 <div className={`
                     bg-white overflow-y-auto
                     border-2 border-neutral-200
