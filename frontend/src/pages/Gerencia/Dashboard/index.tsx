@@ -29,7 +29,7 @@ export default function Dashboard(){
                 <div className='max-sm:grid max-sm:grid-cols-1'>
                     <FiltroGnc modo='gerencia'/>
                 </div>
-                <div className='flex mt-2 max-sm:grid max-sm:grid-cols-1'>
+                <div className='flex h-[640px] overflow-auto mt-2 max-sm:grid max-sm:grid-cols-1'>
                     <Cards />
                     <Graficos />
                 </div>
