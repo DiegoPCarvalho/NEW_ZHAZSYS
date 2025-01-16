@@ -59,7 +59,7 @@ export default function RelatorioLabo() {
                 dadoOS.push(registro.OS)
                 servicoInicial.push(registro.Servico)
                 equipamentoInicial.push(registro.Equipamento)
-
+                
             })
 
             const totalOS = [...new Set(dadoOS)]
@@ -67,7 +67,7 @@ export default function RelatorioLabo() {
             const equipamentoFinal = ArrayParaObjeto(equipamentoInicial)
 
             servicoFinal.map((registro: any) => {
-                Series(tabela, registro, serieServico)
+                Series(tabela, registro, serieServico, false)
             })
 
         

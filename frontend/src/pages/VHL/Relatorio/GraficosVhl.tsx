@@ -2,6 +2,7 @@ import GraficoVhl from "./(Graficos)/GraficoVhl";
 
 interface GraficoProps {
     dadoServico?: any
+    dadoEquipamento?: any
 }
 
 export default function GraficosVhl(props: GraficoProps) {
@@ -16,9 +17,9 @@ export default function GraficosVhl(props: GraficoProps) {
                 texto='<b>{point.name}</b>: {point.percentage:.1f} %'
             />
             <GraficoVhl
-                dado={props.dadoServico}
+                dado={props.dadoEquipamento}
                 tipo="column"
-                titulo="Serviço"
+                titulo="Equipamento"
                 vertical={400}
                 formate='<span style="color:{point.color}">{point.name}</span> : <b>{point.y:1f}</b> do total<br/>'
                 texto='{point.y:1f}'

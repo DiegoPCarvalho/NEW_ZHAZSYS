@@ -132,7 +132,7 @@ export default function TabelaVhl(props: TabelaVhlProps) {
                 exec={confirmeRemove!}
                 close={() => setExcluir!(!excluir)}
             />
-            <ModalForm open={openM!} className="top-[20%] left-[10%] right-[10%] max-2xl:left-[5%] max-2xl:right-[5%]" close={fecharModal}>
+            <ModalForm open={openM!} className="top-[20%] left-[10%] right-[10%] max-2xl:left-[5%] max-2xl:right-[5%]">
                 <FormVhl table/>
             </ModalForm>
         </div>

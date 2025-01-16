@@ -25,7 +25,7 @@ export default function Graficos() {
                     formate='<span style="color:{point.color}">{point.name}</span> : <b>{point.percentage:.1f} % </b> do total<br/>'
                     texto='<b>{point.name}</b>: {point.y:1f}'
                     cor
-                    dado={graficoGen?.serieServicoVhl}
+                    dado={graficoGen?.servicoVhl}
                     serieDado={graficoGen?.serieServicoVhl}
                 />
             </div>
@@ -76,7 +76,6 @@ export default function Graficos() {
                     vertical={390}
                     formate='<span style="color:{point.color}">{point.name}</span> : <b>{point.y:1f}</b> do total<br/>'
                     texto='{point.y:1f}'
-                    cor
                     dado={graficoGen?.anualLab}
                 />
                 <GraficoGen 
@@ -85,7 +84,6 @@ export default function Graficos() {
                     vertical={390}
                     formate='<span style="color:{point.color}">{point.name}</span> : <b>{point.y:1f}</b> do total<br/>'
                     texto='{point.y:1f}'
-                    cor
                     dado={graficoGen?.anualVhl}
                 />
             </div>
@@ -105,7 +103,7 @@ export default function Graficos() {
                     titulo="Recuperação de Placa"
                     vertical={390}
                     size="60%"
-                    subTitulo={`Total de Placas: ${""}`}
+                    subTitulo={`Total de Placas: ${graficoGen?.totalPlaca}`}
                     formate='<span style="color:{point.color}">{point.name}</span> : <b>{point.y:1f}</b> do total<br/>'
                     texto='<b>{point.name}</b>: {point.y:1f}'
                     cor
@@ -116,7 +114,7 @@ export default function Graficos() {
             <div className="grid grid-cols-1 max-sm:grid max-sm:grid-cols-1">
                 <GraficoGen 
                     tipo="column"
-                    titulo="Produtividade por Dia"
+                    titulo="Produtividade por dia de OS"
                     formate='<span style="color:{point.color}">{point.name}</span> : <b>{point.y:1f}</b> do total<br/>'
                     texto='{point.y:1f}'
                     dado={graficoGen?.proDiaria}

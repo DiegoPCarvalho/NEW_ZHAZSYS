@@ -18,7 +18,8 @@ export default function RelatorioVHL() {
     const [filtro, setFiltro] = useState<FiltroGncProps>(initialFiltroGnc)
     const [pedido, setPedido] = useState<number>(0)
     const [QTDE, setQTDE] = useState<number>(0)
-    const [graficoServico, setGraficoServico] = useState<any[]>([{ name: "servico", y: 0 }])
+    const [graficoServico, setGraficoServico] = useState<any[]>([{ name: "Serviço", y: 0 }])
+    const [graficoEquip, setGraficoEquip] = useState<any[]>([{ name: "Equipamento", y: 0 }])
     const [carregando, setCarregando] = useState<boolean>(false)
     const baseUrl = Banco("VHL")
 
@@ -48,17 +49,27 @@ export default function RelatorioVHL() {
             //quantidade de equipamentos
             let numeros: any = []
             let servico: any = []
+            let equipamentoVhl: any = []
     
             tabela.map((registro: any) => {
                 numeros.push(+registro.QTDE)
-                servico.push(registro.Servico)
+                if(registro.Servico !== ""){
+                    servico.push(registro.Servico)
+                }
+                registro.Equipamento.map((reg: any) => {
+                    if(reg.Equipamento !== undefined && reg.Equipamento !== ""){
+                        equipamentoVhl.push(reg.Equipamento)
+                    }
+                })
             })
             let Qtde: number = numeros.reduce((acumulador: number, elemento: number) => acumulador + elemento)
     
             //servico
             let servicoFinal = ArrayParaObjeto(servico)
+            let equipFinal = ArrayParaObjeto(equipamentoVhl)
     
             setGraficoServico(servicoFinal)
+            setGraficoEquip(equipFinal)
             setQTDE(Qtde)
             setPedido(tabela.length)
         }catch(e) {
@@ -84,11 +95,11 @@ export default function RelatorioVHL() {
                 <div className="flex max-sm:justify-center max-sm:grid max-sm:grid-cols-1">
                     {carregando ? 
                         <div className="flex justify-center items-center w-full">
-                            <Carregando cor="success" tamanho={300}/>
+                            <Carregando cor="success" tamanho={300} grafico/>
                         </div>
                         :<>
                             <CardsVhl pedido={pedido} QTDE={QTDE}/>
-                            <GraficosVhl  dadoServico={graficoServico}/>
+                            <GraficosVhl  dadoServico={graficoServico} dadoEquipamento={graficoEquip}/>
                         </>
                     }
                 </div>

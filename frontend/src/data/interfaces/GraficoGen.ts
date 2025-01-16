@@ -6,6 +6,9 @@ export interface GraficoGen {
     totalVhl:number
     totalTempo: any
     totalPlaca: number
+    totalLimpeza: number
+    metaServico: number
+    metaOS: number
     servicoLab: Array<ArrayGrafico>
     serieServicoLab?: Array<ArrayGrafico>
     servicoVhl: Array<ArrayGrafico>
@@ -28,6 +31,9 @@ export const initialGraficoGen: GraficoGen = {
     totalVhl: 0,
     totalTempo: "00:00:00",
     totalPlaca: 0,
+    totalLimpeza: 0,
+    metaServico: 0,
+    metaOS: 0,
     servicoLab: [{name:"Servico", y: 0}],
     servicoVhl: [{name:"Servico", y: 0}],
     equipamentoLab: [{name: "Equipamento", y: 0}],
