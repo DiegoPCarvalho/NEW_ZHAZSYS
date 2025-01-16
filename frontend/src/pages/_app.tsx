@@ -4,6 +4,7 @@ import '@/styles/globals.css'
 import { GncProvider } from '@/data/context/GncBancoContext'
 import { AuthProvider } from '@/data/context/AuthContext'
 import { VhlProvider } from '@/data/context/VhlContext'
+import { DashProvider } from '@/data/context/DashboardContext'
 
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -12,7 +13,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <AppProvider>
         <GncProvider>
           <VhlProvider>
-            <Component {...pageProps} />
+            <DashProvider>
+              <Component {...pageProps} />
+            </DashProvider>
           </VhlProvider>
         </GncProvider>
       </AppProvider>

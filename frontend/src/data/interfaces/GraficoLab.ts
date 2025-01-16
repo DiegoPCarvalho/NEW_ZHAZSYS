@@ -1,15 +1,11 @@
+import { ArrayGrafico } from "./ArrayGrafico"
+
 export interface GraficoLab {
     totalOS: number
     totalServico: number
     servico: Array<ArrayGrafico>
     equipamento: Array<ArrayGrafico>
     serieServico?: Array<ArrayGrafico>
-}
-
-interface ArrayGrafico {
-    name?: string
-    y?: any
-    drilldown?: string
 }
 
 export const initialGraficoLab: GraficoLab = {

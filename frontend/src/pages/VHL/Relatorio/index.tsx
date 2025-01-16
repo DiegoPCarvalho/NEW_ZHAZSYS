@@ -78,7 +78,7 @@ export default function RelatorioVHL() {
                         data={VhlUrl} dataMini={VhlUrl}
                     />
                 </div>
-                <div className='mb-20 flex justify-center'>
+                <div className='mb-12 flex justify-center'>
                     <FiltroGnc filtro={filtro} buscar={buscarDado} alterarCampo={AlterarCampo} />
                 </div>
                 <div className="flex max-sm:justify-center max-sm:grid max-sm:grid-cols-1">

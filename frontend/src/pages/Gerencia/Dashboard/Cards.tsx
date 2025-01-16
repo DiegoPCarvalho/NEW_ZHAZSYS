@@ -8,10 +8,11 @@ import { IconVHL } from "@/components/icons/IconesMaterial";
 
 export default function Cards() {
     return (
-        <div className="flex flex-col justify-evenly ml-2 max-sm:justify-start">
+        <div className="flex flex-col justify-between ml-2 max-sm:justify-start">
             <CardInfo
                 titulo="Total VHL" info={123}
                 icone={<IconVHL fontSize="large" />}
+                dash
                 className="bg-emerald-700 dark:bg-emerald-800 boder-emerald-200 dark:border-emerald-700 text-white"
             />
             <CardInfo
@@ -19,6 +20,7 @@ export default function Cards() {
                 icone={<FilterNoneIcon fontSize="large" />}
                 className="bg-stone-700 dark:bg-stone-800 boder-stone-200 dark:border-stone-700 text-white"
                 click
+                dash
                 executar={() => console.log("meta")}
                 />
             <CardInfo
@@ -35,6 +37,7 @@ export default function Cards() {
                 icone={<AccessAlarmIcon fontSize="large" />}
                 className="bg-red-700 dark:bg-red-900 boder-red-200 dark:border-red-700 text-white"
                 tempo
+                dash
             />
         </div>
     )
