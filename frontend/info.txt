@@ -8,3 +8,5 @@ https://www.npmjs.com/package/json-as-xlsx
     // let mostrar = bcrypt.compareSync(password, hash);
     // console.log(hash, mostrar)
 }
+
+colocar um bem-vindo no login na plataforma

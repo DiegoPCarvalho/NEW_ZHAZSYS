@@ -27,7 +27,7 @@ export default function Equipamentos() {
             const dado = await axios(baseUrl).then(resp => resp.data)
             setBanco(dado)
         } catch (e) {
-
+            mensagemSistema("error", "filled", "Conexão com banco inválida")
         }
     }
 

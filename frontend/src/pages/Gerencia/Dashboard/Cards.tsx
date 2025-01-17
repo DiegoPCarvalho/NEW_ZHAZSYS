@@ -22,12 +22,11 @@ export default function Cards() {
                 className="bg-emerald-700 dark:bg-emerald-800 boder-emerald-200 dark:border-emerald-700 text-white"
             />
             {os ? <CardInfo
-                titulo="Total OS" info2={graficoGen?.totalOS} info={graficoGen?.metaOS}
+                titulo="Meta Vs OS" info2={graficoGen?.totalOS} info={graficoGen?.metaOS}
                 icone={<IconMeta fontSize="large" />}
                 icone2={<FilterNoneIcon fontSize="large" />}
                 className="bg-stone-700 dark:bg-stone-800 boder-stone-200 dark:border-stone-700 text-white"
                 click
-                dash
                 limpeza
                 executar={() => setOS(!os)}
                 />
@@ -40,7 +39,7 @@ export default function Cards() {
                 executar={() => setOS(!os)}
                 />}
             {servico ? <CardInfo
-                titulo="Total Servico" info2={graficoGen?.totalServico} info={graficoGen?.metaServico}
+                titulo="Meta Vs Serv." info2={graficoGen?.totalServico} info={graficoGen?.metaServico}
                 limpeza
                 icone2={<SettingsSuggestIcon fontSize="large" />}
                 icone={<IconMeta fontSize="large" />}
