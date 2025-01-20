@@ -14,6 +14,8 @@ interface AuthContextProps {
     tela?: string
     erro?: boolean
     carregando?: boolean
+    benvindo?: boolean
+    setBenvindo?: (novoValor: boolean) => void
     setErro?: (valor: boolean) => void
     mudarTela?: (valor: string) => void
     login?: (email: string, senha: string) => Promise<void>
@@ -32,6 +34,7 @@ export function AuthProvider({ children }: any) {
     const [erro, setErro] = useState<boolean>(false)
     const [carregando, setCarregando] = useState<boolean>(false)
     const [usuario, setUsuario] = useState<any>({})
+    const [benvindo, setBenvindo] = useState<boolean>(false)
     const baseUrl = Banco("LoginUsuario")
 
     useEffect(() => {
@@ -88,6 +91,7 @@ export function AuthProvider({ children }: any) {
                 localStorage.Tecnico = resp[0].nomeCompleto
                 gerenciarCookie(true)
                 gerenciarAcesso(resp[0].acesso, true)
+                setBenvindo(true)
                 router.push('/')
             } else {
                 setErro(true)
@@ -182,6 +186,8 @@ export function AuthProvider({ children }: any) {
                 tela,
                 erro,
                 carregando,
+                benvindo,
+                setBenvindo,
                 setErro,
                 mudarTela,
                 login,

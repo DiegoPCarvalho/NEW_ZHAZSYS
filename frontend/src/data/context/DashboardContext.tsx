@@ -364,8 +364,6 @@ export function DashProvider({ children }: any) {
             }
 
             setGraficoGen(graficoGenFinal)
-            console.log(meta.length)
-
         } catch (e) {
             console.log(e)
         } finally {

@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 import Banco from "../database/banco";
 import axios from "axios";
+import { initialRamalHome, RamalHome } from "../interfaces/RamalHome";
 
 interface GncBancoContextProps {
     data?: any[]
@@ -10,6 +11,8 @@ interface GncBancoContextProps {
     servicoVhl?: any[]
     servicoLab?: any[]
     tecnicos?: any[]
+    ramalHome?: RamalHome
+    setRamalHome?:(novoValor: RamalHome) => void 
     novaData?: (novo: any[]) => void
     buscarDados?: () => Promise<void>
     buscarContrato?: () => Promise<void>
@@ -28,6 +31,7 @@ export function GncProvider({ children } : any){
     const [servicoVhl, setServicoVhl] = useState<any[]>([])
     const [servicoLab, setServicoLab] = useState<any[]>([])
     const [tecnicos, setTecnicos] = useState<any[]>([])
+    const [ramalHome, setRamalHome] = useState<RamalHome>(initialRamalHome)
 
     function novaData(novo: any){
         setData(novo)
@@ -98,6 +102,8 @@ export function GncProvider({ children } : any){
                 servicoVhl,
                 servicoLab,
                 tecnicos,
+                ramalHome,
+                setRamalHome,
                 novaData,
                 buscarDados,
                 buscarContrato,
