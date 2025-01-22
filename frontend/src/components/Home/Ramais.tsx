@@ -1,6 +1,9 @@
+import useGncData from "@/data/hook/useGncData";
 import Botao from "../shared/Botao";
 
 export default function Ramais() {
+    const { openModalHome } = useGncData()
+
     return (
         <div className="flex flex-col items-center dark:text-neutral-200 h-[95%] ml-1 w-56 bg-white dark:bg-neutral-950 rounded-lg shadow-lg border-2 dark:border-neutral-700">
             <div className="font-bold text-3xl max-[1024px]:text-2xl">Ramais</div>
@@ -13,7 +16,7 @@ export default function Ramais() {
                     active:border-b-[2px] active:brightness-90 active:translate-y-[2px] 
                 `}
 
-                    executar={() => console.log("")}
+                    executar={() => openModalHome!("Comercial")}
                 >Comercial</Botao>
                 <Botao
                     className={`
@@ -23,7 +26,7 @@ export default function Ramais() {
                     active:border-b-[2px] active:brightness-90 active:translate-y-[2px] 
                 `}
 
-                    executar={() => console.log("")}
+                    executar={() => openModalHome!("adm")}
                 >ADM</Botao>
                 <Botao
                     className={`
@@ -33,7 +36,7 @@ export default function Ramais() {
                     active:border-b-[2px] active:brightness-90 active:translate-y-[2px] 
                 `}
 
-                    executar={() => console.log("")}
+                    executar={() => openModalHome!("Laboratório")}
                 >Laboratório</Botao>
                 <Botao
                     className={`
@@ -43,7 +46,7 @@ export default function Ramais() {
                     active:border-b-[2px] active:brightness-90 active:translate-y-[2px] 
                 `}
 
-                    executar={() => console.log("")}
+                    executar={() => openModalHome!("Gerência")}
                 >Gerência</Botao>
             </div>
         </div>

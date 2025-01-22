@@ -5,11 +5,18 @@ import { GenUrl } from '@/data/config/GenUrl';
 import NavigatePage from '@/components/navigatePage/NavigatePage';
 import useAppData from "@/data/hook/useAppData";
 import {useEffect} from 'react'
+import CentroTelaGen from '@/components/FilaTecnica/CentroTelaGen';
+import useFilaData from '@/data/hook/useFilaData';
+import AddFila from '@/components/FilaTecnica/AddFila';
+import useGncData from '@/data/hook/useGncData';
 
 export default function FilaTecnica(){
     const { adminL2 } = useAppData()
+    const { tela } = useFilaData()
+    const { buscarContrato } = useGncData()
 
     useEffect(() => {
+        buscarContrato!()
         adminL2!()
     }, [])
     
@@ -21,8 +28,11 @@ export default function FilaTecnica(){
                         titulo="Fila Técnica"
                         iconeTitulo={<IconFila sx={{ fontSize: 60 }} className=" text-neutral-800 dark:text-neutral-200" />}
                         data={GenUrl} dataMini={GenUrl}
+                        centroTela={<CentroTelaGen />}
                     />
                 </div>
+                {tela === "AddFila" ? <AddFila /> : 
+                    tela === "FilaGerenciada" ? "Filas" : "Excluir"}
             </div>
         </Layout>
     )

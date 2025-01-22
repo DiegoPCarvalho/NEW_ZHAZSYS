@@ -1,4 +1,3 @@
-'use client'
 import Layout from "@/components/template/Layout";
 import { IconeHome } from "@/components/icons/Index";
 import { useEffect, useState } from "react";
@@ -23,11 +22,15 @@ import Image from "next/image";
 import tabSup from '@/assets/gifs/tabSup.gif'
 import benVindo from "@/assets/gifs/bemvindo-15.gif"
 import logo from "@/assets/img/logoZhaz.png"
+import useGncData from "@/data/hook/useGncData";
+import ModalRamalHome from "@/components/Modal/ModalRamalHome";
+import RamalUnit from "@/components/Home/RamalUnit";
 
 
 export default function Home() {
     const { BuscarDadoUserAcesso } = useAppData()
     const {benvindo, setBenvindo } = useAuthData()
+    const { ramalHome, setRamalHome, openMHome, setOpenMHome } = useGncData()
     const [acesso, setAcesso] = useState<string>("")
     const [graficoHome, setGraficoHome] = useState<GraficoHomeProps>(initialGraficoHome)
     const [carregando, setCarregando] = useState<boolean>(false)
@@ -67,9 +70,7 @@ export default function Home() {
                 return ano
             })
 
-            const ramais = await axios(Banco("Ramal")).then(resp => {
-                
-            })
+            const ramais = await axios(Banco("Ramal")).then(resp => setRamalHome!(resp.data))
 
             //#region dados
             let data = new Date()
@@ -475,6 +476,7 @@ export default function Home() {
         }
     }
 
+
     return benvindo ? <div
         className="
             flex flex-col justify-evenly items-center
@@ -558,6 +560,9 @@ export default function Home() {
                         </div>
 
                     </div>
+                    <ModalRamalHome open={openMHome} close={() => setOpenMHome!(false)} className="top-44 left-[30%] max-xl:left-[20%]">
+                        <RamalUnit />
+                    </ModalRamalHome>
                 </div>  
                 </>}
         </Layout>

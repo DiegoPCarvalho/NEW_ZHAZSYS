@@ -12,7 +12,7 @@ export interface Atividade {
     Servico: string
     Placa: string
     Contrato: string
-    Observacao: String
+    Observacao: string
     Estagio: string
     ProblemObs?: string
     DataInicialBruto?: string
@@ -21,6 +21,7 @@ export interface Atividade {
     DataInicialProblema?: string
     DataFinalProblema?: string
     ContProblema?: number
+    importante?: boolean
     Tecnico: string
 }
 
@@ -39,5 +40,5 @@ export const initialAtividade: Atividade = {
     Contrato: '',
     Observacao: '',
     Estagio: '',
-    Tecnico: ""
+    Tecnico: ''
 }

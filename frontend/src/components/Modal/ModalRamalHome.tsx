@@ -1,16 +1,19 @@
-interface ModalFormProps {
+interface ModalRamalHomeProps {
     children?: any
     open?: boolean
+    close?: () => void
     className?: string
 }
 
-export default function ModalForm(props: ModalFormProps) {
+export default function ModalRamalHome(props: ModalRamalHomeProps) {
     return (
-        <div className={`
-                 fixed top-0 left-0 h-screen w-screen
-                bg-neutral-900 bg-opacity-60
-                 ${props.open ? "translate-x-0" : "hidden"}
-            `}>  
+        <>
+            <div className={`
+                    fixed top-0 left-0 h-screen w-screen
+                    bg-neutral-900 bg-opacity-60
+                    ${props.open ? "translate-x-0" : "hidden"}
+                `} onClick={props.close}>  
+                </div>
                 <div className={`
                     bg-white overflow-y-auto
                     border-2 border-neutral-200
@@ -21,9 +24,9 @@ export default function ModalForm(props: ModalFormProps) {
                     duration-300 ease-linear
                 ${props.open ? "translate-x-0" : "hidden"}
 
-                    `}>
+                    `}>         
                     {props.children}
                 </div>
-        </div>
+        </>
     )
 }

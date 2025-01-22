@@ -1,7 +1,6 @@
 import { createContext, useState } from "react";
 import Banco from "../database/banco";
 import axios from "axios";
-import { initialRamalHome, RamalHome } from "../interfaces/RamalHome";
 
 interface GncBancoContextProps {
     data?: any[]
@@ -11,14 +10,18 @@ interface GncBancoContextProps {
     servicoVhl?: any[]
     servicoLab?: any[]
     tecnicos?: any[]
-    ramalHome?: RamalHome
-    setRamalHome?:(novoValor: RamalHome) => void 
+    ramalHome?: any[]
+    ramalUnit?: any[]
+    openMHome?: boolean
+    setOpenMHome?: (novoValor: boolean) => void
+    setRamalHome?:(novoValor: any) => void 
     novaData?: (novo: any[]) => void
     buscarDados?: () => Promise<void>
     buscarContrato?: () => Promise<void>
     buscarVhl?: () => Promise<void>
     buscarDadosLab?: () => Promise<void>
     buscarTecnicoGen?: () => Promise<void>
+    openModalHome?: (modo: string) => void
 }
 
 const GncBancoContext = createContext<GncBancoContextProps>({});
@@ -31,7 +34,9 @@ export function GncProvider({ children } : any){
     const [servicoVhl, setServicoVhl] = useState<any[]>([])
     const [servicoLab, setServicoLab] = useState<any[]>([])
     const [tecnicos, setTecnicos] = useState<any[]>([])
-    const [ramalHome, setRamalHome] = useState<RamalHome>(initialRamalHome)
+    const [ramalHome, setRamalHome] = useState<any[]>([])
+    const [openMHome, setOpenMHome] = useState<boolean>(false)
+    const [ramalUnit, setRamalUnit] = useState<any[]>([])
 
     function novaData(novo: any){
         setData(novo)
@@ -93,6 +98,18 @@ export function GncProvider({ children } : any){
         return setTecnicos(tecnico)
     }
 
+    function openModalHome(modo: string){
+            setOpenMHome(!openMHome)
+
+            if(modo === "adm"){
+                let ramais = ramalHome.filter((registro: any) => registro.Departamento !== "Comerial" && registro.Departamento !== "Laboratório" && registro.Departamento !== "Gerência")
+                setRamalUnit(ramais)
+            }else {
+                let ramais = ramalHome.filter((registro: any) => registro.Departamento === modo)
+                setRamalUnit(ramais)
+            }
+    }
+
     return (
         <GncBancoContext.Provider value={{
                 data,
@@ -103,13 +120,17 @@ export function GncProvider({ children } : any){
                 servicoLab,
                 tecnicos,
                 ramalHome,
+                openMHome,
+                ramalUnit,
+                setOpenMHome,
                 setRamalHome,
                 novaData,
                 buscarDados,
                 buscarContrato,
                 buscarVhl,
                 buscarDadosLab,
-                buscarTecnicoGen
+                buscarTecnicoGen,
+                openModalHome,
             }}>
             {children}
         </GncBancoContext.Provider>
