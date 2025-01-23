@@ -9,14 +9,17 @@ import CentroTelaGen from '@/components/FilaTecnica/CentroTelaGen';
 import useFilaData from '@/data/hook/useFilaData';
 import AddFila from '@/components/FilaTecnica/AddFila';
 import useGncData from '@/data/hook/useGncData';
+import ModalFilaGen from '@/components/Modal/ModalFilaGen';
+import ConsultaDados from '@/components/FilaTecnica/ConsultaDado';
 
 export default function FilaTecnica(){
     const { adminL2 } = useAppData()
-    const { tela } = useFilaData()
-    const { buscarContrato } = useGncData()
+    const { tela, openMS, setOpenMS } = useFilaData()
+    const { buscarContrato, buscarTecnicoGen } = useGncData()
 
     useEffect(() => {
         buscarContrato!()
+        buscarTecnicoGen!()
         adminL2!()
     }, [])
     
@@ -34,6 +37,9 @@ export default function FilaTecnica(){
                 {tela === "AddFila" ? <AddFila /> : 
                     tela === "FilaGerenciada" ? "Filas" : "Excluir"}
             </div>
+            <ModalFilaGen open={openMS} close={() => setOpenMS!(false)} className="top-48 left-[40%] max-xl:left-[20%]">
+                <ConsultaDados />
+            </ModalFilaGen>
         </Layout>
     )
 }
