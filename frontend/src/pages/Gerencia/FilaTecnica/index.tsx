@@ -12,6 +12,7 @@ import useGncData from '@/data/hook/useGncData';
 import ModalFilaGen from '@/components/Modal/ModalFilaGen';
 import ConsultaDados from '@/components/FilaTecnica/ConsultaDado';
 import Filas from '@/components/FilaTecnica/Filas';
+import DelFila from '@/components/FilaTecnica/DelFila';
 
 export default function FilaTecnica(){
     const { adminL2 } = useAppData()
@@ -36,7 +37,7 @@ export default function FilaTecnica(){
                     />
                 </div>
                 {tela === "AddFila" ? <AddFila /> : 
-                    tela === "FilaGerenciada" ? <Filas /> : "Excluir"}
+                    tela === "FilaGerenciada" ? <Filas /> : <DelFila />}
             </div>
             <ModalFilaGen open={openMS} close={() => setOpenMS!(false)} className="top-48 left-[40%] max-xl:left-[20%]">
                 <ConsultaDados />

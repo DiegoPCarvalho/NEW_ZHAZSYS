@@ -3,9 +3,11 @@ import { IconDelFila, IconFilas } from "../icons/IconesMaterial";
 import Botao from "../shared/Botao";
 import Selecione from "../shared/Selecione";
 import CardsFilaGen from "../Cards/CardFilaGen";
+import useFilaData from "@/data/hook/useFilaData";
 
 export default function Filas() {
     const { tecnicos } = useGncData()
+    const { setTela } = useFilaData()
 
     return (
         <div className="flex flex-col p-2 mt-3 dark:text-neutral-200 w-full">
@@ -22,6 +24,7 @@ export default function Filas() {
                         border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
                         active:border-b-[2px] active:brightness-90 active:translate-y-[2px]
                     "
+                    executar={() => setTela!("Excluir")}
                 >
                     <IconDelFila sx={{ fontSize: 45 }} />
                 </Botao>
@@ -54,7 +57,7 @@ export default function Filas() {
                 </div>
             </div>
             <div className="flex justify-between w-full mt-3 max-sm:grid max-sm:grid-cols-1">
-                    <div className="flex flex-col w-[33%] max-sm:w-full max-sm:mb-2 h-[330px]">
+                    <div className="flex flex-col w-[33%] max-sm:w-full max-sm:mb-2 h-[530px] max-2xl:h-[330px]">
                         <div className="flex justify-center font-bold text-2xl">TO DO</div>
                         <div id="hiddenScroll" className="p-2 flex flex-col overflow-auto">
                             <CardsFilaGen />
@@ -64,16 +67,24 @@ export default function Filas() {
                             <CardsFilaGen />
                         </div>
                     </div>
-                    <div className="flex flex-col w-[33%] max-sm:w-full max-sm:mb-2 h-[330px] bg-white shadow-lg rounded-lg border border-neutral-300">
+                    <div className="flex flex-col w-[33%] max-sm:w-full max-sm:mb-2 h-[530px] max-2xl:h-[330px]">
                         <div className="flex justify-center font-bold text-2xl">DOING</div>
-                        <div id="hiddenScroll" className="flex flex-col h-full overflow-auto">
-                            
+                        <div id="hiddenScroll" className="p-2 flex flex-col overflow-auto">
+                            <CardsFilaGen />
+                            <CardsFilaGen />
+                            <CardsFilaGen />
+                            <CardsFilaGen />
+                            <CardsFilaGen />
                         </div>
                         </div>
-                    <div className="flex flex-col w-[33%] max-sm:w-full max-sm:mb-2 h-[330px] bg-white shadow-lg rounded-lg border border-neutral-300 ">
+                    <div className="flex flex-col w-[33%] max-sm:w-full max-sm:mb-2 h-[530px] max-2xl:h-[330px]">
                         <div className="flex justify-center font-bold text-2xl">DOES</div>
-                        <div id="hiddenScroll" className="flex flex-col h-full overflow-auto">
-                            
+                        <div id="hiddenScroll" className="p-2 flex flex-col overflow-auto">
+                            <CardsFilaGen />
+                            <CardsFilaGen />
+                            <CardsFilaGen />
+                            <CardsFilaGen />
+                            <CardsFilaGen />
                         </div>
                     </div>
             </div>

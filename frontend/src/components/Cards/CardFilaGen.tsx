@@ -8,7 +8,7 @@ export default function CardsFilaGen(){
                 <span className="text-xl font-bold grow"><span className="bg-emerald-700 text-neutral-100 p-1 rounded-lg mr-1">OS:</span>12345</span>
                 <span className="text-xl font-bold grow"><span className="bg-blue-700 text-neutral-100 p-1 rounded-lg mr-1">Data:</span> 17/05/2025</span>
                 <div className="flex justify-evenly grow">
-                    <span className="h-5 w-5 rounded-full bg-black dark:bg-stone-800"></span>
+                    <span className="h-5 w-5 rounded-full bg-black dark:bg-stone-800 dark:border dark:border-stone-600"></span>
                     <span className="h-5 w-5 rounded-full bg-emerald-700"></span> 
                     <span className="h-5 w-5 rounded-full bg-blue-700"></span>  
                     <span className="h-5 w-5 rounded-full bg-red-700"></span> 
