@@ -25,6 +25,10 @@ import IconDeletar from '@mui/icons-material/DeleteForever';
 import IconMeta from '@mui/icons-material/LineAxis';
 import IconAddFila from '@mui/icons-material/PostAdd';
 import IconRefresh from '@mui/icons-material/Sync';
+import IconFilas from '@mui/icons-material/EditNote';
+import IconDelFila from '@mui/icons-material/DeleteSweep';
+import IconInfo from '@mui/icons-material/PermDeviceInformation';
+import IconCheck from '@mui/icons-material/Check';
 
 export {
     IconGerencia,
@@ -53,5 +57,9 @@ export {
     IconDeletar,
     IconMeta,
     IconAddFila,
-    IconRefresh
+    IconRefresh,
+    IconFilas,
+    IconDelFila,
+    IconInfo,
+    IconCheck
 }

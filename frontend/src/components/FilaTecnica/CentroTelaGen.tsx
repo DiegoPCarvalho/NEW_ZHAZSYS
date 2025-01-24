@@ -1,5 +1,5 @@
 import useFilaData from "@/data/hook/useFilaData";
-import { IconFila, IconAddFila } from "../icons/IconesMaterial";
+import { IconFilas, IconAddFila } from "../icons/IconesMaterial";
 import Botao from "../shared/Botao";
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -30,7 +30,7 @@ export default function CentroTelaGen() {
                 "
                 executar={() => setTela!("FilaGerenciada")}
             >
-                <IconFila sx={{ fontSize: 50}}/>
+                <IconFilas sx={{ fontSize: 50}}/>
             </Botao>
             <Botao
                 className="

@@ -12,7 +12,7 @@ export default function AddFila() {
             <div className="flex justify-between">
                 <div className="flex items-center">
                     <IconAddFila sx={{ fontSize: 50 }} />
-                    <span className="text-3xl font-bold">Add Fila</span>
+                    <span className="text-3xl font-bold ml-1">Add Fila</span>
                 </div>
                 <Botao
                     className="
