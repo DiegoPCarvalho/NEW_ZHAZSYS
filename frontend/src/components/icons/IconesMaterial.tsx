@@ -29,6 +29,8 @@ import IconFilas from '@mui/icons-material/EditNote';
 import IconDelFila from '@mui/icons-material/DeleteSweep';
 import IconInfo from '@mui/icons-material/PermDeviceInformation';
 import IconCheck from '@mui/icons-material/Check';
+import IconReload from '@mui/icons-material/Cached';
+import IconDowload from '@mui/icons-material/Download';
 
 export {
     IconGerencia,
@@ -61,5 +63,7 @@ export {
     IconFilas,
     IconDelFila,
     IconInfo,
-    IconCheck
+    IconCheck,
+    IconReload,
+    IconDowload
 }

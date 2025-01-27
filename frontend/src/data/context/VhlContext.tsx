@@ -27,6 +27,7 @@ interface VhlContextProps {
     limparCampos?: () => void
     addEquipamento?: () => void
     removeEquipamento?: (dado: any) => void
+    editarEquipamento?: (dado: any) => void
     verificar?: () => void
     BuscarTabelaVhl?: () => Promise<void>
     confirmeRemove?: () => void
@@ -149,6 +150,12 @@ export function VhlProvider({ children }: any) {
         setQuantidade(resultado.length)
     }
 
+    function editarEquipamento(dado: any){
+        setVhlEquip(dado)
+
+        removeEquipamento(dado)
+    }
+
     function verificar() {
         try {
             const vhl = vhlForm
@@ -248,6 +255,7 @@ export function VhlProvider({ children }: any) {
                 limparCampos,
                 addEquipamento,
                 removeEquipamento,
+                editarEquipamento,
                 verificar,
                 BuscarTabelaVhl,
                 confirmeRemove,

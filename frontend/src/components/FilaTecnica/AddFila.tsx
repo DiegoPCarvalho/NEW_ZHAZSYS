@@ -98,7 +98,7 @@ export default function AddFila() {
                                 <th className="rounded-tl-lg rounded-tr-lg p-2">Atividades</th>
                             </tr>
                         </thead>
-                        <tbody className="h-80 overflow-auto block">
+                        <tbody className="h-96 overflow-auto block">
                             
                         </tbody>
                     </table>
