@@ -5,8 +5,17 @@ import NavigatePage from '@/components/navigatePage/NavigatePage';
 import { LabUrl } from "@/data/config/labUrl"
 import CentroTela from './CentroTela';
 import FilaUser from './FilaUser';
+import { useEffect } from 'react';
+import useFilaData from '@/data/hook/useFilaData';
 
 export default function FilaTecnicaLabo() {
+
+    const { buscarFilaUser } = useFilaData()
+
+    useEffect(() => {
+        buscarFilaUser!()
+    }, [])
+
     return (
         <Layout icone={<IconQrcode fontSize='large' />} texto="Laboratório">
              <div className='flex flex-col'>

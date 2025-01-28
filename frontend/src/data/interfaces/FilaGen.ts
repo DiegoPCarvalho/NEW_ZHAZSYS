@@ -11,3 +11,15 @@ export const initialLoadOS: LoadOS = {
     Servico: "",
     Tecnico: ""
 }
+
+// export interface Filas {
+//     listEnv: Array<any>
+//     listIni: Array<any>
+//     listFim: Array<any>
+// }
+
+// export const initialFilas: Filas = {
+//     listEnv: [],
+//     listIni: [],
+//     listFim: []
+// }

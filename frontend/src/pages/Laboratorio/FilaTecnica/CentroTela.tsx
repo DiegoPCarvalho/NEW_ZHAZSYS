@@ -4,7 +4,7 @@ import Botao from "@/components/shared/Botao";
 import SearchIcon from '@mui/icons-material/Search';
 
 export default function CentroTela() {
-    const { setTela, setOpenMS } = useFilaData()
+    const { setTela, setOpenMS, buscarFilaUser } = useFilaData()
 
     return (
         <div className="flex justify-between w-64 max-md:w-36">
@@ -16,7 +16,7 @@ export default function CentroTela() {
                     border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
                     active:border-b-[2px] active:brightness-90 active:translate-y-[2px]
                 "
-                executar={() => setTela!("AddFila")}
+                executar={buscarFilaUser}
             >
                 <IconReload sx={{fontSize: 50}}/>
             </Botao>

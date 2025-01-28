@@ -17,7 +17,9 @@ export default async function Aprovado(
             let dados: any = []
 
             registros.map((registro: any) => {
-                dados.push(gerenciador(registro))
+                if(registro.EmpresaID === 1){
+                    dados.push(gerenciador(registro))
+                }
             })
 
             return dados

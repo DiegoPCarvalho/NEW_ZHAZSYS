@@ -4,10 +4,13 @@ import Botao from "../shared/Botao";
 import Selecione from "../shared/Selecione";
 import CardsFilaGen from "../Cards/CardFilaGen";
 import useFilaData from "@/data/hook/useFilaData";
+import { useState } from "react";
+import Carregando from "../shared/Carregando";
 
 export default function Filas() {
     const { tecnicos } = useGncData()
-    const { setTela } = useFilaData()
+    const { setTela, buscarFilaGen, carregarFilaUser } = useFilaData()
+    const [tecnico, setTecnico] = useState<string>("")
 
     return (
         <div className="flex flex-col p-2 mt-3 dark:text-neutral-200 w-full">
@@ -35,8 +38,8 @@ export default function Filas() {
                         texto="Técnico:"
                         nome="tecnico"
                         className="grow"
-                        valor={""}
-                        alterouCampo={e => console.log(e)}
+                        valor={tecnico}
+                        alterouCampo={e => setTecnico(e.target.value)}
                     >
                         {tecnicos!.map((registro: any) => {
                             return (
@@ -52,41 +55,48 @@ export default function Filas() {
                             border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
                             active:border-b-[2px] active:brightness-90 active:translate-y-[2px] 
                         `}
+                            executar={() => buscarFilaGen!(tecnico)}
                         >Consultar</Botao>
                     </div>
                 </div>
             </div>
             <div className="flex justify-between w-full mt-3 max-sm:grid max-sm:grid-cols-1">
-                    <div className="flex flex-col w-[33%] max-sm:w-full max-sm:mb-2 h-[530px] max-2xl:h-[330px]">
-                        <div className="flex justify-center font-bold text-2xl">TO DO</div>
-                        <div id="hiddenScroll" className="p-2 flex flex-col overflow-auto">
-                            <CardsFilaGen />
-                            <CardsFilaGen />
-                            <CardsFilaGen />
-                            <CardsFilaGen />
-                            <CardsFilaGen />
-                        </div>
+                {carregarFilaUser ?
+                    <div className="flex justify-center items-center w-full"> 
+                        <Carregando cor="success" tamanho={300} grafico/>
                     </div>
-                    <div className="flex flex-col w-[33%] max-sm:w-full max-sm:mb-2 h-[530px] max-2xl:h-[330px]">
-                        <div className="flex justify-center font-bold text-2xl">DOING</div>
-                        <div id="hiddenScroll" className="p-2 flex flex-col overflow-auto">
-                            <CardsFilaGen />
-                            <CardsFilaGen />
-                            <CardsFilaGen />
-                            <CardsFilaGen />
-                            <CardsFilaGen />
+                    : <>
+                        <div className="flex flex-col w-[33%] max-sm:w-full max-sm:mb-2 h-[530px] max-2xl:h-[330px]">
+                            <div className="flex justify-center font-bold text-2xl">TO DO</div>
+                            <div id="hiddenScroll" className="p-2 flex flex-col overflow-auto">
+                                <CardsFilaGen />
+                                <CardsFilaGen />
+                                <CardsFilaGen />
+                                <CardsFilaGen />
+                                <CardsFilaGen />
+                            </div>
                         </div>
-                        </div>
-                    <div className="flex flex-col w-[33%] max-sm:w-full max-sm:mb-2 h-[530px] max-2xl:h-[330px]">
-                        <div className="flex justify-center font-bold text-2xl">DOES</div>
-                        <div id="hiddenScroll" className="p-2 flex flex-col overflow-auto">
-                            <CardsFilaGen />
-                            <CardsFilaGen />
-                            <CardsFilaGen />
-                            <CardsFilaGen />
-                            <CardsFilaGen />
-                        </div>
-                    </div>
+                        <div className="flex flex-col w-[33%] max-sm:w-full max-sm:mb-2 h-[530px] max-2xl:h-[330px]">
+                            <div className="flex justify-center font-bold text-2xl">DOING</div>
+                            <div id="hiddenScroll" className="p-2 flex flex-col overflow-auto">
+                                <CardsFilaGen />
+                                <CardsFilaGen />
+                                <CardsFilaGen />
+                                <CardsFilaGen />
+                                <CardsFilaGen />
+                            </div>
+                            </div>
+                        <div className="flex flex-col w-[33%] max-sm:w-full max-sm:mb-2 h-[530px] max-2xl:h-[330px]">
+                            <div className="flex justify-center font-bold text-2xl">DOES</div>
+                            <div id="hiddenScroll" className="p-2 flex flex-col overflow-auto">
+                                <CardsFilaGen />
+                                <CardsFilaGen />
+                                <CardsFilaGen />
+                                <CardsFilaGen />
+                                <CardsFilaGen />
+                            </div>
+                        </div> 
+                    </>}
             </div>
         </div>
     )
