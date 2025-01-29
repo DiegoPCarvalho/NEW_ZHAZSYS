@@ -2,10 +2,57 @@ import useGncData from "@/data/hook/useGncData";
 import { IconAddFila, IconRefresh } from "../icons/IconesMaterial";
 import Botao from "../shared/Botao";
 import Selecione from "../shared/Selecione";
-import TabelaGnc from "../shared/TabelaGnc";
+import { useState } from 'react';
+import useFilaData from "@/data/hook/useFilaData";
+import Carregando from "../shared/Carregando";
+import { dataNova } from './../../data/functions/DataNova';
+import CheckBox from "../shared/CheckBox";
 
 export default function AddFila() {
     const { contratos, tecnicos } = useGncData()
+    const { buscarFilaAdd, carregarAdd, bancoAdd, addFilaUser } = useFilaData()
+    const [estagio, setEstagio] = useState<string>("")
+    const [contrato, setContrato] = useState<string>("")
+    const [tecnico, setTecnico] = useState<string>("")
+
+    function renderRows(){
+        return bancoAdd?.map((registro: any, i: number) => {
+            return (
+                <tr key={i} className={`${intercalado(i)} grid grid-cols-9`}>
+                    <td>{dataNova(registro.Data)}</td>
+                    <td className="flex items-center">
+                        <div className="flex flex-col items-center">
+                            <div className="text-sm">Importante</div>
+                            <CheckBox
+                                nome="Importante"
+                                valor={registro.OS}
+                            />
+                        </div>
+                    </td>
+                    <td>{registro.OS}</td>
+                    <td className="col-span-2">{registro.Cliente}</td>
+                    <td className="col-span-2">{registro.Equipamento}</td>
+                    <td>{registro.Servico}</td>
+                    <td className="flex justify-center items-center">
+                        <div className="flex justify-center items-center">
+                            <CheckBox
+                                nome="Enviado" 
+                                valor={registro.OS}
+                            />
+                        </div>
+                    </td>
+                </tr>
+            )
+        })
+    }
+
+    function intercalado(i: number){
+        let resultado = i % 2
+    
+        return resultado === 1 ? "bg-neutral-400 dark:bg-neutral-600 text-white" : "dark:text-white"
+    }
+
+    
 
     return (
         <div className="flex flex-col p-2 mt-3 dark:text-neutral-200">
@@ -27,32 +74,31 @@ export default function AddFila() {
                 </Botao>
             </div>
             <div className="flex justify-center max-sm:grid max-sm:grid-cols-1 max-sm:mt-2">
-                <div className="grid grid-cols-2 max-sm:grid-cols-1">
+                <div className={`grid ${estagio === "Contrato" ? "grid-cols-2" : "grid-cols-1"} max-sm:grid-cols-1`}>
                     <Selecione
                         texto="Estágio:"
-                        nome="estagio"
                         className="grow"
-                        valor={""}
-                        alterouCampo={(e) => console.log(e)}
+                        valor={estagio}
+                        alterouCampo={(e) => setEstagio(e.target.value)}
                     >
                         <option>Laudo</option>
-                        <option>Manutenção</option>
+                        <option>Manutenção Concluída</option>
+                        <option>Contrato</option>
                     </ Selecione>
-                    <Selecione
-                        texto="Tipo:"
-                        nome="tipo"
-                        className="grow"
-                        valor={""}
-                        alterouCampo={(e) => console.log(e)}
+                    {estagio === "Contrato" ? 
+                        <Selecione
+                            texto="Contrato:"
+                            className="grow"
+                            valor={contrato}
+                            alterouCampo={(e) => setContrato(e.target.value)}
 
-                    >
-                        <option>Avulso</option>
-                        {contratos!.map((registro: any) => {
-                            return (
-                                <option key={registro.id}>{registro.nome}</option>
-                            )
-                        })}
-                    </ Selecione>
+                        >
+                            {contratos!.map((registro: any) => {
+                                return (
+                                    <option key={registro.id}>{registro.nome}</option>
+                                )
+                            })}
+                        </ Selecione> : false }
                 </div>
                 <div className="flex items-end ml-5 max-sm:mt-3 max-sm:justify-end max-sm:h-10">
                     <Botao
@@ -62,6 +108,7 @@ export default function AddFila() {
                             border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
                             active:border-b-[2px] active:brightness-90 active:translate-y-[2px] 
                         `}
+                        executar={() => buscarFilaAdd!(estagio, contrato)}
                     >Buscar</Botao>
                 </div>
             </div>
@@ -71,8 +118,9 @@ export default function AddFila() {
                         texto="Técnico:"
                         nome="tecnico"
                         className=""
-                        valor={""}
-                        alterouCampo={e => console.log(e)}
+                        valor={tecnico}
+                        alterouCampo={e => setTecnico(e.target.value)}
+                        optionDisabled
                     >
                         {tecnicos!.map((registro: any) => {
                             return (
@@ -88,10 +136,15 @@ export default function AddFila() {
                             border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
                             active:border-b-[2px] active:brightness-90 active:translate-y-[2px] 
                         `}
+                        executar={() => addFilaUser!(tecnico)}
                         >enviar</Botao>
                     </div>
                 </div>
-                <div className="mt-5 bg-white dark:bg-neutral-950 shadow-lg w-full p-1 rounded-lg border-2 border-neutral-200 dark:border-neutral-600">
+                {carregarAdd ? 
+                <div className="flex justify-center w-full mt-10">
+                    <Carregando cor="success" tamanho={300}/>
+                </div>
+                 : <div className="mt-5 bg-white dark:bg-neutral-950 shadow-lg w-full p-1 rounded-lg border-2 border-neutral-200 dark:border-neutral-600">
                     <table className="table-fixed w-full">
                         <thead className="bg-neutral-900 dark:bg-neutral-700">
                             <tr className='font-bold text-white'>
@@ -99,10 +152,10 @@ export default function AddFila() {
                             </tr>
                         </thead>
                         <tbody className="h-96 overflow-auto block">
-                            
+                            {renderRows()}
                         </tbody>
                     </table>
-                </div>
+                </div> }
             </div>
         </div>
     )

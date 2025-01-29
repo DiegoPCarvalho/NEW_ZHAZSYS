@@ -14,6 +14,7 @@ export interface EntradaProps {
     desativar?: boolean
     linhas?: number
     optionDisabled?: boolean
+    check?: boolean
     alterouCampo?: (novoValor: any) => void
     buscarPesquisa?: (novoValor: any) => void
 }

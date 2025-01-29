@@ -42,7 +42,7 @@ export default function PopoverFila({dados}: any) {
           horizontal: 'left',
         }}
       >
-        <div className={`${tema === "dark" ? "bg-neutral-700 border-2 border-neutral-600 rounded text-neutral-200" : "bg-white"}  px-3 py-2 font-bold`}>
+        <div className={`${tema === "dark" ? "bg-neutral-700 border-2 border-neutral-600 rounded" : "bg-neutral-500"} text-neutral-200 px-3 py-2 font-bold`}>
             <div className="flex flex-col w-96">
                 <span>Cliente: {dados?.Cliente}</span>
                 <span>Equip: {dados?.Equipamento}</span>
