@@ -10,7 +10,7 @@ import CheckBox from "../shared/CheckBox";
 
 export default function AddFila() {
     const { contratos, tecnicos } = useGncData()
-    const { buscarFilaAdd, carregarAdd, bancoAdd, addFilaUser } = useFilaData()
+    const { buscarFilaAdd, carregarAdd, bancoAdd, addFilaUser, total, valor } = useFilaData()
     const [estagio, setEstagio] = useState<string>("")
     const [contrato, setContrato] = useState<string>("")
     const [tecnico, setTecnico] = useState<string>("")
@@ -19,7 +19,7 @@ export default function AddFila() {
         return bancoAdd?.map((registro: any, i: number) => {
             return (
                 <tr key={i} className={`${intercalado(i)} grid grid-cols-9`}>
-                    <td>{dataNova(registro.Data)}</td>
+                    <td>{registro.Data}</td>
                     <td className="flex items-center">
                         <div className="flex flex-col items-center">
                             <div className="text-sm">Importante</div>
@@ -114,6 +114,7 @@ export default function AddFila() {
             </div>
             <div className="flex flex-col mt-5">
                 <div className="flex justify-end">
+                <div className="flex items-end mr-10">{valor} de {total}</div>
                     <Selecione
                         texto="Técnico:"
                         nome="tecnico"

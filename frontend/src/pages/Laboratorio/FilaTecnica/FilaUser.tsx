@@ -10,13 +10,13 @@ export default function FilaUser() {
     return (
         <div className="flex dark:text-neutral-200 justify-between w-full  mt-10 max-sm:grid max-sm:grid-cols-1">
             {carregarFilaUser ?
-                <div className="flex justify-center items-center w-full h-[650px]">
+                <div className="flex justify-center items-center w-full h-[650px] max-2xl:h-[370px]">
                     <Carregando cor="success" tamanho={300} grafico />
                 </div>
                 : <>
-                    <div className="flex flex-col w-[33%] max-sm:w-full max-sm:mb-2 h-[680px] max-2xl:h-[330px]">
+                    <div className="flex flex-col w-[33%] max-sm:w-full max-sm:mb-2 h-[680px] max-2xl:h-[465px]">
                         <div className="flex justify-center font-bold text-2xl">TO DO</div>
-                        <div id="hiddenScroll" className="p-2 flex flex-col overflow-auto">
+                        <div id="hiddenScroll" className="p-2 flex flex-wrap overflow-auto">
                             {filaEnviada!.map((registro: any) => {
                                 return (
                                     <CardsFila 

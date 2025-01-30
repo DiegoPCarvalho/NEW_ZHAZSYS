@@ -13,6 +13,8 @@ interface FilaContextProps {
     setOpenMS?: (novoValor: boolean) => void
     dadoOSFila?: LoadOS
     bancoAdd?: Array<any>
+    total?: number
+    valor?: number
     buscarOSFila?:(OS: string) => void
     carregarLoadOS?: boolean
     carregarFilaGen?: Boolean
@@ -42,6 +44,8 @@ export function FilaProvider({children} : any){
     const [filaIniciada, setFilaIniciada] = useState<any[]>([])
     const [filaFinalizada, setFilaFinalizada] = useState<any[]>([])
     const [bancoAdd, setBancoAdd] = useState<any[]>([])
+    const [valor, setValor] = useState<number>(0)
+    const [total, setTotal] = useState<number>(0)
 
     async function buscarOSFila(OS: string){
         try{
@@ -323,22 +327,24 @@ export function FilaProvider({children} : any){
 
 
         let dadoFinal: any = []
-        const data = new Date()
-
-        bancoAdd.map((registro: any) => {
+        // const data = new Date()
+        
+        bancoAdd.map((registro: any, i: number) => {
             if(dadoEnviado.find((dado: any) => dado === registro.OS)){
                 registro.Importante = dadoImportante.find((dado: any) => dado === registro.OS) ? true : false
                 registro.Tecnico = tecnico
-                registro.Data = data
-                registro.dt = data
+                // registro.Data = data
                 registro.Estagio = "Enviado"
-
+                
                 dadoFinal.push(registro)
+                setValor(i + 1)
             }
         })
         
-        console.log(dadoFinal)
+        setTotal(dadoFinal.length)
         
+        console.log(dadoFinal)
+        // setValor(0)
     }
 
 
@@ -361,7 +367,9 @@ export function FilaProvider({children} : any){
             carregarAdd, 
             buscarFilaAdd,
             bancoAdd,
-            addFilaUser
+            addFilaUser,
+            total,
+            valor
         }}>
             {children}
         </FilaContext.Provider>
