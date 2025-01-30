@@ -10,7 +10,7 @@ import CheckBox from "../shared/CheckBox";
 
 export default function AddFila() {
     const { contratos, tecnicos } = useGncData()
-    const { buscarFilaAdd, carregarAdd, bancoAdd, addFilaUser, total, valor } = useFilaData()
+    const { buscarFilaAdd, carregarAdd, bancoAdd, addFilaUser, carregarFilaSend } = useFilaData()
     const [estagio, setEstagio] = useState<string>("")
     const [contrato, setContrato] = useState<string>("")
     const [tecnico, setTecnico] = useState<string>("")
@@ -18,8 +18,8 @@ export default function AddFila() {
     function renderRows(){
         return bancoAdd?.map((registro: any, i: number) => {
             return (
-                <tr key={i} className={`${intercalado(i)} grid grid-cols-9`}>
-                    <td>{registro.Data}</td>
+                <tr key={registro.id ? i : registro.id} className={`${intercalado(i)} grid grid-cols-9`}>
+                    <td>{dataNova(registro.Data)}</td>
                     <td className="flex items-center">
                         <div className="flex flex-col items-center">
                             <div className="text-sm">Importante</div>
@@ -114,7 +114,11 @@ export default function AddFila() {
             </div>
             <div className="flex flex-col mt-5">
                 <div className="flex justify-end">
-                <div className="flex items-end mr-10">{valor} de {total}</div>
+                {carregarFilaSend ? 
+                    <div className="flex items-end mr-10"> 
+                        <Carregando cor="success" tamanho={40}/> 
+                    </div>
+                : false}
                     <Selecione
                         texto="Técnico:"
                         nome="tecnico"
@@ -129,21 +133,22 @@ export default function AddFila() {
                             )
                         })}
                     </Selecione>
-                    <div className="flex items-end ml-3 max-sm:mb-2">
-                        <Botao
-                            className={`
-                            cursor-pointer transition-all bg-emerald-500 dark:bg-emerald-700 text-white px-5 py-2 rounded-lg
-                            border-emerald-600 dark:border-emerald-800
-                            border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
-                            active:border-b-[2px] active:brightness-90 active:translate-y-[2px] 
-                        `}
-                        executar={() => addFilaUser!(tecnico)}
-                        >enviar</Botao>
-                    </div>
+                    {carregarFilaSend ? false :
+                        <div className="flex items-end ml-3 max-sm:mb-2">
+                            <Botao
+                                className={`
+                                cursor-pointer transition-all bg-emerald-500 dark:bg-emerald-700 text-white px-5 py-2 rounded-lg
+                                border-emerald-600 dark:border-emerald-800
+                                border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
+                                active:border-b-[2px] active:brightness-90 active:translate-y-[2px] 
+                            `}
+                            executar={() => addFilaUser!(tecnico)}
+                            >enviar</Botao>
+                        </div> }
                 </div>
                 {carregarAdd ? 
                 <div className="flex justify-center w-full mt-10">
-                    <Carregando cor="success" tamanho={300}/>
+                    <Carregando cor="success" tamanho={300} grafico/>
                 </div>
                  : <div className="mt-5 bg-white dark:bg-neutral-950 shadow-lg w-full p-1 rounded-lg border-2 border-neutral-200 dark:border-neutral-600">
                     <table className="table-fixed w-full">

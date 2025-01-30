@@ -13,12 +13,11 @@ interface FilaContextProps {
     setOpenMS?: (novoValor: boolean) => void
     dadoOSFila?: LoadOS
     bancoAdd?: Array<any>
-    total?: number
-    valor?: number
-    buscarOSFila?:(OS: string) => void
+    buscarOSFila?: (OS: string) => void
     carregarLoadOS?: boolean
-    carregarFilaGen?: Boolean
-    carregarFilaUser?: Boolean
+    carregarFilaGen?: boolean
+    carregarFilaUser?: boolean
+    carregarFilaSend?: boolean
     carregarAdd?: boolean
     filaEnviada?: Array<any>
     filaIniciada?: Array<any>
@@ -27,11 +26,12 @@ interface FilaContextProps {
     buscarFilaUser?: () => Promise<void>
     buscarFilaAdd?: (estagio: string, contrato: string) => Promise<void>
     addFilaUser?: (tecnico: string) => Promise<void>
+    removerFila?: (registro: any) => void
 }
 
 const FilaContext = createContext<FilaContextProps>({})
 
-export function FilaProvider({children} : any){
+export function FilaProvider({ children }: any) {
     const { userMain } = useAppData()
     const [tela, setTela] = useState<string>("AddFila")
     const [openMS, setOpenMS] = useState<boolean>(false)
@@ -39,23 +39,22 @@ export function FilaProvider({children} : any){
     const [carregarLoadOS, setCarregarLoadOS] = useState<boolean>(false)
     const [carregarFilaGen, setCarregarFilaGen] = useState<boolean>(false)
     const [carregarFilaUser, setCarregarFilaUser] = useState<boolean>(false)
+    const [carregarFilaSend, setCarregarFilaSend] = useState<boolean>(false)
     const [carregarAdd, setCarregarAdd] = useState<boolean>(false)
     const [filaEnviada, setFilaEnviada] = useState<any[]>([])
     const [filaIniciada, setFilaIniciada] = useState<any[]>([])
     const [filaFinalizada, setFilaFinalizada] = useState<any[]>([])
     const [bancoAdd, setBancoAdd] = useState<any[]>([])
-    const [valor, setValor] = useState<number>(0)
-    const [total, setTotal] = useState<number>(0)
 
-    async function buscarOSFila(OS: string){
-        try{
+    async function buscarOSFila(OS: string) {
+        try {
             setCarregarLoadOS(true)
 
-            const loadOS = await axios(Banco("FilaTecnica")).then(resp =>{
+            const loadOS = await axios(Banco("FilaTecnica")).then(resp => {
                 let dado: any = []
 
                 resp.data.map((registro: any) => {
-                    if(registro.OS === +OS){
+                    if (registro.OS === +OS) {
                         dado.push({
                             OS: registro.OS,
                             Data: dataNova(registro.Data),
@@ -70,17 +69,17 @@ export function FilaProvider({children} : any){
 
             setDadoOSFila(loadOS[0])
 
-        }catch(e){
+        } catch (e) {
             console.log(e)
-        }finally{
+        } finally {
             setCarregarLoadOS(false)
         }
     }
 
-    async function buscarFilaGen(Tecnico: string){
-        try{
+    async function buscarFilaGen(Tecnico: string) {
+        try {
             setCarregarFilaGen(true)
-            
+
             const fila = await axios(Banco("FilaTecnica")).then(resp => resp.data)
             const final = await axios(Banco("Geral")).then(resp => {
                 let data = new Date()
@@ -95,18 +94,18 @@ export function FilaProvider({children} : any){
             const filaFinal = final.filter((registro: any) => registro.Tecnico === Tecnico)
 
             console.log(filaEnviada, filaInicio, filaFinal)
-            
-        }catch(e){
-            
-        }finally {
+
+        } catch (e) {
+
+        } finally {
             setCarregarFilaGen(false)
         }
     }
-    
-    async function buscarFilaUser(){
-        try{
+
+    async function buscarFilaUser() {
+        try {
             setCarregarFilaUser(true)
-            
+
             const fila = await axios(Banco("FilaTecnica")).then(resp => {
                 let dado = resp.data.filter((registro: any) => registro.Tecnico === userMain?.nomeCompleto)
                 return dado
@@ -120,7 +119,7 @@ export function FilaProvider({children} : any){
                 return dado
             })
 
-            if(userMain?.contrato === "Avulso"){
+            if (userMain?.contrato === "Avulso") {
 
                 let filaEnviada = fila.filter((registro: any) => registro.Estagio === "Enviado")
                 let filaIniciada = fila.filter((registro: any) => registro.Estagio === "Iniciado")
@@ -128,133 +127,133 @@ export function FilaProvider({children} : any){
                 setFilaEnviada(filaEnviada)
                 setFilaIniciada(filaIniciada)
 
-            }else if(userMain?.contrato === "Contrato Assaí"){
-                
-                let aprovado = await axios(BancoApiLocal("aprovado")).then(resp => {
-                    let dadoApA: any = [] 
-                    
-                    resp.data.map((registro: any) => {
-                        
-                        if(fila.find((dado: any) => dado.OS === registro.OS && dado.Servico === registro.Servico)){
+            } else if (userMain?.contrato === "Contrato Assaí") {
 
-                        }else{
-                            if(registro.TipoOS === userMain?.contrato && registro.Equipamento.toLowerCase().match(userMain?.especialidade.toLowerCase())){
+                let aprovado = await axios(BancoApiLocal("aprovado")).then(resp => {
+                    let dadoApA: any = []
+
+                    resp.data.map((registro: any) => {
+
+                        if (fila.find((dado: any) => dado.OS === registro.OS && dado.Servico === registro.Servico)) {
+
+                        } else {
+                            if (registro.TipoOS === userMain?.contrato && registro.Equipamento.toLowerCase().match(userMain?.especialidade.toLowerCase())) {
                                 dadoApA.push({ ...registro })
                             }
                         }
                     })
-                    
+
                     return dadoApA
                 })
-    
-                let aguardandoVistoria = await axios(BancoApiLocal("aguardandoVistoria")).then(resp => {
-                    let dadoAvA: any = [] 
-                    
-                    resp.data.map((registro: any) => {
-                        
-                        if(fila.find((dado: any) => dado.OS === registro.OS && dado.Servico === registro.Servico)){
 
-                        }else{
-                            if(registro.TipoOS === userMain?.contrato && registro.Equipamento.toLowerCase().match(userMain?.especialidade.toLowerCase())){
+                let aguardandoVistoria = await axios(BancoApiLocal("aguardandoVistoria")).then(resp => {
+                    let dadoAvA: any = []
+
+                    resp.data.map((registro: any) => {
+
+                        if (fila.find((dado: any) => dado.OS === registro.OS && dado.Servico === registro.Servico)) {
+
+                        } else {
+                            if (registro.TipoOS === userMain?.contrato && registro.Equipamento.toLowerCase().match(userMain?.especialidade.toLowerCase())) {
                                 dadoAvA.push({ ...registro })
                             }
                         }
                     })
-                    
+
                     return dadoAvA
                 })
 
                 let filaEnv = fila.filter((registro: any) => registro.Estagio === "Enviado")
 
                 let filaApi = aguardandoVistoria.concat(aprovado)
-    
+
                 let filaEnviada: any = []
-                
+
                 filaApi.map((registro: any) => {
-                    if(fila.find((dado: any) => dado.OS === registro.OS && dado.Servico === registro.Servico)){
-    
-                    }else {
-                        filaEnviada.push({...registro})
+                    if (fila.find((dado: any) => dado.OS === registro.OS && dado.Servico === registro.Servico)) {
+
+                    } else {
+                        filaEnviada.push({ ...registro })
                     }
                 })
-                
-                let filaIni = fila.filter((registro: any) => registro.Estagio === "Iniciado")
-    
-                filaEnviada.concat(filaEnv)
 
-                setFilaEnviada(filaEnviada)
+                let filaIni = fila.filter((registro: any) => registro.Estagio === "Iniciado")
+
+                let filaEnvFinal = filaEnviada.concat(filaEnv)
+
+                setFilaEnviada(filaEnvFinal)
                 setFilaIniciada(filaIni)
 
-            }else {
-                
-                let aprovado = await axios(BancoApiLocal("aprovado")).then(resp => {
-                    let dadoAp: any = [] 
-                    
-                    resp.data.map((registro: any) => {
-                        
-                        if(fila.find((dado: any) => dado.OS === registro.OS && dado.Servico === registro.Servico)){
+            } else {
 
-                        }else{
-                            if(registro.TipoOS === userMain?.contrato && registro.Equipamento.toLowerCase().match(userMain?.especialidade.toLowerCase())){
+                let aprovado = await axios(BancoApiLocal("aprovado")).then(resp => {
+                    let dadoAp: any = []
+
+                    resp.data.map((registro: any) => {
+
+                        if (fila.find((dado: any) => dado.OS === registro.OS && dado.Servico === registro.Servico)) {
+
+                        } else {
+                            if (registro.TipoOS === userMain?.contrato && registro.Equipamento.toLowerCase().match(userMain?.especialidade.toLowerCase())) {
                                 dadoAp.push({ ...registro })
                             }
                         }
                     })
-                    
+
                     return dadoAp
                 })
-    
-                let aguardandoVistoria = await axios(BancoApiLocal("aguardandoVistoria")).then(resp => {
-                    let dadoAv: any = [] 
-                    
-                    
-                    resp.data.map((registro: any) => {
-                        
-                        if(fila.find((dado: any) => dado.OS === registro.OS && dado.Servico === registro.Servico)){
 
-                        }else{
-                            if(registro.TipoOS === userMain?.contrato && registro.Equipamento.toLowerCase().match(userMain?.especialidade.toLowerCase())){
+                let aguardandoVistoria = await axios(BancoApiLocal("aguardandoVistoria")).then(resp => {
+                    let dadoAv: any = []
+
+
+                    resp.data.map((registro: any) => {
+
+                        if (fila.find((dado: any) => dado.OS === registro.OS && dado.Servico === registro.Servico)) {
+
+                        } else {
+                            if (registro.TipoOS === userMain?.contrato && registro.Equipamento.toLowerCase().match(userMain?.especialidade.toLowerCase())) {
                                 dadoAv.push({ ...registro })
                             }
                         }
                     })
-                    
+
                     return dadoAv
                 })
 
                 let filaEnv = fila.filter((registro: any) => registro.Estagio === "Enviado")
 
                 let filaApi = aguardandoVistoria.concat(aprovado)
-    
+
                 let filaEnviada: any = []
-                
+
                 filaApi.map((registro: any) => {
-                    if(fila.find((dado: any) => dado.OS === registro.OS && dado.Servico === registro.Servico)){
-    
-                    }else {
-                        filaEnviada.push({...registro})
+                    if (fila.find((dado: any) => dado.OS === registro.OS && dado.Servico === registro.Servico)) {
+
+                    } else {
+                        filaEnviada.push({ ...registro })
                     }
                 })
-                
-                let filaIni = fila.filter((registro: any) => registro.Estagio === "Iniciado")
-    
-                filaEnviada.concat(filaEnv)
 
-                setFilaEnviada(filaEnviada)
+                let filaIni = fila.filter((registro: any) => registro.Estagio === "Iniciado")
+
+                let filaEnvFinal = filaEnviada.concat(filaEnv)
+
+                setFilaEnviada(filaEnvFinal)
                 setFilaIniciada(filaIni)
             }
-            
+
             setFilaFinalizada(filaFinal)
 
-        }catch(e){
-            
-        }finally {
+        } catch (e) {
+
+        } finally {
             setCarregarFilaUser(false)
         }
     }
 
-    async function buscarFilaAdd(estagio: string, contrato: string){
-        try{
+    async function buscarFilaAdd(estagio: string, contrato: string) {
+        try {
             setCarregarAdd(true)
             const fila = await axios(Banco("FilaTecnica")).then(resp => {
                 let dado: any = []
@@ -273,10 +272,10 @@ export function FilaProvider({children} : any){
                 let dado: any = []
 
                 resp.data.map((registro: any) => {
-                    if(fila.find((dado: any) => dado.OS === registro.OS && dado.Servico === registro.Servico)){
+                    if (fila.find((dado: any) => dado.OS === registro.OS && dado.Servico === registro.Servico)) {
 
-                    }else {
-                        dado.push({...registro})
+                    } else {
+                        dado.push({ ...registro })
                     }
                 })
 
@@ -286,10 +285,10 @@ export function FilaProvider({children} : any){
                 let dado: any = []
 
                 resp.data.map((registro: any) => {
-                    if(fila.find((dado: any) => dado.OS === registro.OS && dado.Servico === registro.Servico)){
+                    if (fila.find((dado: any) => dado.OS === registro.OS && dado.Servico === registro.Servico)) {
 
-                    }else {
-                        dado.push({...registro})
+                    } else {
+                        dado.push({ ...registro })
                     }
                 })
 
@@ -302,52 +301,92 @@ export function FilaProvider({children} : any){
                 : dadoFinal.filter((registro: any) => registro.TipoOS === contrato)
 
             setBancoAdd(resultado)
-            
-        }catch(e){
+
+        } catch (e) {
             console.log(e)
-        }finally{
+        } finally {
             setCarregarAdd(false)
         }
     }
 
-    async function addFilaUser(tecnico: string){
-        const enviado: any = document.querySelectorAll('[name=Enviado]:checked');
-        const importante: any = document.querySelectorAll('[name=Importante]:checked');
+    async function addFilaUser(tecnico: string) {
+        try {
 
-        let dadoEnviado: any = []
-        let dadoImportante: any = []
-
-        for(let i = 0; i < enviado.length; i++){
-            dadoEnviado.push(+enviado[i].value)
-        }
-
-        for(let i = 0; i < importante.length; i++){
-            dadoImportante.push(+importante[i].value)
-        }
-
-
-        let dadoFinal: any = []
-        // const data = new Date()
-        
-        bancoAdd.map((registro: any, i: number) => {
-            if(dadoEnviado.find((dado: any) => dado === registro.OS)){
-                registro.Importante = dadoImportante.find((dado: any) => dado === registro.OS) ? true : false
-                registro.Tecnico = tecnico
-                // registro.Data = data
-                registro.Estagio = "Enviado"
-                
-                dadoFinal.push(registro)
-                setValor(i + 1)
+            setCarregarAdd(true)
+            
+            const enviado: any = document.querySelectorAll('[name=Enviado]:checked');
+            const importante: any = document.querySelectorAll('[name=Importante]:checked');
+            
+            let dadoEnviado: any = []
+            let dadoImportante: any = []
+            
+            for (let i = 0; i < enviado.length; i++) {
+                dadoEnviado.push(+enviado[i].value)
             }
-        })
-        
-        setTotal(dadoFinal.length)
-        
-        console.log(dadoFinal)
-        // setValor(0)
+
+            for (let i = 0; i < importante.length; i++) {
+                dadoImportante.push(+importante[i].value)
+            }
+
+            let dadoFinal: any = []
+                        
+            bancoAdd.map((registro: any) => {
+                if (dadoEnviado.find((dado: any) => dado === registro.OS)) {
+                    registro.Importante = dadoImportante.find((dado: any) => dado === registro.OS) ? true : false
+                    registro.Tecnico = tecnico
+                    registro.Estagio = "Enviado"
+                    
+                    dadoFinal.push(registro)
+                }
+            })
+
+            if(dadoFinal.length > 0){
+                dadoFinal.map((registro: any, i: number) => {
+                    console.log(i+1)
+                    sendFila(registro)
+                })
+            }
+            
+        }catch(e){
+            console.log(e)
+        }finally {
+            setCarregarAdd(false)
+            setBancoAdd([])
+        }
+    }
+    
+    function sendFila(atividade: any){
+        const Atividade = atividade
+        const method = Atividade.id ? 'put' : 'post'
+        const url = Atividade.id ? `${Banco("FilaTecnica")}/${Atividade.id}` : Banco("FilaTecnica")
+        axios[method](url, Atividade)
+    }
+    
+    function atualizarListaSend(Atividade: any, add = true) {
+        const listagem = bancoAdd.filter((a: any) => a.OS !== Atividade.OS)
+        if (add) listagem.unshift(Atividade)
+        return listagem
+    }
+
+    function atualizarListaFila(Atividade: any, add = true) {
+        const listagem = filaEnviada.filter((a: any) => a.id !== Atividade.id)
+        if (add) listagem.unshift(Atividade)
+        return listagem
     }
 
 
+    function removerFila(registro: any){
+        try{
+            axios.delete(`${Banco("FilaTecnica")}/${registro.id}`)
+                .then(resp => {
+                    const list = atualizarListaFila(registro, false)
+                    setFilaEnviada(list)
+                })
+        }catch(e){
+            console.log(e)
+        }
+    }
+    
     return (
         <FilaContext.Provider value={{
             tela,
@@ -364,12 +403,12 @@ export function FilaProvider({children} : any){
             filaEnviada,
             filaIniciada,
             filaFinalizada,
-            carregarAdd, 
+            carregarAdd,
             buscarFilaAdd,
             bancoAdd,
             addFilaUser,
-            total,
-            valor
+            carregarFilaSend,
+            removerFila
         }}>
             {children}
         </FilaContext.Provider>

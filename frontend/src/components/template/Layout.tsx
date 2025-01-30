@@ -25,9 +25,10 @@ export default function Layout(props: LayoutProps) {
                 <div className={`
                 flex w-52 bg-zinc-700
                 dark:bg-neutral-950
-                fixed left-0 top-0 z-9999
+                left-0 top-0 z-40
                 h-screen overflow-y-hidden
                 duration-300 ease-linear
+                fixed
                 ${menu ? "translate-x-0" : "-translate-x-full"}
            `}>
 
