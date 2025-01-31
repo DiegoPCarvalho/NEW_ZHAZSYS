@@ -7,6 +7,7 @@ import useFilaData from "@/data/hook/useFilaData";
 import Carregando from "../shared/Carregando";
 import { dataNova } from './../../data/functions/DataNova';
 import CheckBox from "../shared/CheckBox";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 export default function AddFila() {
     const { contratos, tecnicos } = useGncData()
@@ -61,7 +62,7 @@ export default function AddFila() {
                     <IconAddFila sx={{ fontSize: 50 }} />
                     <span className="text-3xl font-bold ml-1">Add Fila</span>
                 </div>
-                <Botao
+                {/* <Botao
                     className="
                         flex flex-col items-center justify-center h-16 w-16 max-md:w-16 max-sm:w-12 max-md:h-12 max-sm:h-12
                         transition-all bg-green-500 dark:bg-green-700 text-white  rounded-lg
@@ -71,7 +72,7 @@ export default function AddFila() {
                     "
                 >
                     <IconRefresh sx={{ fontSize: 45 }} />
-                </Botao>
+                </Botao> */}
             </div>
             <div className="flex justify-center max-sm:grid max-sm:grid-cols-1 max-sm:mt-2">
                 <div className={`grid ${estagio === "Contrato" ? "grid-cols-2" : "grid-cols-1"} max-sm:grid-cols-1`}>
@@ -115,8 +116,8 @@ export default function AddFila() {
             <div className="flex flex-col mt-5">
                 <div className="flex justify-end">
                 {carregarFilaSend ? 
-                    <div className="flex items-end mr-10"> 
-                        <Carregando cor="success" tamanho={40}/> 
+                    <div className="flex  items-end mr-5 animate-pulse"> 
+                        <CheckCircleIcon className="text-neutral-100 p-2 rounded-full bg-green-600" sx={{fontSize: 50}}/>
                     </div>
                 : false}
                     <Selecione

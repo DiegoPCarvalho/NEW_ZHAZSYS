@@ -27,6 +27,7 @@ interface FilaContextProps {
     buscarFilaAdd?: (estagio: string, contrato: string) => Promise<void>
     addFilaUser?: (tecnico: string) => Promise<void>
     removerFila?: (registro: any) => void
+    startAtividade?: (fila: any) => void
 }
 
 const FilaContext = createContext<FilaContextProps>({})
@@ -119,7 +120,7 @@ export function FilaProvider({ children }: any) {
                 return dado
             })
 
-            if (userMain?.contrato === "Avulso") {
+            if (userMain?.contratoPrincipal === "Avulso") {
 
                 let filaEnviada = fila.filter((registro: any) => registro.Estagio === "Enviado")
                 let filaIniciada = fila.filter((registro: any) => registro.Estagio === "Iniciado")
@@ -127,7 +128,7 @@ export function FilaProvider({ children }: any) {
                 setFilaEnviada(filaEnviada)
                 setFilaIniciada(filaIniciada)
 
-            } else if (userMain?.contrato === "Contrato Assaí") {
+            } else if (userMain?.contratoPrincipal === "Contrato Assaí") {
 
                 let aprovado = await axios(BancoApiLocal("aprovado")).then(resp => {
                     let dadoApA: any = []
@@ -137,7 +138,7 @@ export function FilaProvider({ children }: any) {
                         if (fila.find((dado: any) => dado.OS === registro.OS && dado.Servico === registro.Servico)) {
 
                         } else {
-                            if (registro.TipoOS === userMain?.contrato && registro.Equipamento.toLowerCase().match(userMain?.especialidade.toLowerCase())) {
+                            if ((registro.TipoOS === userMain?.contratoPrincipal) && (registro.Equipamento.toLowerCase().match(userMain?.especialidadePrincipal.toLowerCase()))) {
                                 dadoApA.push({ ...registro })
                             }
                         }
@@ -154,7 +155,7 @@ export function FilaProvider({ children }: any) {
                         if (fila.find((dado: any) => dado.OS === registro.OS && dado.Servico === registro.Servico)) {
 
                         } else {
-                            if (registro.TipoOS === userMain?.contrato && registro.Equipamento.toLowerCase().match(userMain?.especialidade.toLowerCase())) {
+                            if (registro.TipoOS === userMain?.contratoPrincipal && registro.Equipamento.toLowerCase().match(userMain?.especialidadePrincipal.toLowerCase())) {
                                 dadoAvA.push({ ...registro })
                             }
                         }
@@ -194,7 +195,7 @@ export function FilaProvider({ children }: any) {
                         if (fila.find((dado: any) => dado.OS === registro.OS && dado.Servico === registro.Servico)) {
 
                         } else {
-                            if (registro.TipoOS === userMain?.contrato && registro.Equipamento.toLowerCase().match(userMain?.especialidade.toLowerCase())) {
+                            if (registro.TipoOS === userMain?.contratoPrincipal && (registro.Equipamento.toLowerCase().match(userMain?.especialidadePrincipal.toLowerCase()) || registro.Equipamento.toLowerCase().match(userMain?.especialidadeSecundaria.replace(/[èéêë]/,"e").toLowerCase()) || registro.Equipamento.toLowerCase().match(userMain?.especialidadeTerciaria.toLowerCase()))) {
                                 dadoAp.push({ ...registro })
                             }
                         }
@@ -212,7 +213,7 @@ export function FilaProvider({ children }: any) {
                         if (fila.find((dado: any) => dado.OS === registro.OS && dado.Servico === registro.Servico)) {
 
                         } else {
-                            if (registro.TipoOS === userMain?.contrato && registro.Equipamento.toLowerCase().match(userMain?.especialidade.toLowerCase())) {
+                            if (registro.TipoOS === userMain?.contratoPrincipal && (registro.Equipamento.toLowerCase().match(userMain?.especialidadePrincipal.toLowerCase()) || registro.Equipamento.toLowerCase().match(userMain?.especialidadeSecundaria.replace(/[èéêë]/,"e").toLowerCase()) || registro.Equipamento.toLowerCase().match(userMain?.especialidadeTerciaria.toLowerCase()))) {
                                 dadoAv.push({ ...registro })
                             }
                         }
@@ -249,7 +250,9 @@ export function FilaProvider({ children }: any) {
 
         } finally {
             setCarregarFilaUser(false)
+            // console.log(userMain?.especialidadeSecundaria.replace(/[èéêë]/,"e").toLowerCase())
         }
+
     }
 
     async function buscarFilaAdd(estagio: string, contrato: string) {
@@ -312,7 +315,7 @@ export function FilaProvider({ children }: any) {
     async function addFilaUser(tecnico: string) {
         try {
 
-            setCarregarAdd(true)
+            setCarregarFilaSend(true)
             
             const enviado: any = document.querySelectorAll('[name=Enviado]:checked');
             const importante: any = document.querySelectorAll('[name=Importante]:checked');
@@ -341,8 +344,7 @@ export function FilaProvider({ children }: any) {
             })
 
             if(dadoFinal.length > 0){
-                dadoFinal.map((registro: any, i: number) => {
-                    console.log(i+1)
+                dadoFinal.map((registro: any) => {
                     sendFila(registro)
                 })
             }
@@ -350,7 +352,9 @@ export function FilaProvider({ children }: any) {
         }catch(e){
             console.log(e)
         }finally {
-            setCarregarAdd(false)
+            setTimeout(() => {
+                setCarregarFilaSend(false)
+            },3000)
             setBancoAdd([])
         }
     }
@@ -362,31 +366,66 @@ export function FilaProvider({ children }: any) {
         axios[method](url, Atividade)
     }
     
-    function atualizarListaSend(Atividade: any, add = true) {
-        const listagem = bancoAdd.filter((a: any) => a.OS !== Atividade.OS)
+    function salvar(fila: any, banco: string, arrayBnc: any, add: boolean, setBnc: any, arrayBnc2: any, setBnc2: any){
+        const Fila = fila
+        const method = Fila.id ? 'put' : 'post'
+        const url = Fila.id ? `${banco}/${Fila.id}` : banco
+        axios[method](url, Fila).then(resp => {
+            const list = atualizarListaFila(resp.data, add, arrayBnc)
+            setBnc(list)
+            const deslist = atualizarListaFila(fila, !add, arrayBnc2)
+            setBnc2(deslist)
+        })  
+    }
+
+    function atualizarListaFila(Atividade: any, add = true, banco: any) {
+        const listagem = banco.filter((a: any) => a.OS !== Atividade.OS)
         if (add) listagem.unshift(Atividade)
         return listagem
     }
-
-    function atualizarListaFila(Atividade: any, add = true) {
-        const listagem = filaEnviada.filter((a: any) => a.id !== Atividade.id)
-        if (add) listagem.unshift(Atividade)
-        return listagem
-    }
-
 
     function removerFila(registro: any){
         try{
             axios.delete(`${Banco("FilaTecnica")}/${registro.id}`)
                 .then(resp => {
-                    const list = atualizarListaFila(registro, false)
+                    const list = atualizarListaFila(registro, false, filaEnviada)
                     setFilaEnviada(list)
                 })
         }catch(e){
             console.log(e)
         }
     }
+
+    async function startAtividade(fila: any){
+        try{
+            const Fila = fila
+            const data = new Date()
+
+            if (Fila.Problema === "Sim") {
+                Fila.DataFinalProblema = data
+                Fila.DataInicialBruto = Fila.DataInicialBruto
+                Fila.Estagio = "Iniciado"
+                Fila.ContProblema = Fila.ContProblema
+                Fila.DataInicialProblema = Fila.DataInicialProblema
+                Fila.Tecnico = localStorage.Tecnico
+            } else {
+                Fila.Data = data
+                Fila.DataInicialBruto = data
+                Fila.Estagio = "Iniciado"
+                Fila.ContProblema = 0  
+                Fila.DataInicialProblema = ''
+                Fila.Tecnico = localStorage.Tecnico
+            }
+
+            salvar(Fila, Banco("FilaTecnica"), filaIniciada, true, setFilaIniciada, filaEnviada, setFilaEnviada)
+
+        }catch(e){
+            console.log(e)
+        }
+    }
     
+
+
     return (
         <FilaContext.Provider value={{
             tela,
@@ -408,7 +447,8 @@ export function FilaProvider({ children }: any) {
             bancoAdd,
             addFilaUser,
             carregarFilaSend,
-            removerFila
+            removerFila,
+            startAtividade
         }}>
             {children}
         </FilaContext.Provider>

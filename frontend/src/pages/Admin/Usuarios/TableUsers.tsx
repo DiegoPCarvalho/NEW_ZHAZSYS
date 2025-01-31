@@ -27,8 +27,8 @@ export default function TabelaUsers(props: TabelaUsersProps) {
           <td className="">{registro.nomeCompleto}</td>
           <td className="max-sm:hidden">{registro.email}</td>
           <td className="max-sm:hidden">{registro.departamento}</td>
-          <td className="max-sm:hidden">{registro.contrato}</td>
-          <td className="max-sm:hidden">{registro.especialidade}</td>
+          <td className="max-sm:hidden">{registro.contratoPrincipal}</td>
+          <td className="max-sm:hidden">{registro.especialidadePrincipal}</td>
           <td className="max-sm:hidden">{registro.acesso}</td>
           <td className="">
             <div className="flex justify-around h-12">

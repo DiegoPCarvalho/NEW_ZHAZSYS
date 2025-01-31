@@ -82,9 +82,24 @@ export default function FormUsers(props: FormUsersProps) {
                         <option>Level 3</option>
                     </Selecione>
                     <Selecione
-                        texto="Contrato:"
-                        nome="contrato"
-                        valor={props.usuario?.contrato}
+                        texto="Contrato Pnc.:"
+                        nome="contratoPrincipal"
+                        valor={props.usuario?.contratoPrincipal}
+                        alterouCampo={(e) => props.mudar(e)}
+                        className="grow"
+                        requerido
+                    >
+                        <option>Avulso</option>
+                        {contratos?.map((registro: any, i: number) => {
+                            return (
+                                <option key={i}>{registro.nome}</option>
+                            )
+                        })}
+                    </Selecione>
+                    <Selecione
+                        texto="Contrato Sec.:"
+                        nome="contratoSecundario"
+                        valor={props.usuario?.contratoSecundario}
                         alterouCampo={(e) => props.mudar(e)}
                         className="grow"
                         requerido
@@ -99,12 +114,38 @@ export default function FormUsers(props: FormUsersProps) {
                 </div>
                 <div className="lg:mt-3 flex items-center max-lg:grid max-lg:grid-cols-2 max-sm:grid-cols-1">
                     <Selecione
-                        texto="Especialidade:"
-                        nome="especialidade"
-                        valor={props.usuario?.especialidade}
+                        texto="Esp. Principal:"
+                        nome="especialidadePrincipal"
+                        valor={props.usuario?.especialidadePrincipal}
                         alterouCampo={(e) => props.mudar(e)}
                         className="grow"
                         requerido
+                    >
+                       {equipamentos?.map((registro: any, i: number) => {
+                            return (
+                                <option key={i}>{registro.nome}</option>
+                            )
+                        })}
+                    </Selecione>
+                    <Selecione
+                        texto="Esp. Secundaria:"
+                        nome="especialidadeSecundaria"
+                        valor={props.usuario?.especialidadeSecundaria}
+                        alterouCampo={(e) => props.mudar(e)}
+                        className="grow"
+                    >
+                       {equipamentos?.map((registro: any, i: number) => {
+                            return (
+                                <option key={i}>{registro.nome}</option>
+                            )
+                        })}
+                    </Selecione>
+                    <Selecione
+                        texto="Esp. Terciária:"
+                        nome="especialidadeTerciaria"
+                        valor={props.usuario?.especialidadeTerciaria}
+                        alterouCampo={(e) => props.mudar(e)}
+                        className="grow"
                     >
                        {equipamentos?.map((registro: any, i: number) => {
                             return (

@@ -21,7 +21,6 @@ import { ArrayParaObjeto } from "@/data/functions/ArrayParaObjeto";
 import Image from "next/image";
 import tabSup from '@/assets/gifs/tabSup.gif'
 import benVindo from "@/assets/gifs/bemvindo-15.gif"
-import logo from "@/assets/img/logoZhaz.png"
 import useGncData from "@/data/hook/useGncData";
 import ModalRamalHome from "@/components/Modal/ModalRamalHome";
 import RamalUnit from "@/components/Home/RamalUnit";
@@ -30,7 +29,7 @@ import RamalUnit from "@/components/Home/RamalUnit";
 export default function Home() {
     const { BuscarDadoUserAcesso } = useAppData()
     const {benvindo, setBenvindo } = useAuthData()
-    const { ramalHome, setRamalHome, openMHome, setOpenMHome } = useGncData()
+    const { setRamalHome, openMHome, setOpenMHome } = useGncData()
     const [acesso, setAcesso] = useState<string>("")
     const [graficoHome, setGraficoHome] = useState<GraficoHomeProps>(initialGraficoHome)
     const [carregando, setCarregando] = useState<boolean>(false)
@@ -485,7 +484,7 @@ export default function Home() {
     ><span className="hidden">.</span>
             <Image src={benVindo} alt="" className="rounded-full opacity-70"/>
             <div className="flex items-center justify-evenly">
-                <Image src={logo} alt=""/>
+                <span className="text-7xl mr-7 text-neutral-200">{localStorage.Tecnico}</span>
                     <span className="text-7xl text-neutral-200">ao ZHAZSYS</span>
                 <Image src={tabSup} alt=""  className="w-36 h-36 ml-5"/>
             </div>

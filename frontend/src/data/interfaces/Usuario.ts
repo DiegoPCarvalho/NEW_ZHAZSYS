@@ -4,19 +4,25 @@ export interface Usuario {
     email: string
     departamento: string
     senha: string
-    contrato: string
-    especialidade: string
+    contratoPrincipal: string
+    contratoSecundario: string
+    especialidadePrincipal: string
+    especialidadeSecundaria: string
+    especialidadeTerciaria: string
     acesso: string
     fotoUrl: string
 }
 
-export const initialUser = {
+export const initialUser: Usuario = {
     nomeCompleto: "",
     email: "",
     departamento: "",
     senha: "",
-    contrato: "",
-    especialidade: "",
+    contratoPrincipal: "",
+    contratoSecundario: "",
+    especialidadePrincipal: "",
+    especialidadeSecundaria: "",
+    especialidadeTerciaria: "",
     acesso: "",
     fotoUrl: ""
 }

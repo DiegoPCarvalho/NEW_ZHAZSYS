@@ -74,14 +74,14 @@ export default function FormPerfil(props: FormPerfilProps) {
                         texto="Contrato:"
                         tipo="text"
                         className="grow"
-                        valor={props.user?.contrato}
+                        valor={props.user?.contratoPrincipal}
                         desativar
                     />
                     <Entrada
                         texto="Especialidade:"
                         tipo="text"
                         className="grow"
-                        valor={props.user?.especialidade}
+                        valor={props.user?.especialidadePrincipal}
                         desativar
                     />
                 </div>

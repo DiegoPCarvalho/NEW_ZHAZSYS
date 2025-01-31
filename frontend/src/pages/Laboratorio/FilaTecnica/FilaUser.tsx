@@ -5,7 +5,7 @@ import { dataNova } from './../../../data/functions/DataNova';
 
 export default function FilaUser() {
 
-    const { carregarFilaUser , filaEnviada, filaIniciada, filaFinalizada, removerFila } = useFilaData()
+    const { carregarFilaUser , filaEnviada, filaIniciada, filaFinalizada } = useFilaData()
 
     return (
         <div className="flex dark:text-neutral-200 justify-between w-full  mt-10 max-sm:grid max-sm:grid-cols-1">
@@ -28,7 +28,7 @@ export default function FilaUser() {
                                         Estagio={registro.Estagio}
                                         dado={registro}
                                         Importante={registro.Importante}
-                                        deletar={() => removerFila!(registro)}
+                                        id={registro.id === undefined ? 0 : false}
                                         />
                                     )
                             })}
@@ -46,6 +46,9 @@ export default function FilaUser() {
                                         Servico={registro.Servico}
                                         Contrato={registro.TipoOS}
                                         Estagio={registro.Estagio}
+                                        dado={registro}
+                                        Importante={registro.Importante}
+                                        id={registro.id === undefined ? 0 : false}
                                     />
                                 )
                             })}
@@ -55,7 +58,7 @@ export default function FilaUser() {
                     <div className="flex flex-col w-[30%] max-sm:w-full max-sm:mb-2 h-[680px] max-2xl:h-[330px]">
                         <div className="flex justify-center font-bold text-2xl">DOES</div>
                         <div id="hiddenScroll" className="p-2 flex flex-wrap overflow-auto">
-                            {filaFinalizada!.map((registro: any) => {
+                            {/* {filaFinalizada!.map((registro: any) => {
                                 return (
                                     <CardsFila 
                                         key={registro.id}
@@ -66,7 +69,7 @@ export default function FilaUser() {
                                         Estagio={registro.Estagio}
                                     />
                                 )
-                            })}
+                            })} */}
                         </div>
                     </div>
                 </>}
