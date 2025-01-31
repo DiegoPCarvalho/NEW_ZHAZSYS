@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IconCheck, IconDeletar } from "../icons/IconesMaterial";
+import { IconCheck, IconDeletar, IconVoltarAdmin, IconProblema } from "../icons/IconesMaterial";
 import Botao from "../shared/Botao";
 import useFilaData from "@/data/hook/useFilaData";
 
@@ -15,20 +15,25 @@ interface CardsFilaProps {
     Contrato: string
     Estagio?: string
     dado?: any
-    
+
 }
 
 export default function CardsFila(props: CardsFilaProps) {
     const [abrir, setAbrir] = useState<boolean>(false)
-    const { removerFila, startAtividade } = useFilaData()
+    const { removerFila, startAtividade, backAtividade} = useFilaData()
 
-    function deletar(registro: any){
+    function deletar(registro: any) {
         removerFila!(registro)
         setAbrir(false)
     }
 
-    function start(registro: any){
+    function start(registro: any) {
         startAtividade!(registro)
+        setAbrir(false)
+    }
+
+    function back(registro: any){
+        backAtividade!(registro)
         setAbrir(false)
     }
 
@@ -51,7 +56,7 @@ export default function CardsFila(props: CardsFilaProps) {
                 </div>
                 <div className="grow flex items-center justify-center  w-full">
                     <span onClick={() => setAbrir(!abrir)} className={`cursor-pointer dark:text-neutral-100  p-2 rounded-lg mr-1 text-2xl font-bold`}>{props.OS}
-                    </span> 
+                    </span>
                 </div>
             </div>
             <div className={`flex flex-col ${abrir ? "transition-x-all" : "hidden"}`}>
@@ -60,35 +65,75 @@ export default function CardsFila(props: CardsFilaProps) {
                     <div><span className="font-bold">Equip:</span> {props.dado?.Equipamento}</div>
                     <div><span className="font-bold">NS:</span> {props.dado?.NS}</div>
                 </div>
-                <div className="flex justify-end h-12 w-full mb-2">
-                    <div className={`flex w-36 ${props.id !== 0 ? "justify-between" : "justify-end"} mr-2`}>
-                        {props.Estagio !== "Iniciado" ? props.Estagio !== "Finalizado" ? props.id !== 0 ?
+                {props.Estagio === "Enviado" || props.Estagio === undefined ?
+                    <div className="flex justify-end h-10 w-full mb-2">
+                        <div className={`flex w-36 ${props.id !== 0 ? "justify-between" : "justify-end"} mr-2`}>
+                            {props.id !== 0 ?
+                                <Botao
+                                    className={`
+                                    cursor-pointer transition-all bg-red-500 dark:bg-red-700 text-white px-2 py-1 rounded-lg
+                                    border-red-600 dark:border-red-800
+                                    border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
+                                    active:border-b-[2px] active:brightness-90 active:translate-y-[2px]
+                                `}
+                                    executar={() => deletar(props.dado)}
+                                >
+                                    <IconDeletar fontSize="medium" />
+                                </Botao> : false}
                             <Botao
                                 className={`
-                        cursor-pointer transition-all bg-red-500 dark:bg-red-700 text-white px-2 py-1 rounded-lg
-                        border-red-600 dark:border-red-800
-                        border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
-                        active:border-b-[2px] active:brightness-90 active:translate-y-[2px]
-                    `}
-                        executar={() => deletar(props.dado)}
+                                    cursor-pointer transition-all bg-green-500 dark:bg-green-700 text-white px-2 py-1 rounded-lg
+                                    border-green-600 dark:border-green-800
+                                    border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
+                                    active:border-b-[2px] active:brightness-90 active:translate-y-[2px]
+                                `}
+                                executar={() => start(props.dado)}
                             >
-                                <IconDeletar fontSize="large" />
-                            </Botao> : false : false : false}
-                        {props.Estagio !== "Finalizado" ?
-                            <Botao
-                                className={`
-                        cursor-pointer transition-all bg-green-500 dark:bg-green-700 text-white px-2 py-1 rounded-lg
-                        border-green-600 dark:border-green-800
-                        border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
-                        active:border-b-[2px] active:brightness-90 active:translate-y-[2px]
-                    `}
-                        executar={() => start(props.dado)}
-                            >
-                                <IconCheck fontSize="large" />
-                            </Botao> : false}
+                                <IconCheck fontSize="medium" />
+                            </Botao>
+                        </div>
 
-                    </div>
-                </div>
+                    </div> : 
+                        props.Estagio === "Iniciado" ?  
+                            <div className="flex justify-end h-10 w-full mb-2">
+                                <div className="flex w-40 justify-between mr-2">
+                                <Botao
+                                    className={`
+                                    cursor-pointer transition-all bg-red-500 dark:bg-red-700 text-white px-2 py-1 rounded-lg
+                                    border-red-600 dark:border-red-800
+                                    border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
+                                    active:border-b-[2px] active:brightness-90 active:translate-y-[2px]
+                                `}
+                                    executar={() => back(props.dado)}
+                                >
+                                    <IconVoltarAdmin fontSize="medium" />
+                                </Botao>
+                                <Botao
+                                    className={`
+                                    cursor-pointer transition-all bg-yellow-500 dark:bg-yellow-700 text-white px-2 py-1 rounded-lg
+                                    border-yellow-600 dark:border-yellow-800
+                                    border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
+                                    active:border-b-[2px] active:brightness-90 active:translate-y-[2px]
+                                `}
+                                    executar={() => console.log(props.dado)}
+                                >
+                                    <IconProblema fontSize="medium" />
+                                </Botao>
+                            <Botao
+                                className={`
+                                    cursor-pointer transition-all bg-green-500 dark:bg-green-700 text-white px-2 py-1 rounded-lg
+                                    border-green-600 dark:border-green-800
+                                    border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
+                                    active:border-b-[2px] active:brightness-90 active:translate-y-[2px]
+                                `}
+                                executar={() => start(props.dado)}
+                            >
+                                <IconCheck fontSize="medium" />
+                            </Botao>
+                                </div>
+                            </div>        
+                        : false
+                    }
             </div>
         </div>
     )

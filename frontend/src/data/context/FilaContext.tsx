@@ -5,6 +5,7 @@ import Banco from "../database/banco";
 import { dataNova } from "../functions/DataNova";
 import useAppData from "../hook/useAppData";
 import { BancoApiLocal } from "../database/bancoApiLocal";
+import { diferenca } from "../functions/diferenca";
 
 interface FilaContextProps {
     tela?: string
@@ -28,6 +29,7 @@ interface FilaContextProps {
     addFilaUser?: (tecnico: string) => Promise<void>
     removerFila?: (registro: any) => void
     startAtividade?: (fila: any) => void
+    backAtividade?: (fila: any) => void
 }
 
 const FilaContext = createContext<FilaContextProps>({})
@@ -195,7 +197,7 @@ export function FilaProvider({ children }: any) {
                         if (fila.find((dado: any) => dado.OS === registro.OS && dado.Servico === registro.Servico)) {
 
                         } else {
-                            if (registro.TipoOS === userMain?.contratoPrincipal && (registro.Equipamento.toLowerCase().match(userMain?.especialidadePrincipal.toLowerCase()) || registro.Equipamento.toLowerCase().match(userMain?.especialidadeSecundaria.replace(/[èéêë]/,"e").toLowerCase()) || registro.Equipamento.toLowerCase().match(userMain?.especialidadeTerciaria.toLowerCase()))) {
+                            if (registro.TipoOS === userMain?.contratoPrincipal && (registro.Equipamento.toLowerCase().match(userMain?.especialidadePrincipal.toLowerCase()) || registro.Equipamento.toLowerCase().match(userMain?.especialidadeSecundaria.replace(/[èéêë]/, "e").toLowerCase()) || registro.Equipamento.toLowerCase().match(userMain?.especialidadeTerciaria.toLowerCase()))) {
                                 dadoAp.push({ ...registro })
                             }
                         }
@@ -213,7 +215,7 @@ export function FilaProvider({ children }: any) {
                         if (fila.find((dado: any) => dado.OS === registro.OS && dado.Servico === registro.Servico)) {
 
                         } else {
-                            if (registro.TipoOS === userMain?.contratoPrincipal && (registro.Equipamento.toLowerCase().match(userMain?.especialidadePrincipal.toLowerCase()) || registro.Equipamento.toLowerCase().match(userMain?.especialidadeSecundaria.replace(/[èéêë]/,"e").toLowerCase()) || registro.Equipamento.toLowerCase().match(userMain?.especialidadeTerciaria.toLowerCase()))) {
+                            if (registro.TipoOS === userMain?.contratoPrincipal && (registro.Equipamento.toLowerCase().match(userMain?.especialidadePrincipal.toLowerCase()) || registro.Equipamento.toLowerCase().match(userMain?.especialidadeSecundaria.replace(/[èéêë]/, "e").toLowerCase()) || registro.Equipamento.toLowerCase().match(userMain?.especialidadeTerciaria.toLowerCase()))) {
                                 dadoAv.push({ ...registro })
                             }
                         }
@@ -316,13 +318,13 @@ export function FilaProvider({ children }: any) {
         try {
 
             setCarregarFilaSend(true)
-            
+
             const enviado: any = document.querySelectorAll('[name=Enviado]:checked');
             const importante: any = document.querySelectorAll('[name=Importante]:checked');
-            
+
             let dadoEnviado: any = []
             let dadoImportante: any = []
-            
+
             for (let i = 0; i < enviado.length; i++) {
                 dadoEnviado.push(+enviado[i].value)
             }
@@ -332,41 +334,41 @@ export function FilaProvider({ children }: any) {
             }
 
             let dadoFinal: any = []
-                        
+
             bancoAdd.map((registro: any) => {
                 if (dadoEnviado.find((dado: any) => dado === registro.OS)) {
                     registro.Importante = dadoImportante.find((dado: any) => dado === registro.OS) ? true : false
                     registro.Tecnico = tecnico
                     registro.Estagio = "Enviado"
-                    
+
                     dadoFinal.push(registro)
                 }
             })
 
-            if(dadoFinal.length > 0){
+            if (dadoFinal.length > 0) {
                 dadoFinal.map((registro: any) => {
                     sendFila(registro)
                 })
             }
-            
-        }catch(e){
+
+        } catch (e) {
             console.log(e)
-        }finally {
+        } finally {
             setTimeout(() => {
                 setCarregarFilaSend(false)
-            },3000)
+            }, 3000)
             setBancoAdd([])
         }
     }
-    
-    function sendFila(atividade: any){
+
+    function sendFila(atividade: any) {
         const Atividade = atividade
         const method = Atividade.id ? 'put' : 'post'
         const url = Atividade.id ? `${Banco("FilaTecnica")}/${Atividade.id}` : Banco("FilaTecnica")
         axios[method](url, Atividade)
     }
-    
-    function salvar(fila: any, banco: string, arrayBnc: any, add: boolean, setBnc: any, arrayBnc2: any, setBnc2: any){
+
+    function salvar(fila: any, banco: string, arrayBnc: any, add: boolean, setBnc: any, arrayBnc2: any, setBnc2: any) {
         const Fila = fila
         const method = Fila.id ? 'put' : 'post'
         const url = Fila.id ? `${banco}/${Fila.id}` : banco
@@ -375,7 +377,7 @@ export function FilaProvider({ children }: any) {
             setBnc(list)
             const deslist = atualizarListaFila(fila, !add, arrayBnc2)
             setBnc2(deslist)
-        })  
+        })
     }
 
     function atualizarListaFila(Atividade: any, add = true, banco: any) {
@@ -384,20 +386,20 @@ export function FilaProvider({ children }: any) {
         return listagem
     }
 
-    function removerFila(registro: any){
-        try{
+    function removerFila(registro: any) {
+        try {
             axios.delete(`${Banco("FilaTecnica")}/${registro.id}`)
                 .then(resp => {
                     const list = atualizarListaFila(registro, false, filaEnviada)
                     setFilaEnviada(list)
                 })
-        }catch(e){
+        } catch (e) {
             console.log(e)
         }
     }
 
-    async function startAtividade(fila: any){
-        try{
+    async function startAtividade(fila: any) {
+        try {
             const Fila = fila
             const data = new Date()
 
@@ -412,18 +414,35 @@ export function FilaProvider({ children }: any) {
                 Fila.Data = data
                 Fila.DataInicialBruto = data
                 Fila.Estagio = "Iniciado"
-                Fila.ContProblema = 0  
+                Fila.ContProblema = 0
                 Fila.DataInicialProblema = ''
                 Fila.Tecnico = localStorage.Tecnico
             }
 
             salvar(Fila, Banco("FilaTecnica"), filaIniciada, true, setFilaIniciada, filaEnviada, setFilaEnviada)
 
-        }catch(e){
+        } catch (e) {
             console.log(e)
         }
     }
-    
+
+    async function backAtividade(fila: any) {
+        try {
+            const tempo = diferenca(fila.DataInicialBruto,'')
+
+            if (tempo >= 3) {
+
+            } else {
+
+                const Fila = fila
+                Fila.Estagio = "Enviado"
+
+                salvar(Fila, Banco("FilaTecnica"), filaEnviada, true, setFilaEnviada, filaIniciada, setFilaIniciada)
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
 
     return (
@@ -448,7 +467,8 @@ export function FilaProvider({ children }: any) {
             addFilaUser,
             carregarFilaSend,
             removerFila,
-            startAtividade
+            startAtividade,
+            backAtividade
         }}>
             {children}
         </FilaContext.Provider>

@@ -31,6 +31,8 @@ import IconInfo from '@mui/icons-material/PermDeviceInformation';
 import IconCheck from '@mui/icons-material/Check';
 import IconReload from '@mui/icons-material/Cached';
 import IconDowload from '@mui/icons-material/Download';
+import IconProblema from '@mui/icons-material/Warning';
+import IconClose from '@mui/icons-material/Close';
 
 export {
     IconGerencia,
@@ -65,5 +67,7 @@ export {
     IconInfo,
     IconCheck,
     IconReload,
-    IconDowload
+    IconDowload,
+    IconProblema,
+    IconClose
 }

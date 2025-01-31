@@ -7,6 +7,7 @@ import CentroTela from './CentroTela';
 import FilaUser from './FilaUser';
 import { useEffect } from 'react';
 import useFilaData from '@/data/hook/useFilaData';
+import ModalProblema from '@/components/Modal/ModalProblema';
 
 export default function FilaTecnicaLabo() {
 
@@ -30,6 +31,8 @@ export default function FilaTecnicaLabo() {
                 <div className='mt-10'>
                     <FilaUser />
                 </div>
+                <ModalProblema open={true}>
+                </ModalProblema>
             </div>
         </Layout>
     )
