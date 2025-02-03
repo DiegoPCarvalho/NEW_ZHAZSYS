@@ -11,10 +11,8 @@ import { Series } from '@/data/functions/Series';
 
 interface DashContextProps {
     graficoGen?: GraficoGen
-    filtro?: FiltroGncProps
     carregando?: boolean
-    alterarCampo?: (novoValor: any) => void
-    buscarDado?: () => Promise<void>
+    buscarDado?: (filtro: any) => Promise<void>
 }
 
 const DashContext = createContext<DashContextProps>({});
@@ -22,31 +20,32 @@ const DashContext = createContext<DashContextProps>({});
 export function DashProvider({ children }: any) {
 
     const [graficoGen, setGraficoGen] = useState<GraficoGen>(initialGraficoGen)
-    const [filtro, setFiltro] = useState<FiltroGncProps>(initialFiltroGnc)
     const [carregando, setCarregando] = useState<boolean>(false)
-
-    useEffect(() => {
-        buscarDado()
-    }, [])
-
-    function alterarCampo(event: any) {
-        const Filtro: any = { ...filtro }
-        Filtro[event.target.name] = event.target.value
-        setFiltro(Filtro)
+    const filtroInicial: FiltroGncProps = {
+        contrato: "Todos",
+        tecnico: "Todos",
+        ano: "Todos",
+        mes: "Todos",
+        dia: "Todos"
     }
 
-    async function buscarDado() {
+    useEffect(() => {
+        buscarDado(filtroInicial)
+    }, [])
+
+
+    async function buscarDado(filtro: any) {
         try {
             setCarregando(true)
 
             const geral = await axios(Banco("Geral")).then(resp => {
-                let data = resp.data
 
-                let tecnico = filtro.tecnico !== "Todos" ? data.filter((registro: any) => registro.Tecnico === filtro.tecnico) : data
+                let tecnico = filtro.tecnico !== "Todos" ? resp.data.filter((registro: any) => registro.Tecnico === filtro.tecnico) : resp.data
                 let ano = filtro.ano !== "Todos" ? tecnico.filter((registro: any) => registro.Ano === +filtro.ano) : tecnico
                 let mes = filtro.mes !== "Todos" ? ano.filter((registro: any) => registro.Mes === +filtro.mes) : ano
                 let dia = filtro.dia !== "Todos" ? mes.filter((registro: any) => registro.Dia === +filtro.dia) : mes
 
+                
                 return dia
             })
 
@@ -374,9 +373,7 @@ export function DashProvider({ children }: any) {
     return (
         <DashContext.Provider value={{
             graficoGen,
-            filtro,
             carregando,
-            alterarCampo,
             buscarDado
         }}>
             {children}

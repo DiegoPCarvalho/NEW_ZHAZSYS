@@ -22,10 +22,10 @@ export default function FilaUser() {
                                     <CardsFila 
                                         key={registro.id ? i : registro.id}
                                         OS={registro.OS}
-                                        Data={registro.Data === undefined ? "" : dataNova(registro.Data)}
                                         Servico={registro.Servico}
                                         Contrato={registro.TipoOS}
                                         Estagio={registro.Estagio}
+                                        Problema={registro.Problema ? registro.Problema : "NÃO"}
                                         dado={registro}
                                         Importante={registro.Importante}
                                         id={registro.id === undefined ? 0 : false}
@@ -42,10 +42,10 @@ export default function FilaUser() {
                                     <CardsFila 
                                         key={registro.id}
                                         OS={registro.OS}
-                                        Data={registro.Data === undefined ? "" : dataNova(registro.Data)}
                                         Servico={registro.Servico}
                                         Contrato={registro.TipoOS}
                                         Estagio={registro.Estagio}
+                                        Problema={registro.Problema ? registro.Problema : "NÃO"}
                                         dado={registro}
                                         Importante={registro.Importante}
                                         id={registro.id === undefined ? 0 : false}

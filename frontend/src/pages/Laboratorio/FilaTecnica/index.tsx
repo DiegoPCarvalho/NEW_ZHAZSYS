@@ -11,7 +11,7 @@ import ModalProblema from '@/components/Modal/ModalProblema';
 
 export default function FilaTecnicaLabo() {
 
-    const { buscarFilaUser } = useFilaData()
+    const { buscarFilaUser, obsProblema, setObsProblema, openModalProblema, fecharModalProblema } = useFilaData()
 
     useEffect(() => {
         buscarFilaUser!()
@@ -31,7 +31,12 @@ export default function FilaTecnicaLabo() {
                 <div className='mt-10'>
                     <FilaUser />
                 </div>
-                <ModalProblema open={true}>
+                <ModalProblema 
+                    open={openModalProblema} 
+                    close={fecharModalProblema} 
+                    obsProblema={obsProblema} 
+                    alterarCampo={setObsProblema} 
+                    className='top-[30%] left-[40%] max-xl:top-[30%]'>
                 </ModalProblema>
             </div>
         </Layout>

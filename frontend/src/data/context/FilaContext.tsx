@@ -6,6 +6,8 @@ import { dataNova } from "../functions/DataNova";
 import useAppData from "../hook/useAppData";
 import { BancoApiLocal } from "../database/bancoApiLocal";
 import { diferenca } from "../functions/diferenca";
+import { equipamento } from "../api/equipamento";
+import { Atividade } from "../interfaces/Atividade";
 
 interface FilaContextProps {
     tela?: string
@@ -23,6 +25,10 @@ interface FilaContextProps {
     filaEnviada?: Array<any>
     filaIniciada?: Array<any>
     filaFinalizada?: Array<any>
+    obsProblema?: string
+    openModalProblema?: boolean
+    fecharModalProblema?: () => void
+    setObsProblema?: (novoValor: string) => void
     buscarFilaGen?: (Tecnico: string) => Promise<void>
     buscarFilaUser?: () => Promise<void>
     buscarFilaAdd?: (estagio: string, contrato: string) => Promise<void>
@@ -30,6 +36,8 @@ interface FilaContextProps {
     removerFila?: (registro: any) => void
     startAtividade?: (fila: any) => void
     backAtividade?: (fila: any) => void
+    problemAtividade?: (fila: any) => void
+    finishAtividade?: (fila: any) => void
 }
 
 const FilaContext = createContext<FilaContextProps>({})
@@ -48,6 +56,9 @@ export function FilaProvider({ children }: any) {
     const [filaIniciada, setFilaIniciada] = useState<any[]>([])
     const [filaFinalizada, setFilaFinalizada] = useState<any[]>([])
     const [bancoAdd, setBancoAdd] = useState<any[]>([])
+    const [obsProblema, setObsProblema] = useState<string>("")
+    const [openModalProblema, setOpenModalProblema] = useState<boolean>(false)
+    const [filaProblema, setFilaProblema] = useState<any>({})
 
     async function buscarOSFila(OS: string) {
         try {
@@ -368,7 +379,7 @@ export function FilaProvider({ children }: any) {
         axios[method](url, Atividade)
     }
 
-    function salvar(fila: any, banco: string, arrayBnc: any, add: boolean, setBnc: any, arrayBnc2: any, setBnc2: any) {
+    function salvar(fila: any, banco: string, arrayBnc: any, add: boolean, setBnc: any, arrayBnc2: any, setBnc2: any, modo?: string) {
         const Fila = fila
         const method = Fila.id ? 'put' : 'post'
         const url = Fila.id ? `${banco}/${Fila.id}` : banco
@@ -378,6 +389,10 @@ export function FilaProvider({ children }: any) {
             const deslist = atualizarListaFila(fila, !add, arrayBnc2)
             setBnc2(deslist)
         })
+        
+        if(modo === "del"){
+            axios.delete(`${Banco("FilaTecnica")}/${fila.id}`)
+        }
     }
 
     function atualizarListaFila(Atividade: any, add = true, banco: any) {
@@ -398,7 +413,7 @@ export function FilaProvider({ children }: any) {
         }
     }
 
-    async function startAtividade(fila: any) {
+    function startAtividade(fila: any) {
         try {
             const Fila = fila
             const data = new Date()
@@ -420,23 +435,23 @@ export function FilaProvider({ children }: any) {
             }
 
             salvar(Fila, Banco("FilaTecnica"), filaIniciada, true, setFilaIniciada, filaEnviada, setFilaEnviada)
-
+            
         } catch (e) {
             console.log(e)
         }
     }
 
-    async function backAtividade(fila: any) {
+    function backAtividade(fila: any) {
         try {
-            const tempo = diferenca(fila.DataInicialBruto,'')
-
+            const tempo = diferenca(fila.DataInicialBruto, '')
+            
             if (tempo >= 3) {
-
+                
             } else {
-
+                
                 const Fila = fila
                 Fila.Estagio = "Enviado"
-
+                
                 salvar(Fila, Banco("FilaTecnica"), filaEnviada, true, setFilaEnviada, filaIniciada, setFilaIniciada)
             }
         } catch (e) {
@@ -444,7 +459,76 @@ export function FilaProvider({ children }: any) {
         }
     }
 
+    function fecharModalProblema() {
+        setOpenModalProblema(false)
+        setObsProblema("")
+    }
 
+    function problemAtividade(fila: any) {
+        if (openModalProblema) {
+            try {
+                const Fila = filaProblema
+                const data = new Date()
+                
+                Fila.Estagio = "Enviado"
+                Fila.Problema = "Sim"
+                Fila.ContProblema = Fila.ContProblema === null ? 1 : +Fila.ContProblema + 1
+                Fila.DataInicialProblema = Fila.DataInicialProblema !== '' ? Fila.DataInicialProblema : data
+                Fila.ProblemObs = obsProblema
+                
+                salvar(Fila, Banco("FilaTecnica"), filaEnviada, true, setFilaEnviada, filaIniciada, setFilaIniciada)
+                setOpenModalProblema(false)
+                setFilaProblema(fila)
+                setObsProblema("")
+                
+            } catch (e) {
+                console.log(e)
+            }
+        } else {
+            setOpenModalProblema(true)
+            setFilaProblema(fila)
+            setObsProblema(fila.ProblemObs ? fila.ProblemObs : "")
+        }
+    }
+    
+    function finishAtividade(fila: any) {
+        try {
+            const data = new Date()
+            const Fila = fila
+            
+            const Atividade: Atividade = {
+                Data: data,
+                Dia: data.getDate(),
+                Mes: data.getMonth() + 1,
+                Ano: data.getFullYear(),
+                OS: Fila.OS,
+                Cliente: Fila.Cliente,
+                Equipamento: equipamento(Fila.Equipamento),
+                Modelo: Fila.Equipamento,
+                NS: Fila.NS,
+                Servico: Fila.Servico,
+                Contrato: Fila.TipoOS,
+                Estagio: "Finalizado",
+                DataInicialBruto: Fila.DataInicialBruto,
+                DataFinalBruto: data,
+                DataInicialProblema: Fila.DataInicialProblema ? Fila.DataInicialProblema : '',
+                DataFinalProblema: Fila.DataFinalProblema ? Fila.DataFinalProblema : '',
+                Tecnico: Fila.Tecnico,
+                Observacao: Fila.Observacao,
+                Problema: Fila.Problema ? Fila.Problema : '',
+                ProblemObs: Fila.ProblemObs,
+                ContProblema: Fila.ContProblema ? Fila.ContProblema : 0
+            }
+            
+            console.log(Atividade)
+            // salvar(Fila, Banco("Geral"), filaFinalizada, true, setFilaFinalizada, filaIniciada, setFilaIniciada, "del")
+            
+        } catch (e) {
+            console.log(e)
+        }
+    }
+    
+    
     return (
         <FilaContext.Provider value={{
             tela,
@@ -468,7 +552,13 @@ export function FilaProvider({ children }: any) {
             carregarFilaSend,
             removerFila,
             startAtividade,
-            backAtividade
+            backAtividade,
+            obsProblema,
+            setObsProblema,
+            fecharModalProblema,
+            openModalProblema,
+            problemAtividade,
+            finishAtividade
         }}>
             {children}
         </FilaContext.Provider>

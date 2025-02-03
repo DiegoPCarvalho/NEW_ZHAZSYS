@@ -1,22 +1,23 @@
 export interface Atividade {
     id?: number
-    Data: string
-    Dia: string
-    Mes: string
-    Ano: string
+    Data: any
+    Dia: any
+    Mes: any
+    Ano: any
     OS: string
     Cliente: string
-    Equipamento: string
+    Equipamento: any
     Modelo: string
     NS: string
     Servico: string
-    Placa: string
+    Placa?: string
     Contrato: string
     Observacao: string
     Estagio: string
     ProblemObs?: string
+    Problema?: string
     DataInicialBruto?: string
-    DataFinalBruto?: string
+    DataFinalBruto?: any
     TempoLiquido?: string
     DataInicialProblema?: string
     DataFinalProblema?: string

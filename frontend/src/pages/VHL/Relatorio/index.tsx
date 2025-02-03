@@ -12,9 +12,11 @@ import Banco from '@/data/database/banco';
 import axios from 'axios';
 import { ArrayParaObjeto } from '@/data/functions/ArrayParaObjeto';
 import Carregando from '@/components/shared/Carregando';
+import useAppData from '@/data/hook/useAppData';
 
 
 export default function RelatorioVHL() {
+    const { userMain } = useAppData()
     const [filtro, setFiltro] = useState<FiltroGncProps>(initialFiltroGnc)
     const [pedido, setPedido] = useState<number>(0)
     const [QTDE, setQTDE] = useState<number>(0)
@@ -39,7 +41,8 @@ export default function RelatorioVHL() {
             const tabela = await axios(baseUrl).then(resp => {
                 let dado = resp.data
     
-                const ano = filtro.ano !== "Todos" ? dado.filter((registro: any) => registro.Ano === +filtro.ano) : dado
+                let tecnico = dado.filter((registro: any) => registro.Tecnico === userMain!.nomeCompleto)
+                const ano = filtro.ano !== "Todos" ? dado.filter((registro: any) => registro.Ano === +filtro.ano) : tecnico
                 const mes = filtro.mes !== "Todos" ? ano.filter((registro: any) => registro.Mes === +filtro.mes) : ano
                 const dia = filtro.dia !== "Todos" ? mes.filter((registro: any) => registro.Dia === +filtro.dia) : mes
     
