@@ -8,10 +8,11 @@ import FilaUser from './FilaUser';
 import { useEffect } from 'react';
 import useFilaData from '@/data/hook/useFilaData';
 import ModalProblema from '@/components/Modal/ModalProblema';
+import ModalDownload from '@/components/Modal/ModalDownload';
 
 export default function FilaTecnicaLabo() {
 
-    const { buscarFilaUser, obsProblema, setObsProblema, openModalProblema, fecharModalProblema } = useFilaData()
+    const { buscarFilaUser, obsProblema, setObsProblema, openModalProblema, fecharModalProblema, openModalDownload, setOpenModalDownload } = useFilaData()
 
     useEffect(() => {
         buscarFilaUser!()
@@ -36,8 +37,13 @@ export default function FilaTecnicaLabo() {
                     close={fecharModalProblema} 
                     obsProblema={obsProblema} 
                     alterarCampo={setObsProblema} 
-                    className='top-[30%] left-[40%] max-xl:top-[30%]'>
-                </ModalProblema>
+                    className='top-[30%] left-[40%] max-xl:top-[30%]' />
+                    
+                <ModalDownload 
+                    open={openModalDownload}
+                    close={() => setOpenModalDownload!(false)}
+                    className="top-[15%] left-[33%] max-[1024px]:left-[20%]"
+                />
             </div>
         </Layout>
     )

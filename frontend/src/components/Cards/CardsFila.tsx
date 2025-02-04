@@ -2,11 +2,13 @@ import { useState } from "react";
 import { IconCheck, IconDeletar, IconVoltarAdmin, IconProblema } from "../icons/IconesMaterial";
 import Botao from "../shared/Botao";
 import useFilaData from "@/data/hook/useFilaData";
+import { FormatarTempoBto } from "@/data/functions/FormatarTempoBto";
+import { Tempo } from "@/data/functions/Tempo";
 
 
 interface CardsFilaProps {
     key: number
-    id: any
+    id?: any
     OS: number
     Data?: string
     Servico: string
@@ -70,12 +72,16 @@ export default function CardsFila(props: CardsFilaProps) {
                 </div>
             </div>
             <div className={`flex flex-col ${abrir ? "transition-x-all" : "hidden"}`}>
-                <div className="grow my-1 text-sm overflow-hidden max-[1024px]:text-[10px]">
+                <div className={`grow my-1 text-sm overflow-hidden max-[1024px]:text-[10px]`}>
                     <div><span className="font-bold">Cliente:</span> {props.dado?.Cliente}</div>
                     <div><span className="font-bold">Equip:</span> {props.dado?.Equipamento}</div>
                     <div><span className="font-bold">NS:</span> {props.dado?.NS}</div>
+                    {props.Estagio === "Finalizado" ? 
+                        <div><span className="font-bold">Tempo:</span> {FormatarTempoBto(Tempo(props.dado?.DataInicialBruto, props.dado?.DataFinalBruto))}</div>
+                    : false}
                 </div>
-                {props.Estagio === "Enviado" || props.Estagio === undefined ?
+                {props.Estagio === "Finalizado" ? false :
+                    props.Estagio === "Enviado" || props.Estagio === undefined ?
                     <div className="flex justify-end h-10 w-full mb-2">
                         <div className={`flex w-36 ${props.id !== 0 ? "justify-between" : "justify-end"} mr-2`}>
                             {props.id !== 0 ?
@@ -143,7 +149,7 @@ export default function CardsFila(props: CardsFilaProps) {
                                 </div>
                             </div>        
                         : false
-                    }
+                    } 
             </div>
         </div>
     )

@@ -27,6 +27,8 @@ interface FilaContextProps {
     filaFinalizada?: Array<any>
     obsProblema?: string
     openModalProblema?: boolean
+    openModalDownload?: boolean
+    setOpenModalDownload?: (novoValor: boolean) => void
     fecharModalProblema?: () => void
     setObsProblema?: (novoValor: string) => void
     buscarFilaGen?: (Tecnico: string) => Promise<void>
@@ -38,6 +40,7 @@ interface FilaContextProps {
     backAtividade?: (fila: any) => void
     problemAtividade?: (fila: any) => void
     finishAtividade?: (fila: any) => void
+    buscarFilaDownload?: () => Promise<void>
 }
 
 const FilaContext = createContext<FilaContextProps>({})
@@ -59,6 +62,7 @@ export function FilaProvider({ children }: any) {
     const [obsProblema, setObsProblema] = useState<string>("")
     const [openModalProblema, setOpenModalProblema] = useState<boolean>(false)
     const [filaProblema, setFilaProblema] = useState<any>({})
+    const [openModalDownload, setOpenModalDownload] = useState<boolean>(false)
 
     async function buscarOSFila(OS: string) {
         try {
@@ -372,6 +376,10 @@ export function FilaProvider({ children }: any) {
         }
     }
 
+    async function buscarFilaDownload(){
+        
+    }
+
     function sendFila(atividade: any) {
         const Atividade = atividade
         const method = Atividade.id ? 'put' : 'post'
@@ -379,7 +387,7 @@ export function FilaProvider({ children }: any) {
         axios[method](url, Atividade)
     }
 
-    function salvar(fila: any, banco: string, arrayBnc: any, add: boolean, setBnc: any, arrayBnc2: any, setBnc2: any, modo?: string) {
+    function salvar(fila: any, banco: string, arrayBnc: any, add: boolean, setBnc: any, arrayBnc2: any, setBnc2: any, modo?: string, id?: number) {
         const Fila = fila
         const method = Fila.id ? 'put' : 'post'
         const url = Fila.id ? `${banco}/${Fila.id}` : banco
@@ -391,14 +399,20 @@ export function FilaProvider({ children }: any) {
         })
         
         if(modo === "del"){
-            axios.delete(`${Banco("FilaTecnica")}/${fila.id}`)
+            axios.delete(`${Banco("FilaTecnica")}/${id}`)
         }
     }
 
     function atualizarListaFila(Atividade: any, add = true, banco: any) {
-        const listagem = banco.filter((a: any) => a.OS !== Atividade.OS)
-        if (add) listagem.unshift(Atividade)
-        return listagem
+        if(Atividade.id){
+            const listagem = banco.filter((a: any) => a.id !==  Atividade.id)
+            if (add) listagem.unshift(Atividade)
+            return listagem
+        }else {
+            const listagem = banco.filter((a: any) => a.OS !==  Atividade.OS)
+            if (add) listagem.unshift(Atividade)
+            return listagem
+        }
     }
 
     function removerFila(registro: any) {
@@ -519,9 +533,8 @@ export function FilaProvider({ children }: any) {
                 ProblemObs: Fila.ProblemObs,
                 ContProblema: Fila.ContProblema ? Fila.ContProblema : 0
             }
-            
-            console.log(Atividade)
-            // salvar(Fila, Banco("Geral"), filaFinalizada, true, setFilaFinalizada, filaIniciada, setFilaIniciada, "del")
+
+            salvar(Atividade, Banco("Geral"), filaFinalizada, true, setFilaFinalizada, filaIniciada, setFilaIniciada, "del", Fila.id)
             
         } catch (e) {
             console.log(e)
@@ -558,7 +571,10 @@ export function FilaProvider({ children }: any) {
             fecharModalProblema,
             openModalProblema,
             problemAtividade,
-            finishAtividade
+            finishAtividade,
+            openModalDownload,
+            setOpenModalDownload,
+            buscarFilaDownload
         }}>
             {children}
         </FilaContext.Provider>

@@ -14,6 +14,7 @@ import useGncData from '@/data/hook/useGncData';
 import axios from "axios"
 import useLocalStorage from '@/data/hook/useLocalStorage';
 import { severity, variant } from '@/data/type/mensagemSistema';
+import Carregando from '@/components/shared/Carregando';
 
 export default function TabelaLabo() {
     const { buscarDadosLab } = useGncData()
@@ -23,6 +24,7 @@ export default function TabelaLabo() {
     const [banco, setBanco] = useState<any[]>([])
     const [atividade, setAtividade] = useState<Atividade>(initialAtividade)
     const [excluir, setExcluir] = useState<boolean>(false)
+    const [carregando, setCarregando] = useState<boolean>(false)
     const baseUrl = Banco("Geral")
     const { set } = useLocalStorage()
 
@@ -42,16 +44,24 @@ export default function TabelaLabo() {
     };
 
     async function buscarTabela(){
-        const tabela = await axios(baseUrl).then(resp => {
-            let dado = resp.data
-            let data = new Date()
+        try{
+            setCarregando(true)
+            const tabela = await axios(baseUrl).then(resp => {
+                let dado = resp.data
+                let data = new Date()
+    
+                let tecnico = dado.filter((registro: any) => (registro.Tecnico === localStorage.Tecnico && registro.Ano === data.getFullYear() && registro.Mes === data.getMonth() + 1))
+    
+                return tecnico
+            })
+    
+            return setBanco(tabela)
 
-            let tecnico = dado.filter((registro: any) => (registro.Tecnico === localStorage.Tecnico && registro.Ano === data.getFullYear() && registro.Mes === data.getMonth() + 1))
-
-            return tecnico
-        })
-
-        return setBanco(tabela)
+        }catch(e){
+            console.log(e)
+        }finally {
+            setCarregando(false)
+        }
     }
 
     function alterarCampo(event: any){
@@ -171,8 +181,13 @@ export default function TabelaLabo() {
                         data={LabUrl} dataMini={LabUrl}
                     />
                 </div>
-                <div className='mt-10'>
-                    <TabelaLab 
+                <div className='mt-10 grow'>
+                    {carregando ? 
+                        <div className="flex grow w-full items-center justify-center">
+                            <Carregando cor="success" tamanho={300} grafico/>
+                        </div>
+                    
+                    : <TabelaLab 
                         dados={banco} 
                         openM={openM} 
                         Atividade={atividade} 
@@ -184,7 +199,7 @@ export default function TabelaLabo() {
                         concluirExcluir={remove}
                         remove={abrirRemove}
                         excluirClose={fecharRemove}
-                        />
+                        /> }
                 </div>
                 <Snackbar
                     open={open}
