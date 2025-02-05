@@ -25,6 +25,7 @@ interface FilaContextProps {
     filaEnviada?: Array<any>
     filaIniciada?: Array<any>
     filaFinalizada?: Array<any>
+    bancoDownload?: Array<any>
     obsProblema?: string
     openModalProblema?: boolean
     openModalDownload?: boolean
@@ -41,6 +42,7 @@ interface FilaContextProps {
     problemAtividade?: (fila: any) => void
     finishAtividade?: (fila: any) => void
     buscarFilaDownload?: () => Promise<void>
+    sendMyList?: (registro: any) => void
 }
 
 const FilaContext = createContext<FilaContextProps>({})
@@ -63,6 +65,7 @@ export function FilaProvider({ children }: any) {
     const [openModalProblema, setOpenModalProblema] = useState<boolean>(false)
     const [filaProblema, setFilaProblema] = useState<any>({})
     const [openModalDownload, setOpenModalDownload] = useState<boolean>(false)
+    const [bancoDownload, setBancoDownload] = useState<any>([])
 
     async function buscarOSFila(OS: string) {
         try {
@@ -377,7 +380,56 @@ export function FilaProvider({ children }: any) {
     }
 
     async function buscarFilaDownload(){
-        
+       try {    
+
+            const fila = await axios(Banco("FilaTecnica")).then(resp => resp.data)
+
+            const aV = await axios(BancoApiLocal("aguardandoVistoria")).then(resp => {
+                let dado: any = []
+
+                resp.data.map((registro: any) => {
+                    if(fila.find((dado: any) => dado.OS === registro.OS && dado.Servico === registro.Servico)){
+
+                    }else {
+                        dado.push({...registro})
+                    }
+                })
+
+                return dado
+            })
+
+            const aP = await axios(BancoApiLocal("aprovado")).then(resp => {
+                let dado: any = []
+
+                resp.data.map((registro: any) => {
+                    if(fila.find((dado: any) => dado.OS === registro.OS && dado.Servico === registro.Servico)){
+
+                    }else {
+                        dado.push({...registro})
+                    }
+                })
+
+                return dado
+            })
+
+
+            const dado = aV.concat(aP)
+
+            const dadoFinal: any = []
+
+            dado.map((registro: any) => {
+                if((registro.TipoOS === userMain?.contratoPrincipal || registro.TipoOS === userMain?.contratoSecundario) && (registro.Equipamento.toLowerCase().match(userMain?.especialidadePrincipal.replace(/[èéêë]/, "e").toLowerCase()))){
+                    dadoFinal.push({...registro})
+                }
+            })
+
+            
+            return setBancoDownload(dadoFinal)
+
+
+       }catch(e){
+            console.log(e)
+       } 
     }
 
     function sendFila(atividade: any) {
@@ -477,7 +529,7 @@ export function FilaProvider({ children }: any) {
         setOpenModalProblema(false)
         setObsProblema("")
     }
-
+    
     function problemAtividade(fila: any) {
         if (openModalProblema) {
             try {
@@ -540,6 +592,20 @@ export function FilaProvider({ children }: any) {
             console.log(e)
         }
     }
+
+    function sendMyList(registro: any){
+        try{
+            
+            const Fila = registro
+            Fila.Tecnico = userMain?.nomeCompleto
+            Fila.Estagio = "Enviado"
+
+            salvar(Fila, Banco("FilaTecnica"), filaEnviada, true, setFilaEnviada, bancoDownload, setBancoDownload)
+
+        }catch(e){
+            console.log(e)
+        }
+    }
     
     
     return (
@@ -574,7 +640,9 @@ export function FilaProvider({ children }: any) {
             finishAtividade,
             openModalDownload,
             setOpenModalDownload,
-            buscarFilaDownload
+            buscarFilaDownload, 
+            bancoDownload,
+            sendMyList
         }}>
             {children}
         </FilaContext.Provider>

@@ -12,10 +12,11 @@ import ModalDownload from '@/components/Modal/ModalDownload';
 
 export default function FilaTecnicaLabo() {
 
-    const { buscarFilaUser, obsProblema, setObsProblema, openModalProblema, fecharModalProblema, openModalDownload, setOpenModalDownload } = useFilaData()
+    const {buscarFilaDownload, buscarFilaUser, obsProblema, setObsProblema, openModalProblema, fecharModalProblema, openModalDownload, setOpenModalDownload } = useFilaData()
 
     useEffect(() => {
         buscarFilaUser!()
+        buscarFilaDownload!()
     }, [])
 
     return (

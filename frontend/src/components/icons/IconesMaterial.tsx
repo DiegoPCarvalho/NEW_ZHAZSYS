@@ -33,6 +33,7 @@ import IconReload from '@mui/icons-material/Cached';
 import IconDowload from '@mui/icons-material/Download';
 import IconProblema from '@mui/icons-material/Warning';
 import IconClose from '@mui/icons-material/Close';
+import IconEnviar from '@mui/icons-material/Send';
 
 export {
     IconGerencia,
@@ -69,5 +70,6 @@ export {
     IconReload,
     IconDowload,
     IconProblema,
-    IconClose
+    IconClose,
+    IconEnviar
 }
