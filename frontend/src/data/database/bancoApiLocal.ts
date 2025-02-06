@@ -1,4 +1,4 @@
 export function BancoApiLocal(banco: string){
-    return `https://newzhazsys.vercel.app/api/${banco}`
+    return `http://192.168.15.157:3000/api/${banco}`
 }
 
