@@ -4,7 +4,7 @@ import Layout from './../../../components/template/Layout';
 import { GenUrl } from '@/data/config/GenUrl';
 import NavigatePage from '@/components/navigatePage/NavigatePage';
 import useAppData from "@/data/hook/useAppData";
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import CentroTelaGen from '@/components/FilaTecnica/CentroTelaGen';
 import useFilaData from '@/data/hook/useFilaData';
 import AddFila from '@/components/FilaTecnica/AddFila';
@@ -13,10 +13,11 @@ import ModalFilaGen from '@/components/Modal/ModalFilaGen';
 import ConsultaDados from '@/components/FilaTecnica/ConsultaDado';
 import Filas from '@/components/FilaTecnica/Filas';
 import DelFila from '@/components/FilaTecnica/DelFila';
+import ModalMudarFila from '@/components/Modal/ModalMudarFila';
 
 export default function FilaTecnica(){
     const { adminL2 } = useAppData()
-    const { tela, openMS, setOpenMS } = useFilaData()
+    const { tela, openMS, setOpenMS, openModalMudar, closeModalMudar, dadoMudarFila } = useFilaData()
     const { buscarContrato, buscarTecnicoGen } = useGncData()
 
     useEffect(() => {
@@ -39,9 +40,10 @@ export default function FilaTecnica(){
                 {tela === "AddFila" ? <AddFila /> : 
                     tela === "FilaGerenciada" ? <Filas /> : <DelFila />}
             </div>
-            <ModalFilaGen open={openMS} close={() => setOpenMS!(false)} className="top-48 left-[40%] max-xl:left-[20%]">
+            <ModalFilaGen open={openMS} close={() => setOpenMS!(false)} className="top-[30%] left-[40%] max-xl:left-[20%]">
                 <ConsultaDados />
             </ModalFilaGen>
+            <ModalMudarFila open={openModalMudar} close={closeModalMudar} dado={dadoMudarFila} className='top-[20%] left-[37%] max-xl:left-[20%]'/>
         </Layout>
     )
 }

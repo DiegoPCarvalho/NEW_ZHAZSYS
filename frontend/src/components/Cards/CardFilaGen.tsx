@@ -3,6 +3,7 @@ import { IconCheck, IconDeletar, IconEnviar, IconInfo, IconProblema, IconVoltarA
 import Botao from "../shared/Botao";
 import { useState } from 'react';
 import { Tempo } from "@/data/functions/Tempo";
+import useFilaData from "@/data/hook/useFilaData";
 
 interface CardsFilaProps {
     key: number
@@ -15,10 +16,12 @@ interface CardsFilaProps {
     Contrato: string
     Estagio?: string
     dado?: any
+    dataActual?: any
 }
 
 export default function CardsFilaGen(props: CardsFilaProps) {
     const [abrir, setAbrir] = useState<boolean>(false)
+    const { openDadoFila } = useFilaData()
 
     return (
         <div key={props.key} className={`flex z-30 overflow-hidden dark:hover:bg-neutral-900 ${abrir ? "absolute transition-all duration-500 easy-linear w-[510px] max-lg:w-[400px] h-40 max-lg:h-32" : " w-40 max-lg:w-32 max-lg:h-32 h-40 transition-all duration-500 easy-linear"} relative  m-2 bg-white dark:bg-black border dark:border-neutral-700 shadow-lg dark:shadow-neutral-800 rounded-lg`}>
@@ -51,7 +54,7 @@ export default function CardsFilaGen(props: CardsFilaProps) {
                         <>
                             <div><span className="font-bold">Tipo OS:</span> {props.dado?.TipoOS ? props.dado?.TipoOS : props.dado?.Contrato}</div>
                             <div><span className="font-bold">Servico:</span> {props.dado?.Servico}</div>
-                            <div><span className="font-bold">Tempo:</span> {FormatarTempoBto(Tempo(props.dado?.DataInicialBruto, props.dado?.DataFinalBruto))}</div>
+                            <div><span className="font-bold">Tempo:</span> {FormatarTempoBto(Tempo(props.dado?.DataInicialBruto, props.dataActual ?  props.dataActual : props.dado?.DataFinalBruto))}</div>
                         </>
                         : false}
                 </div>
@@ -65,7 +68,7 @@ export default function CardsFilaGen(props: CardsFilaProps) {
                                     border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
                                     active:border-b-[2px] active:brightness-90 active:translate-y-[2px]
                                 `}
-
+                                executar={() => openDadoFila!(props.dado)}
                             >
                                 <IconEnviar fontSize="medium" />
                             </Botao>

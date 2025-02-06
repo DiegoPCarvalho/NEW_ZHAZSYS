@@ -105,9 +105,9 @@ export default function Usuarios() {
     }
 
     async function validarCampo() {
-        const { nomeCompleto, email, departamento, acesso, contrato } = usuario
+        const { nomeCompleto, email, departamento, acesso, contratoPrincipal } = usuario
 
-        if (nomeCompleto === '' || email === '' || departamento === '' || acesso === '' || contrato === '') {
+        if (nomeCompleto === '' || email === '' || departamento === '' || acesso === '' || contratoPrincipal === '') {
             mensagemSistema("error", "filled", "Faltou preencher algum(s) campo(s)")
         } else {
             try {

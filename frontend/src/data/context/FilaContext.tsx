@@ -33,6 +33,11 @@ interface FilaContextProps {
     openModalProblema?: boolean
     openModalDownload?: boolean
     bancoDelete?: Array<void>
+    dadoMudarFila?: any
+    openModalMudar?: boolean
+    tecMF?: string
+    setTecMF?: (novoValor: string) => void
+    closeModalMudar?: () => void
     setOpenModalDownload?: (novoValor: boolean) => void
     fecharModalProblema?: () => void
     setObsProblema?: (novoValor: string) => void
@@ -49,6 +54,8 @@ interface FilaContextProps {
     sendMyList?: (registro: any) => void
     buscarFilaDelete?: (tecnico: string) => Promise<void>
     deletarFila?: () => void
+    openDadoFila?: (registro: any) => void
+    sendListOutherTec?: (tecnico: string) => void
 }
 
 const FilaContext = createContext<FilaContextProps>({})
@@ -76,6 +83,15 @@ export function FilaProvider({ children }: any) {
     const [filaEnviadaGen, setFilaEnviadaGen] = useState<any[]>([])
     const [filaIniciadaGen, setFilaIniciadaGen] = useState<any[]>([])
     const [filaFinalizadaGen, setFilaFinalizadaGen] = useState<any[]>([])
+    const [openModalMudar, setOpenModalMudar] = useState<boolean>(false)
+    const [dadoMudarFila, setDadoMudarFila] = useState<any>({})
+    const [tecMF, setTecMF] = useState<string>("")
+
+    const closeModalMudar = () => {
+        setOpenModalMudar(false)
+        setDadoMudarFila({})
+        setTecMF("")
+    }
 
     async function buscarOSFila(OS: string) {
         try {
@@ -282,7 +298,6 @@ export function FilaProvider({ children }: any) {
 
         } finally {
             setCarregarFilaUser(false)
-            // console.log(userMain?.especialidadeSecundaria.replace(/[èéêë]/,"e").toLowerCase())
         }
 
     }
@@ -655,6 +670,37 @@ export function FilaProvider({ children }: any) {
             setBancoDelete([])
         }
     }
+
+    function openDadoFila(registro: any){
+        try{    
+            setOpenModalMudar(true)
+            setDadoMudarFila(registro)
+            setTecMF(registro.Tecnico)
+        }catch(e){
+            console.log(e)
+        }
+    }
+
+    function sendListOutherTec(tecnico: string){
+        try{
+            const Fila = dadoMudarFila
+
+            if(tecnico === "") return
+
+            Fila.Tecnico = tecnico
+
+            const method = Fila.id ? 'put' : 'post'
+            const url = Fila.id ? `${Banco("FilaTecnica")}/${Fila.id}` : Banco("FilaTecnica")
+            axios[method](url, Fila).then(resp => {
+                closeModalMudar()
+                const list = atualizarListaFila(resp.data, false, filaEnviadaGen)
+                setFilaEnviadaGen(list)
+            })
+            
+        }catch(e){
+            console.log(e)
+        }
+    }
     
     return (
         <FilaContext.Provider value={{
@@ -696,7 +742,14 @@ export function FilaProvider({ children }: any) {
             deletarFila,
             filaEnviadaGen,
             filaIniciadaGen, 
-            filaFinalizadaGen
+            filaFinalizadaGen,
+            closeModalMudar,
+            openModalMudar,
+            dadoMudarFila,
+            openDadoFila,
+            sendListOutherTec,
+            tecMF,
+            setTecMF
         }}>
             {children}
         </FilaContext.Provider>

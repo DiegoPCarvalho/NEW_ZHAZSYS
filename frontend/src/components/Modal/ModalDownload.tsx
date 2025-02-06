@@ -1,7 +1,7 @@
 import useFilaData from "@/data/hook/useFilaData";
 import { IconClose, IconEnviar, IconReload } from "../icons/IconesMaterial";
 import Botao from "../shared/Botao";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Carregando from "../shared/Carregando";
 
 interface ModalDownloadProps {
@@ -15,6 +15,10 @@ export default function ModalDownload(props: ModalDownloadProps) {
     const [carregandoList, setCarregandoList] = useState<boolean>(false)
 
     const { buscarFilaDownload, bancoDownload, sendMyList } = useFilaData()
+
+    useEffect(() => {
+        buscar()
+    }, [])
 
     async function buscar() {
         try {

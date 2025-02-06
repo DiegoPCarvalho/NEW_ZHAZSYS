@@ -49,7 +49,7 @@ export default function CardsFila(props: CardsFilaProps) {
     }
 
     return (
-        <div key={props.key} className={`flex z-30 overflow-hidden dark:hover:bg-neutral-900 ${abrir ? "absolute transition-all duration-500 easy-linear w-[510px] max-lg:w-[400px] h-40 max-lg:h-32" : " w-40 max-lg:w-32 max-lg:h-32 h-40 transition-all duration-500 easy-linear"} relative  m-2 bg-white dark:bg-black border dark:border-neutral-700 shadow-lg dark:shadow-neutral-800 rounded-lg`}>
+        <div key={props.key} className={`flex z-20 overflow-hidden dark:hover:bg-neutral-900 ${abrir ? "absolute transition-all duration-500 easy-linear w-[510px] max-lg:w-[400px] h-40 max-lg:h-32" : " w-40 max-lg:w-32 max-lg:h-32 h-40 transition-all duration-500 easy-linear"} relative  m-2 bg-white dark:bg-black border dark:border-neutral-700 shadow-lg dark:shadow-neutral-800 rounded-lg`}>
             <div className={`flex flex-col items-center ${abrir ? "w-[30%]" : "w-full"}`}>
                 <div className="flex w-full justify-evenly h-10 items-center">
                     {props.Contrato === "Avulso" ? false :

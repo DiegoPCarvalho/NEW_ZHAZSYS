@@ -4,14 +4,20 @@ import Botao from "../shared/Botao";
 import Selecione from "../shared/Selecione";
 import CardsFilaGen from "../Cards/CardFilaGen";
 import useFilaData from "@/data/hook/useFilaData";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Carregando from "../shared/Carregando";
 import { dataNova } from "@/data/functions/DataNova";
 
 export default function Filas() {
     const { tecnicos } = useGncData()
-    const { setTela, buscarFilaGen, carregarFilaUser, filaEnviadaGen, filaIniciadaGen, filaFinalizadaGen } = useFilaData()
+    const { setTela, buscarFilaGen, carregarFilaGen, filaEnviadaGen, filaIniciadaGen, filaFinalizadaGen } = useFilaData()
     const [tecnico, setTecnico] = useState<string>("")
+    const [data, setData] = useState<any>("")
+
+    useEffect(() => {
+        const data = new Date()
+        setData(data.toJSON())
+    }, [carregarFilaGen])
 
     return (
         <div className="flex flex-col p-2 mt-3 dark:text-neutral-200 w-full">
@@ -41,6 +47,7 @@ export default function Filas() {
                         className="grow"
                         valor={tecnico}
                         alterouCampo={e => setTecnico(e.target.value)}
+                        optionDisabled
                     >
                         {tecnicos!.map((registro: any) => {
                             return (
@@ -62,8 +69,8 @@ export default function Filas() {
                 </div>
             </div>
             <div className="flex justify-between w-full mt-3 max-sm:grid max-sm:grid-cols-1">
-                {carregarFilaUser ?
-                    <div className="flex justify-center items-center w-full"> 
+                {carregarFilaGen ?
+                    <div className="flex justify-center items-center w-full mt-10 max-2xl:mt-5"> 
                         <Carregando cor="success" tamanho={300} grafico/>
                     </div>
                     : <>
@@ -102,6 +109,7 @@ export default function Filas() {
                                             dado={registro}
                                             Importante={registro.Importante}
                                             id={registro.id === undefined ? 0 : false}
+                                            dataActual={data}
                                         />
                                     )
                                 })}
