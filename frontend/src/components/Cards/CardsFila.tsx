@@ -17,7 +17,6 @@ interface CardsFilaProps {
     Contrato: string
     Estagio?: string
     dado?: any
-
 }
 
 export default function CardsFila(props: CardsFilaProps) {

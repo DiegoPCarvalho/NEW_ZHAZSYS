@@ -1,3 +1,3 @@
 export function BancoApiLocal(banco: string){
-    return `http://192.168.15.251:3000/api/${banco}`
+    return `http://192.168.1.227:3000/api/${banco}`
 }

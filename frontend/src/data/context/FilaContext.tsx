@@ -25,10 +25,14 @@ interface FilaContextProps {
     filaEnviada?: Array<any>
     filaIniciada?: Array<any>
     filaFinalizada?: Array<any>
+    filaEnviadaGen?: Array<any>
+    filaIniciadaGen?: Array<any>
+    filaFinalizadaGen?: Array<any>
     bancoDownload?: Array<any>
     obsProblema?: string
     openModalProblema?: boolean
     openModalDownload?: boolean
+    bancoDelete?: Array<void>
     setOpenModalDownload?: (novoValor: boolean) => void
     fecharModalProblema?: () => void
     setObsProblema?: (novoValor: string) => void
@@ -43,6 +47,8 @@ interface FilaContextProps {
     finishAtividade?: (fila: any) => void
     buscarFilaDownload?: () => Promise<void>
     sendMyList?: (registro: any) => void
+    buscarFilaDelete?: (tecnico: string) => Promise<void>
+    deletarFila?: () => void
 }
 
 const FilaContext = createContext<FilaContextProps>({})
@@ -65,7 +71,11 @@ export function FilaProvider({ children }: any) {
     const [openModalProblema, setOpenModalProblema] = useState<boolean>(false)
     const [filaProblema, setFilaProblema] = useState<any>({})
     const [openModalDownload, setOpenModalDownload] = useState<boolean>(false)
-    const [bancoDownload, setBancoDownload] = useState<any>([])
+    const [bancoDownload, setBancoDownload] = useState<any[]>([])
+    const [bancoDelete, setBancoDelete] = useState<any[]>([])
+    const [filaEnviadaGen, setFilaEnviadaGen] = useState<any[]>([])
+    const [filaIniciadaGen, setFilaIniciadaGen] = useState<any[]>([])
+    const [filaFinalizadaGen, setFilaFinalizadaGen] = useState<any[]>([])
 
     async function buscarOSFila(OS: string) {
         try {
@@ -114,10 +124,12 @@ export function FilaProvider({ children }: any) {
             const filaInicio = fila.filter((registro: any) => registro.Estagio === "Iniciado" && registro.Tecnico === Tecnico)
             const filaFinal = final.filter((registro: any) => registro.Tecnico === Tecnico)
 
-            console.log(filaEnviada, filaInicio, filaFinal)
+            setFilaEnviadaGen(filaEnviada)
+            setFilaIniciadaGen(filaInicio)
+            setFilaFinalizadaGen(filaFinal)
 
         } catch (e) {
-
+            console.log(e)
         } finally {
             setCarregarFilaGen(false)
         }
@@ -329,6 +341,20 @@ export function FilaProvider({ children }: any) {
             console.log(e)
         } finally {
             setCarregarAdd(false)
+        }
+    }
+
+    async function buscarFilaDelete(tecnico: string){
+        try{
+            const fila = await axios(Banco("FilaTecnica")).then(resp => {
+                let dado = resp.data.filter((registro: any) => registro.Tecnico === tecnico)
+                return dado
+            })
+
+            setBancoDelete(fila)
+
+        }catch(e){
+            console.log(e)
         }
     }
 
@@ -606,7 +632,29 @@ export function FilaProvider({ children }: any) {
             console.log(e)
         }
     }
-    
+
+    function deletarFila(){
+        try {
+            const deletar: any = document.querySelectorAll('[name=Delete]:checked');
+
+            let dadoDeletar: any = []
+            
+            for (let i = 0; i < deletar.length; i++) {
+                dadoDeletar.push(+deletar[i].value)
+            }
+
+            bancoDelete.map((registro: any) => {
+                if(dadoDeletar.find((reg: any) => reg === registro.OS)){
+                    axios.delete(`${Banco("FilaTecnica")}/${registro.id}`)
+                }
+            })
+
+        }catch(e){
+            console.log(e)
+        }finally{
+            setBancoDelete([])
+        }
+    }
     
     return (
         <FilaContext.Provider value={{
@@ -642,7 +690,13 @@ export function FilaProvider({ children }: any) {
             setOpenModalDownload,
             buscarFilaDownload, 
             bancoDownload,
-            sendMyList
+            sendMyList,
+            bancoDelete,
+            buscarFilaDelete,
+            deletarFila,
+            filaEnviadaGen,
+            filaIniciadaGen, 
+            filaFinalizadaGen
         }}>
             {children}
         </FilaContext.Provider>

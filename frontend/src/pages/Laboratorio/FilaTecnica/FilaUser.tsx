@@ -34,7 +34,7 @@ export default function FilaUser() {
                             })}
                         </div>
                     </div>
-                    <div className="flex flex-col w-[30%] max-sm:w-full max-sm:mb-2 h-[680px] max-2xl:h-[330px]">
+                    <div className="flex flex-col w-[30%] max-sm:w-full max-sm:mb-2 h-[680px] max-2xl:h-[465px]">
                         <div className="flex justify-center font-bold text-2xl">DOING</div>
                         <div id="hiddenScroll" className="p-2 flex flex-wrap overflow-auto">
                             {filaIniciada!.map((registro: any) => {
@@ -55,7 +55,7 @@ export default function FilaUser() {
 
                         </div>
                     </div>
-                    <div className="flex flex-col w-[30%] max-sm:w-full max-sm:mb-2 h-[680px] max-2xl:h-[330px]">
+                    <div className="flex flex-col w-[30%] max-sm:w-full max-sm:mb-2 h-[680px] max-2xl:h-[465px]">
                         <div className="flex justify-center font-bold text-2xl">DOES</div>
                         <div id="hiddenScroll" className="p-2 flex flex-wrap overflow-auto">
                             {filaFinalizada!.map((registro: any) => {

@@ -1,5 +1,5 @@
 import useGncData from "@/data/hook/useGncData";
-import { IconAddFila, IconRefresh } from "../icons/IconesMaterial";
+import { IconAddFila } from "../icons/IconesMaterial";
 import Botao from "../shared/Botao";
 import Selecione from "../shared/Selecione";
 import { useState } from 'react';
@@ -53,10 +53,8 @@ export default function AddFila() {
         return resultado === 1 ? "bg-neutral-400 dark:bg-neutral-600 text-white" : "dark:text-white"
     }
 
-    
-
     return (
-        <div className="flex flex-col p-2 mt-3 dark:text-neutral-200">
+        <div className="flex flex-col p-2 mt-3 max-2xl:mt-0 dark:text-neutral-200">
             <div className="flex justify-between">
                 <div className="flex items-center">
                     <IconAddFila sx={{ fontSize: 50 }} />
@@ -113,7 +111,7 @@ export default function AddFila() {
                     >Buscar</Botao>
                 </div>
             </div>
-            <div className="flex flex-col mt-5">
+            <div className="flex flex-col mt-5 max-2xl:mt-0">
                 <div className="flex justify-end">
                 {carregarFilaSend ? 
                     <div className="flex  items-end mr-5 animate-pulse"> 
@@ -158,7 +156,7 @@ export default function AddFila() {
                                 <th className="rounded-tl-lg rounded-tr-lg p-2">Atividades</th>
                             </tr>
                         </thead>
-                        <tbody className="h-96 overflow-auto block">
+                        <tbody className="h-96 max-2xl:h-[218px] overflow-auto block">
                             {renderRows()}
                         </tbody>
                     </table>

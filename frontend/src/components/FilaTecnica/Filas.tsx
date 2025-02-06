@@ -6,10 +6,11 @@ import CardsFilaGen from "../Cards/CardFilaGen";
 import useFilaData from "@/data/hook/useFilaData";
 import { useState } from "react";
 import Carregando from "../shared/Carregando";
+import { dataNova } from "@/data/functions/DataNova";
 
 export default function Filas() {
     const { tecnicos } = useGncData()
-    const { setTela, buscarFilaGen, carregarFilaUser } = useFilaData()
+    const { setTela, buscarFilaGen, carregarFilaUser, filaEnviadaGen, filaIniciadaGen, filaFinalizadaGen } = useFilaData()
     const [tecnico, setTecnico] = useState<string>("")
 
     return (
@@ -68,32 +69,62 @@ export default function Filas() {
                     : <>
                         <div className="flex flex-col w-[33%] max-sm:w-full max-sm:mb-2 h-[530px] max-2xl:h-[330px]">
                             <div className="flex justify-center font-bold text-2xl">TO DO</div>
-                            <div id="hiddenScroll" className="p-2 flex flex-col overflow-auto">
-                                <CardsFilaGen />
-                                <CardsFilaGen />
-                                <CardsFilaGen />
-                                <CardsFilaGen />
-                                <CardsFilaGen />
+                            <div id="hiddenScroll" className="p-2 flex flex-wrap overflow-auto">
+                                {filaEnviadaGen!.map((registro: any) => {
+                                    return (
+                                        <CardsFilaGen
+                                            key={registro.id}
+                                            OS={registro.OS}
+                                            Servico={registro.Servico}
+                                            Contrato={registro.TipoOS}
+                                            Estagio={registro.Estagio}
+                                            Problema={registro.Problema ? registro.Problema : "NÃO"}
+                                            dado={registro}
+                                            Importante={registro.Importante}
+                                            id={registro.id === undefined ? 0 : false}
+                                        />
+                                    )
+                                })}
                             </div>
                         </div>
                         <div className="flex flex-col w-[33%] max-sm:w-full max-sm:mb-2 h-[530px] max-2xl:h-[330px]">
                             <div className="flex justify-center font-bold text-2xl">DOING</div>
-                            <div id="hiddenScroll" className="p-2 flex flex-col overflow-auto">
-                                <CardsFilaGen />
-                                <CardsFilaGen />
-                                <CardsFilaGen />
-                                <CardsFilaGen />
-                                <CardsFilaGen />
+                            <div id="hiddenScroll" className="p-2 flex flex-wrap overflow-auto">
+                                {filaIniciadaGen!.map((registro: any) => {
+                                    return (
+                                        <CardsFilaGen
+                                            key={registro.id}
+                                            OS={registro.OS}
+                                            Servico={registro.Servico}
+                                            Contrato={registro.TipoOS}
+                                            Estagio={registro.Estagio}
+                                            Problema={registro.Problema ? registro.Problema : "NÃO"}
+                                            dado={registro}
+                                            Importante={registro.Importante}
+                                            id={registro.id === undefined ? 0 : false}
+                                        />
+                                    )
+                                })}
                             </div>
                             </div>
                         <div className="flex flex-col w-[33%] max-sm:w-full max-sm:mb-2 h-[530px] max-2xl:h-[330px]">
                             <div className="flex justify-center font-bold text-2xl">DOES</div>
-                            <div id="hiddenScroll" className="p-2 flex flex-col overflow-auto">
-                                <CardsFilaGen />
-                                <CardsFilaGen />
-                                <CardsFilaGen />
-                                <CardsFilaGen />
-                                <CardsFilaGen />
+                            <div id="hiddenScroll" className="p-2 flex flex-wrap overflow-auto">
+                                {filaFinalizadaGen!.map((registro: any) => {
+                                    return (
+                                        <CardsFilaGen
+                                            key={registro.id}
+                                            OS={registro.OS}
+                                            Data={registro.Data === undefined ? "" : dataNova(registro.Data)}
+                                            Servico={registro.Servico}
+                                            Contrato={registro.Contrato}
+                                            Estagio={registro.Estagio}
+                                            Problema={registro.Problema ? registro.Problema : "NÃO"}
+                                            Importante={registro.Importante}
+                                            dado={registro}
+                                        />
+                                    )
+                                })}
                             </div>
                         </div> 
                     </>}

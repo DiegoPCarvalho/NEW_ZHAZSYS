@@ -53,12 +53,11 @@ export default function ModalDownload(props: ModalDownloadProps) {
                             <Carregando cor="success" tamanho={30}/>
                         :
                          <Botao
-                            className="
-                                transition-all bg-blue-500  text-white px-3 py-2 rounded-lg
-                                border-blue-600
+                            className={`
+                                transition-all ${registro.Servico === "Laudo" ? " bg-blue-500 border-blue-600" : "bg-green-500 border-green-600"}  text-white px-3 py-2 rounded-lg
                                 border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
                                 active:border-b-[2px] active:brightness-90 active:translate-y-[2px]
-                                "
+                            `}
                             executar={() => enviar(registro)}
                         >
                             <IconEnviar />
@@ -96,7 +95,7 @@ export default function ModalDownload(props: ModalDownloadProps) {
             ${props.open ? "translate-x-0" : "hidden"}
 
                 `}>
-                <div className="flex flex-col w-[600px] h-[700px]">
+                <div className="flex flex-col w-[600px] h-[700px] max-2xl:h-[500px]">
                     <div className="flex justify-between h-12 bg-blue-600">
                         <div className="flex items-center ml-2 text-2xl font-bold text-neutral-200">Enviar p/ Fila</div>
                         <div className="flex items-center text-neutral-100 cursor-pointer hover:bg-blue-500" onClick={props.close}>
@@ -130,7 +129,7 @@ export default function ModalDownload(props: ModalDownloadProps) {
                                             <th className="rounded-tl-lg rounded-tr-lg p-2">Atividades</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="hiddenScroll" className="block h-[450px] overflow-auto">
+                                    <tbody id="hiddenScroll" className="block h-[450px] max-2xl:h-[250px] overflow-auto">
                                         {renderRows()}
                                     </tbody>
                                 </table>
