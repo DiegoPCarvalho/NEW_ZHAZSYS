@@ -9,8 +9,8 @@ export default function AvatarUser() {
     return (
         <div className="mr-2 ml-3 cursor-pointer" onClick={altenarAvatarUser}>
            {perfilUser.fotoUrl === "" ?
-                <Image src={avatar} alt="" className="w-10 h-10" />
-                : <img src={perfilUser.fotoUrl} alt="" className="w-10 h-10" />
+                <Image src={avatar} alt="" className="w-10 h-10 rounded-full" />
+                : <img src={perfilUser.fotoUrl} alt="" className="w-10 h-10 rounded-full" />
         } 
         </div>
     )

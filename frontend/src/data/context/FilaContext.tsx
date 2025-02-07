@@ -459,7 +459,7 @@ export function FilaProvider({ children }: any) {
             const dadoFinal: any = []
 
             dado.map((registro: any) => {
-                if((registro.TipoOS === userMain?.contratoPrincipal || registro.TipoOS === userMain?.contratoSecundario) && (registro.Equipamento.toLowerCase().match(userMain?.especialidadePrincipal.replace(/[èéêë]/, "e").toLowerCase()))){
+                if((registro.TipoOS === userMain?.contratoPrincipal || registro.TipoOS === userMain?.contratoSecundario) && (registro.Equipamento.toLowerCase().match(userMain?.especialidadePrincipal.replace(/[èéêë]/, "e").toLowerCase()) || registro.Equipamento.toLowerCase().match(userMain?.especialidadeSecundaria.replace(/[èéêë]/, "e").toLowerCase()))){
                     dadoFinal.push({...registro})
                 }
             })
