@@ -32,7 +32,7 @@ export function equipamento(equip: string) {
             return "Gatilho Móvel"
         } else if (equip.match(/TABLET/) && equip !== "BERCO DE 4 POSICOES PARA TABLET ZEBRA ET51") {
             return "Tablet"
-        } else if (equip.match(/CELULAR/)) {
+        } else if (equip.match(/CELULAR/) || equip.match(/SMARTPHONE/)) {
             return "Smartphone"
         } else if (equip === "DOCKING STATION ZEBRA GAMBER JOHNSON HDMI") {
             return "Doca p/Tablet"

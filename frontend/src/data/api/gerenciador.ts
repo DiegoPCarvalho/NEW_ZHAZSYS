@@ -1,3 +1,4 @@
+import { celular } from "./celular";
 import { contrato } from "./contrato";
 import { servico } from "./servico";
 
@@ -10,7 +11,7 @@ export function gerenciador(registro: any) {
         DataFinalMovto: registro.DataFinalMovto,
         Cliente: registro.PessoaFantasia,
         Servico: servico(registro.EstagioDescricao, registro.DescricaoTipoOS),
-        Equipamento: registro.NomeEquipamento,
+        Equipamento: celular(registro.NomeEquipamento),
         NS: registro.EquipamentoLTS,
         TipoOS: contrato(registro.DescricaoTipoOS),
     }
