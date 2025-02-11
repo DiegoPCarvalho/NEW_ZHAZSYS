@@ -39,7 +39,7 @@ export default function TabelaGeral(){
                 let dado = resp.data
                 
     
-                let tecnico = dado.filter((registro: any) => registro.Tecnico === filtro.tecnico)
+                let tecnico = filtro.tecnico !== "Todos" ? dado.filter((registro: any) => registro.Tecnico === filtro.tecnico) : dado
                 let ano = filtro.ano !== "Todos" ? tecnico.filter((registro: any) => registro.Ano === +filtro.ano) : tecnico
                 let mes = filtro.mes !== "Todos" ? ano.filter((registro: any) => registro.Mes === +filtro.mes) : ano
     
