@@ -11,6 +11,7 @@ import Carregando from '@/components/shared/Carregando';
 import loading from '@/assets/gifs/tabSup.gif';
 import Image from "next/image";
 import { Tempo } from "@/data/functions/Tempo";
+import { dataNova } from './../../data/functions/DataNova';
 
 
 interface TabelaGncProps {
@@ -90,7 +91,7 @@ export default function TabelaGnc(props: TabelaGncProps) {
         props.dados.map((registro: any) => {
             exportCsv.push({
                 id: registro.id,
-                Data: registro.Data,
+                Data: dataNova(registro.Data),
                 Cliente: registro.Cliente,
                 Servico: registro.Servico,
                 RecPlaca: registro.Placa,
