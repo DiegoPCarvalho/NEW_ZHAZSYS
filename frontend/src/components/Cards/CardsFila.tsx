@@ -70,7 +70,7 @@ export default function CardsFila(props: CardsFilaProps) {
                     </span>
                 </div>
             </div>
-            <div className={`flex flex-col ${abrir ? "transition-x-all" : "hidden"}`}>
+            <div className={`flex flex-col ${abrir ? "transition-x-all" : "hidden"} grow`}>
                 <div className={`grow my-1 text-sm overflow-hidden max-[1024px]:text-[10px]`}>
                     <div><span className="font-bold">Cliente:</span> {props.dado?.Cliente}</div>
                     <div><span className="font-bold">Equip:</span> {props.dado?.Equipamento}</div>
