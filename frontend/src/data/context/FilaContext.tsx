@@ -347,7 +347,7 @@ export function FilaProvider({ children }: any) {
 
             let dadoFinal = aguardandoVistoria.concat(aprovado)
 
-            let resultado = contrato === "" ? dadoFinal.filter((registro: any) => registro.Servico === estagio && registro.TipoOS === "Avulso")
+            let resultado = estagio === "Laudo" || estagio === "Manutenção Concluída" ? dadoFinal.filter((registro: any) => registro.Servico === estagio && registro.TipoOS === "Avulso")
                 : dadoFinal.filter((registro: any) => registro.TipoOS === contrato)
 
             setBancoAdd(resultado)
