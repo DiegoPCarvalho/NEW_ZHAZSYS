@@ -5,6 +5,8 @@ import { salvar } from "../functions/Salvar";
 import axios from "axios";
 import { Mensagem, initialMSG } from "@/data/interfaces/Mensagem";
 import { severity, variant } from "@/data/type/mensagemSistema";
+import useAppData from "../hook/useAppData";
+
 
 interface VhlContextProps {
     vhlForm?: Vhl
@@ -39,6 +41,7 @@ interface VhlContextProps {
 const VhlContext = createContext<VhlContextProps>({})
 
 export function VhlProvider({ children }: any) {
+    const { userMain } = useAppData()
     const [vhlForm, setVhlForm] = useState<Vhl>(initialVhl)
     const [vhlEquip, setVhlEquip] = useState<VhlEquip>(initialVhlEquip)
     const [equipLista, setEquipLitsa] = useState<any[]>([])
@@ -60,7 +63,8 @@ export function VhlProvider({ children }: any) {
 
                 const result = dado.filter((registro: any) => registro.Ano === data.getFullYear())
                 const resultFinal = result.filter((registro: any) => registro.Mes === data.getMonth() + 1)
-                return resultFinal
+                const tecnico = resultFinal.filter((registro: any) => registro.Tecnico === localStorage.Tecnico)
+                return tecnico
         })
 
         return setBanco(tabela)
