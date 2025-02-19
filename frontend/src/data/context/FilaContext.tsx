@@ -459,14 +459,13 @@ export function FilaProvider({ children }: any) {
             const dadoFinal: any = []
 
             dado.map((registro: any) => {
-                if((registro.TipoOS === userMain?.contratoPrincipal || registro.TipoOS === userMain?.contratoSecundario) && (registro.Ep === userMain?.especialidadePrincipal || registro.Ep === userMain?.especialidadeSecundaria || registro.EP === userMain?.especialidadeTerciaria)){
+                if((registro.TipoOS === userMain?.contratoPrincipal || registro.TipoOS === userMain?.contratoSecundario) && (registro.Ep.match(userMain?.especialidadePrincipal) || registro.Ep.match(userMain?.especialidadeSecundaria) || registro.Ep.match(userMain?.especialidadeTerciaria))){
                     dadoFinal.push({...registro})
                 }
             })
 
             
             return setBancoDownload(dadoFinal)
-
        }catch(e){
             console.log(e)
        } 
