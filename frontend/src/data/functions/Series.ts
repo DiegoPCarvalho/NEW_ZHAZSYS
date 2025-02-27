@@ -12,7 +12,7 @@ function retornoSerie(tabela:any, dado: any, tipo: boolean){
     let dados: any = []
     tabela.map((registro: any) => {
         if(dado === registro.Servico){
-            dados.push(tipo ? registro.Contrato : registro.Equipamento)
+            dados.push(tipo ? registro.Contrato === undefined || registro.Contrato === "Laudo" ? "Avulso" : registro.Contrato  : registro.Equipamento)
         }
     })  
 
