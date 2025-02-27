@@ -137,7 +137,7 @@ export default function FormularioLabo() {
                 NS: final[0].NS,
                 Servico: final[0].Servico,
                 Placa: '',
-                Contrato: final[0].Servico,
+                Contrato: final[0].TipoOS,
                 Observacao: '',
                 ProblemObs: '',
                 Estagio: '',
